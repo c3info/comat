@@ -1,12 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package br.edu.ifpr.comat;
+package br.edu.ifpr.comat.aplicacao;
 
 /**
- *
- * @author Cristhiano Konczak Cardoso <cristhiano@c3info.com.br>
+ * @project Comat
+ * @class   Cliente
+ * @author  Cristhiano Konczak Cardoso <cristhiano@c3info.com.br>
+ * @date    17/09/2013
  */
 public class Comat {
 
