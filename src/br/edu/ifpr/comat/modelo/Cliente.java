@@ -13,6 +13,5 @@ public class Cliente {
     String telefone;
     String celular;
     String fax;
-    String observacoes;
-    
+    String observacoes;    
 }
