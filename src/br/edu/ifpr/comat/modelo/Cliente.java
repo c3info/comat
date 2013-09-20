@@ -1,5 +1,7 @@
 package br.edu.ifpr.comat.modelo;
 
+import java.util.List;
+
 /**
  * @project Comat
  * @class Cliente
@@ -7,11 +9,12 @@ package br.edu.ifpr.comat.modelo;
  * @date 17/09/2013
  */
 public class Cliente {
+
     byte status;
     String email;
     String site;
     String telefone;
-    String celular;
-    String fax;
-    String observacoes;    
+    String observacoes;
+    List<Contato> contatos;
+    List<Endereco> enderecos;
 }
