@@ -1,7 +1,7 @@
-package br.edu.ifpr.comat.aplicacao;
+package br.edu.ifpr.comat;
 
-import br.edu.ifpr.comat.modelo.ClienteFisica;
-import br.edu.ifpr.comat.modelo.Endereco;
+import br.edu.ifpr.comat.model.ClienteFisica;
+import br.edu.ifpr.comat.model.Endereco;
 import java.util.Date;
 
 /**

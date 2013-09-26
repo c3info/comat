@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/09/2013 21:24:33 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="br.edu.ifpr.comat.entity.TbEndereco" table="TB_Endereco" catalog="comat">
+        <id name="idEnd" type="java.lang.Integer">
+            <column name="ID_End" />
+            <generator class="identity" />
+        </id>
+        <property name="tipoEnd" type="string">
+            <column name="Tipo_End" length="12" not-null="true" />
+        </property>
+        <property name="logradouroEnd" type="string">
+            <column name="Logradouro_End" length="45" not-null="true" />
+        </property>
+        <property name="numeroEnd" type="int">
+            <column name="Numero_End" not-null="true" />
+        </property>
+        <property name="complementoEnd" type="string">
+            <column name="Complemento_End" length="45" />
+        </property>
+        <property name="bairroEnd" type="string">
+            <column name="Bairro_End" length="45" />
+        </property>
+        <property name="cepEnd" type="int">
+            <column name="Cep_End" not-null="true" />
+        </property>
+        <property name="idCid" type="int">
+            <column name="ID_Cid" not-null="true" />
+        </property>
+        <property name="ufEst" type="string">
+            <column name="UF_Est" length="2" not-null="true" />
+        </property>
+        <property name="cidadeCid" type="string">
+            <column name="Cidade_Cid" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

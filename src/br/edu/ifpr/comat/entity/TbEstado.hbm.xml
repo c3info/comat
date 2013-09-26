@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/09/2013 21:24:33 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="br.edu.ifpr.comat.entity.TbEstado" table="TB_Estado" catalog="comat">
+        <id name="ufEst" type="string">
+            <column name="UF_Est" length="2" />
+            <generator class="assigned" />
+        </id>
+        <property name="estadoEst" type="string">
+            <column name="Estado_Est" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,4 +1,4 @@
-package br.edu.ifpr.comat.modelo;
+package br.edu.ifpr.comat.model;
 
 import java.util.List;
 import java.util.Objects;

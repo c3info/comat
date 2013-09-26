@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifpr.ui.gui;
+package br.edu.ifpr.comat.ui;
 
 /**
  *
@@ -15,6 +15,7 @@ public class ComatJFrame extends javax.swing.JFrame {
      */
     public ComatJFrame() {
         initComponents();
+        setExtendedState(ComatJFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -26,17 +27,34 @@ public class ComatJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToolBar1 = new javax.swing.JToolBar();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnmCadastros = new javax.swing.JMenu();
+        mnmSobre = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jToolBar1.setRollover(true);
+
+        mnmCadastros.setText("Cadastros");
+        jMenuBar1.add(mnmCadastros);
+
+        mnmSobre.setText("Sobre");
+        jMenuBar1.add(mnmSobre);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 254, Short.MAX_VALUE))
         );
 
         pack();
@@ -77,5 +95,9 @@ public class ComatJFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JMenu mnmCadastros;
+    private javax.swing.JMenu mnmSobre;
     // End of variables declaration//GEN-END:variables
 }

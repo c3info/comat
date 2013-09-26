@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/09/2013 21:24:33 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="br.edu.ifpr.comat.entity.TbCidade" table="TB_Cidade" catalog="comat">
+        <composite-id name="id" class="br.edu.ifpr.comat.entity.TbCidadeId">
+            <key-property name="ufEst" type="string">
+                <column name="UF_Est" length="2" />
+            </key-property>
+            <key-property name="cidadeCid" type="string">
+                <column name="Cidade_Cid" length="45" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>
