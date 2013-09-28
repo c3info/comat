@@ -8,9 +8,9 @@ import java.util.Objects;
  * @author Cristhiano Konczak Cardoso <cristhiano@c3info.com.br>
  * @date 20/09/2013
  */
-public class Endereco {
+public class Endereco implements java.io.Serializable {
 
-    int idEnderco;
+    Integer idEndereco;
     String tipo;
     String logradouro;
     int numero;
@@ -22,8 +22,8 @@ public class Endereco {
     public Endereco() {
     }
 
-    public Endereco(int idEnderco, String tipo, String logradouro, int numero, String complemento, String bairro, int cep, Cidade cidade) {
-        this.idEnderco = idEnderco;
+    public Endereco(Integer idEnderco, String tipo, String logradouro, int numero, String complemento, String bairro, int cep, Cidade cidade) {
+        this.idEndereco = idEnderco;
         this.tipo = tipo;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -33,12 +33,12 @@ public class Endereco {
         this.cidade = cidade;
     }
 
-    public int getIdEnderco() {
-        return idEnderco;
+    public Integer getIdEndereco() {
+        return idEndereco;
     }
 
-    public void setIdEnderco(int idEnderco) {
-        this.idEnderco = idEnderco;
+    public void setIdEndereco(Integer idEndereco) {
+        this.idEndereco = idEndereco;
     }
 
     public String getTipo() {
@@ -95,60 +95,5 @@ public class Endereco {
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 79 * hash + this.idEnderco;
-        hash = 79 * hash + Objects.hashCode(this.tipo);
-        hash = 79 * hash + Objects.hashCode(this.logradouro);
-        hash = 79 * hash + this.numero;
-        hash = 79 * hash + Objects.hashCode(this.complemento);
-        hash = 79 * hash + Objects.hashCode(this.bairro);
-        hash = 79 * hash + this.cep;
-        hash = 79 * hash + Objects.hashCode(this.cidade);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Endereco other = (Endereco) obj;
-        if (this.idEnderco != other.idEnderco) {
-            return false;
-        }
-        if (!Objects.equals(this.tipo, other.tipo)) {
-            return false;
-        }
-        if (!Objects.equals(this.logradouro, other.logradouro)) {
-            return false;
-        }
-        if (this.numero != other.numero) {
-            return false;
-        }
-        if (!Objects.equals(this.complemento, other.complemento)) {
-            return false;
-        }
-        if (!Objects.equals(this.bairro, other.bairro)) {
-            return false;
-        }
-        if (this.cep != other.cep) {
-            return false;
-        }
-        if (!Objects.equals(this.cidade, other.cidade)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Endereco{" + "idEnderco=" + idEnderco + ", tipo=" + tipo + ", logradouro=" + logradouro + ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro + ", cep=" + cep + ", cidade=" + cidade + '}';
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <joined-subclass name="br.edu.ifpr.comat.model.ClienteJuridica" extends="br.edu.ifpr.comat.model.Cliente">
+        <key column="idCliente"/>  
+        <property name="cnpj" type="long">
+            <column name="cnpj" />          
+        </property>
+        <property name="inscricao" type="java.lang.Integer">
+            <column name="inscricao" />
+        </property>
+        <property name="razao" type="string">
+            <column name="razao" length="72" not-null="true" />
+        </property>
+        <property name="fantasia" type="string">
+            <column name="fantasia" length="72" />
+        </property>
+        <property name="fax" type="string">
+            <column name="fax" length="12" />
+        </property>             
+    </joined-subclass>
+</hibernate-mapping>

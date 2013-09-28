@@ -15,18 +15,18 @@ public class ClienteFisica extends Cliente {
     long cpf;
     int rg;
     String nome;
-    Date dataNas;
+    Date dataNasc;
     String celular;
 
     public ClienteFisica() {
     }
 
-    public ClienteFisica(long cpf, int rg, String nome, Date dataNas, String celular, int idCliente, int status, String email, String site, String telefone, String observacoes, Endereco endereco, List<Contato> contatos) {
-        super(idCliente, status, email, site, telefone, observacoes, endereco, contatos);
+    public ClienteFisica(long cpf, int rg, String nome, Date dataNas, String celular, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Endereco endereco) {
+        super(idCliente, status, email, site, telefone, observacoes, endereco);
         this.cpf = cpf;
         this.rg = rg;
         this.nome = nome;
-        this.dataNas = dataNas;
+        this.dataNasc = dataNas;
         this.celular = celular;
     }
 
@@ -54,12 +54,12 @@ public class ClienteFisica extends Cliente {
         this.nome = nome;
     }
 
-    public Date getDataNas() {
-        return dataNas;
+    public Date getDataNasc() {
+        return dataNasc;
     }
 
-    public void setDataNas(Date dataNas) {
-        this.dataNas = dataNas;
+    public void setDataNasc(Date dataNas) {
+        this.dataNasc = dataNas;
     }
 
     public String getCelular() {
@@ -68,43 +68,5 @@ public class ClienteFisica extends Cliente {
 
     public void setCelular(String celular) {
         this.celular = celular;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 47 * hash + (int) (this.cpf ^ (this.cpf >>> 32));
-        hash = 47 * hash + this.rg;
-        hash = 47 * hash + Objects.hashCode(this.nome);
-        hash = 47 * hash + Objects.hashCode(this.dataNas);
-        hash = 47 * hash + Objects.hashCode(this.celular);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ClienteFisica other = (ClienteFisica) obj;
-        if (this.cpf != other.cpf) {
-            return false;
-        }
-        if (this.rg != other.rg) {
-            return false;
-        }
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        if (!Objects.equals(this.dataNas, other.dataNas)) {
-            return false;
-        }
-        if (!Objects.equals(this.celular, other.celular)) {
-            return false;
-        }
-        return true;
     }
 }

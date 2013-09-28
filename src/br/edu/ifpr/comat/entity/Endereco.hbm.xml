@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="br.edu.ifpr.comat.model.Endereco" table="Endereco" catalog="comat">
+        <id name="idEndereco" type="java.lang.Integer">
+            <column name="idEndereco" />
+            <generator class="increment" />
+        </id>
+        <property name="tipo" type="string">
+            <column name="tipo" length="12" not-null="true" />
+        </property>
+        <property name="logradouro" type="string">
+            <column name="logradouro" length="45" not-null="true" />
+        </property>
+        <property name="numero" type="int">
+            <column name="numero" not-null="true" />
+        </property>
+        <property name="complemento" type="string">
+            <column name="complemento" length="45" />
+        </property>
+        <property name="bairro" type="string">
+            <column name="bairro" length="45" />
+        </property>
+        <property name="cep" type="int">
+            <column name="cep" not-null="true" />
+        </property> 
+        <many-to-one
+            name="cidade"
+            column="idCidade"           
+            not-null="true"
+            cascade="save-update"/>     
+    </class>
+</hibernate-mapping>

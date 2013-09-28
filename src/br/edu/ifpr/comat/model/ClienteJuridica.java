@@ -20,8 +20,8 @@ public class ClienteJuridica extends Cliente {
     public ClienteJuridica() {
     }
 
-    public ClienteJuridica(long cnpj, int inscricao, String razao, String fantasia, String fax, int idCliente, int status, String email, String site, String telefone, String observacoes, Endereco endereco, List<Contato> contatos) {
-        super(idCliente, status, email, site, telefone, observacoes, endereco, contatos);
+    public ClienteJuridica(long cnpj, int inscricao, String razao, String fantasia, String fax, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Endereco endereco) {
+        super(idCliente, status, email, site, telefone, observacoes, endereco);
         this.cnpj = cnpj;
         this.inscricao = inscricao;
         this.razao = razao;
@@ -67,43 +67,5 @@ public class ClienteJuridica extends Cliente {
 
     public void setFax(String fax) {
         this.fax = fax;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 13 * hash + (int) (this.cnpj ^ (this.cnpj >>> 32));
-        hash = 13 * hash + this.inscricao;
-        hash = 13 * hash + Objects.hashCode(this.razao);
-        hash = 13 * hash + Objects.hashCode(this.fantasia);
-        hash = 13 * hash + Objects.hashCode(this.fax);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ClienteJuridica other = (ClienteJuridica) obj;
-        if (this.cnpj != other.cnpj) {
-            return false;
-        }
-        if (this.inscricao != other.inscricao) {
-            return false;
-        }
-        if (!Objects.equals(this.razao, other.razao)) {
-            return false;
-        }
-        if (!Objects.equals(this.fantasia, other.fantasia)) {
-            return false;
-        }
-        if (!Objects.equals(this.fax, other.fax)) {
-            return false;
-        }
-        return true;
     }
 }
