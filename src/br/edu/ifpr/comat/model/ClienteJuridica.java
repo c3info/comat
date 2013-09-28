@@ -1,7 +1,7 @@
 package br.edu.ifpr.comat.model;
 
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @project Comat
@@ -11,17 +11,17 @@ import java.util.Objects;
  */
 public class ClienteJuridica extends Cliente {
 
-    long cnpj;
-    int inscricao;
-    String razao;
-    String fantasia;
-    String fax;
+    private long cnpj;
+    private Integer inscricao;
+    private String razao;
+    private String fantasia;
+    private String fax;
 
     public ClienteJuridica() {
     }
 
-    public ClienteJuridica(long cnpj, int inscricao, String razao, String fantasia, String fax, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Endereco endereco) {
-        super(idCliente, status, email, site, telefone, observacoes, endereco);
+    public ClienteJuridica(long cnpj, Integer inscricao, String razao, String fantasia, String fax, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Endereco endereco, Set contatos) {
+        super(idCliente, status, email, site, telefone, observacoes, endereco, contatos);
         this.cnpj = cnpj;
         this.inscricao = inscricao;
         this.razao = razao;
@@ -37,11 +37,11 @@ public class ClienteJuridica extends Cliente {
         this.cnpj = cnpj;
     }
 
-    public int getInscricao() {
+    public Integer getInscricao() {
         return inscricao;
     }
 
-    public void setInscricao(int inscricao) {
+    public void setInscricao(Integer inscricao) {
         this.inscricao = inscricao;
     }
 

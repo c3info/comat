@@ -12,7 +12,7 @@
         <property name="logradouro" type="string">
             <column name="logradouro" length="45" not-null="true" />
         </property>
-        <property name="numero" type="int">
+        <property name="numero" type="java.lang.Integer">
             <column name="numero" not-null="true" />
         </property>
         <property name="complemento" type="string">
@@ -21,7 +21,7 @@
         <property name="bairro" type="string">
             <column name="bairro" length="45" />
         </property>
-        <property name="cep" type="int">
+        <property name="cep" type="java.lang.Integer">
             <column name="cep" not-null="true" />
         </property> 
         <many-to-one

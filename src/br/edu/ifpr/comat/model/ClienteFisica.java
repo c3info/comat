@@ -1,8 +1,8 @@
 package br.edu.ifpr.comat.model;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @project Comat
@@ -12,21 +12,21 @@ import java.util.Objects;
  */
 public class ClienteFisica extends Cliente {
 
-    long cpf;
-    int rg;
-    String nome;
-    Date dataNasc;
-    String celular;
+    private long cpf;
+    private Integer rg;
+    private String nome;
+    private Date dataNasc;
+    private String celular;
 
     public ClienteFisica() {
     }
 
-    public ClienteFisica(long cpf, int rg, String nome, Date dataNas, String celular, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Endereco endereco) {
-        super(idCliente, status, email, site, telefone, observacoes, endereco);
+    public ClienteFisica(long cpf, Integer rg, String nome, Date dataNasc, String celular, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Endereco endereco, Set contatos) {
+        super(idCliente, status, email, site, telefone, observacoes, endereco, contatos);
         this.cpf = cpf;
         this.rg = rg;
         this.nome = nome;
-        this.dataNasc = dataNas;
+        this.dataNasc = dataNasc;
         this.celular = celular;
     }
 
@@ -38,11 +38,11 @@ public class ClienteFisica extends Cliente {
         this.cpf = cpf;
     }
 
-    public int getRg() {
+    public Integer getRg() {
         return rg;
     }
 
-    public void setRg(int rg) {
+    public void setRg(Integer rg) {
         this.rg = rg;
     }
 
@@ -58,8 +58,8 @@ public class ClienteFisica extends Cliente {
         return dataNasc;
     }
 
-    public void setDataNasc(Date dataNas) {
-        this.dataNasc = dataNas;
+    public void setDataNasc(Date dataNasc) {
+        this.dataNasc = dataNasc;
     }
 
     public String getCelular() {

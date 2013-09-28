@@ -10,8 +10,8 @@ import java.util.Objects;
  */
 public class Estado implements java.io.Serializable {
 
-    String uf;
-    String nome;
+    private String uf;
+    private String nome;
 
     public Estado() {
     }

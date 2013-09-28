@@ -1,6 +1,7 @@
 package br.edu.ifpr.comat.model;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @project comat
@@ -10,30 +11,32 @@ import java.util.Objects;
  */
 public class Contato {
 
-    int idContato;
-    String nome;
-    String telefone;
-    String celular;
-    String email;
-    String funcao;
+    private Integer idContato;
+    private String nome;
+    private String telefone;
+    private String celular;
+    private String email;
+    private String funcao;
+    private Set clientes;
 
     public Contato() {
     }
 
-    public Contato(int idContato, String nome, String telefone, String celular, String email, String funcao) {
+    public Contato(Integer idContato, String nome, String telefone, String celular, String email, String funcao, Set clientes) {
         this.idContato = idContato;
         this.nome = nome;
         this.telefone = telefone;
         this.celular = celular;
         this.email = email;
         this.funcao = funcao;
+        this.clientes = clientes;
     }
 
-    public int getIdContato() {
+    public Integer getIdContato() {
         return idContato;
     }
 
-    public void setIdContato(int idContato) {
+    public void setIdContato(Integer idContato) {
         this.idContato = idContato;
     }
 
@@ -77,45 +80,11 @@ public class Contato {
         this.funcao = funcao;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + this.idContato;
-        hash = 53 * hash + Objects.hashCode(this.nome);
-        hash = 53 * hash + Objects.hashCode(this.telefone);
-        hash = 53 * hash + Objects.hashCode(this.celular);
-        hash = 53 * hash + Objects.hashCode(this.email);
-        hash = 53 * hash + Objects.hashCode(this.funcao);
-        return hash;
+    public Set getClientes() {
+        return clientes;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Contato other = (Contato) obj;
-        if (this.idContato != other.idContato) {
-            return false;
-        }
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        if (!Objects.equals(this.telefone, other.telefone)) {
-            return false;
-        }
-        if (!Objects.equals(this.celular, other.celular)) {
-            return false;
-        }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        if (!Objects.equals(this.funcao, other.funcao)) {
-            return false;
-        }
-        return true;
+    public void setClientes(Set clientes) {
+        this.clientes = clientes;
     }
 }

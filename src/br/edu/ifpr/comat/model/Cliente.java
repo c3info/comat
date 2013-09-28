@@ -1,5 +1,7 @@
 package br.edu.ifpr.comat.model;
 
+import java.util.Set;
+
 /**
  * @project Comat
  * @class Cliente
@@ -8,19 +10,19 @@ package br.edu.ifpr.comat.model;
  */
 public class Cliente implements java.io.Serializable {
 
-    Integer idCliente;
-    Integer status;
-    String email;
-    String site;
-    String telefone;
-    String observacoes;
-    Endereco endereco;
-   // List<Contato> contatos;
+    private Integer idCliente;
+    private Integer status;
+    private String email;
+    private String site;
+    private String telefone;
+    private String observacoes;
+    private Endereco endereco;
+    private Set contatos;
 
     public Cliente() {
     }
 
-    public Cliente(Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Endereco endereco) {
+    public Cliente(Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Endereco endereco, Set contatos) {
         this.idCliente = idCliente;
         this.status = status;
         this.email = email;
@@ -28,6 +30,7 @@ public class Cliente implements java.io.Serializable {
         this.telefone = telefone;
         this.observacoes = observacoes;
         this.endereco = endereco;
+        this.contatos = contatos;
     }
 
     public Integer getIdCliente() {
@@ -86,6 +89,11 @@ public class Cliente implements java.io.Serializable {
         this.endereco = endereco;
     }
 
-    
-    
+    public Set getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(Set contatos) {
+        this.contatos = contatos;
+    }
 }

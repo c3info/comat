@@ -10,9 +10,9 @@ import java.util.Objects;
  */
 public class Cidade implements java.io.Serializable {
 
-    Integer idCidade;
-    String nome;
-    Estado estado;
+    private Integer idCidade;
+    private String nome;
+    private Estado estado;
 
     public Cidade() {
     }
