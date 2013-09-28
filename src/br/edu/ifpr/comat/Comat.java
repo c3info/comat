@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * @project Comat
- * @class Cliente
+ * @class Comat
  * @author Cristhiano Konczak Cardoso <cristhiano@c3info.com.br>
  * @date 17/09/2013
  */

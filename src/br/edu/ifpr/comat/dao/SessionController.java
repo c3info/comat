@@ -5,7 +5,7 @@ import org.hibernate.Session;
 
 /**
  * @project comat
- * @class CreateSession
+ * @class SessionController
  * @author Cristhiano Konczak Cardoso <cristhiano@c3info.com.br>
  * @date 28/09/2013
  */
