@@ -21,8 +21,8 @@ public class ClienteFisica extends Cliente {
     public ClienteFisica() {
     }
 
-    public ClienteFisica(long cpf, Integer rg, String nome, Date dataNasc, String celular, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Endereco endereco, Set contatos) {
-        super(idCliente, status, email, site, telefone, observacoes, endereco, contatos);
+    public ClienteFisica(long cpf, Integer rg, String nome, Date dataNasc, String celular, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Date dataCadastro, Endereco endereco, Set contatos) {
+        super(idCliente, status, email, site, telefone, observacoes, dataCadastro, endereco, contatos);
         this.cpf = cpf;
         this.rg = rg;
         this.nome = nome;

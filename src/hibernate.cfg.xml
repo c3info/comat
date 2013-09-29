@@ -8,6 +8,7 @@
     <property name="hibernate.connection.username">admin</property>
     <property name="hibernate.connection.password">67441173</property>
     <property name="hibernate.show_sql">true</property>
+    <property name="format_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
     <mapping resource="br/edu/ifpr/comat/entity/Cidade.hbm.xml"/>
     <mapping resource="br/edu/ifpr/comat/entity/Endereco.hbm.xml"/>

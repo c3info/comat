@@ -5,10 +5,13 @@ import br.edu.ifpr.comat.dao.ContatoDAO;
 import br.edu.ifpr.comat.model.Cidade;
 import br.edu.ifpr.comat.model.Cliente;
 import br.edu.ifpr.comat.model.ClienteFisica;
+import br.edu.ifpr.comat.model.ClienteJuridica;
 import br.edu.ifpr.comat.model.Contato;
 import br.edu.ifpr.comat.model.Endereco;
 import br.edu.ifpr.comat.model.Estado;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @project Comat
@@ -36,13 +39,18 @@ public class Comat {
         Endereco n3 = new Endereco(null, "Rodovia", "PR 445", 233, null, null, 80010210, c3);
 
         Contato ct1 = new Contato(null, "Joao", "4333443247", "438880000", "joao@joao.com", "Pedreiro", null);
-        new ContatoDAO().insert(ct1);       
+        new ContatoDAO().insert(ct1);
 
-//        Set contatos = new HashSet();
-//        contatos.add(ct1);
+        Set contatos = new HashSet();
+        contatos.add(ct1);
 
-        Cliente f = new ClienteFisica(80238807991L, 8991084, "Cristhiano", new Date(), "84361902", null, 1, "cristhiano@c3info.com.br", "www.c3info.com.br", "33443247", "none", n1, null);
-        new ClienteDAO().insert(f);
+        Cliente cl1 = new ClienteFisica(80238807991L, 802388079, "Cristhiano", new Date(), "84361902", null, 1, "cristhiano@c3info.com.br", "www.c3info.com.br", "33443247", "none", new Date(), n1, null);
+        Cliente cl2 = new ClienteFisica(80238807996L, 824551254, "Joao", new Date(), "88051294", null, 1, "joao@c3info.com.br", null, "33443247", "cliente novo", new Date(), n2, null);
+        Cliente cl3 = new ClienteJuridica(8146244000146L, 881584555, "Fibrillare", "L. Marquini e Cia", "43322760006", null, 1, "contato@fibrillare.com.br", "www.fibrillare.com.br", "4332460006", null, new Date(), n3, null);
+
+        new ClienteDAO().insert(cl1);
+        new ClienteDAO().insert(cl2);
+        new ClienteDAO().insert(cl3);
 
 
 // TESTE INSERT        

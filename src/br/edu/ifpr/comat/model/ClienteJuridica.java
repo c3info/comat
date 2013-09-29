@@ -1,5 +1,6 @@
 package br.edu.ifpr.comat.model;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
@@ -20,8 +21,8 @@ public class ClienteJuridica extends Cliente {
     public ClienteJuridica() {
     }
 
-    public ClienteJuridica(long cnpj, Integer inscricao, String razao, String fantasia, String fax, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Endereco endereco, Set contatos) {
-        super(idCliente, status, email, site, telefone, observacoes, endereco, contatos);
+    public ClienteJuridica(long cnpj, Integer inscricao, String razao, String fantasia, String fax, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Date dataCadastro, Endereco endereco, Set contatos) {
+        super(idCliente, status, email, site, telefone, observacoes, dataCadastro, endereco, contatos);
         this.cnpj = cnpj;
         this.inscricao = inscricao;
         this.razao = razao;

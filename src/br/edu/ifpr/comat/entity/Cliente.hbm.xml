@@ -20,7 +20,10 @@
         </property>
         <property name="observacoes" type="string">
             <column name="observacoes" />
-        </property>        
+        </property> 
+         <property name="dataCadastro" type="date">
+            <column name="dataCadastro" length="10" />
+        </property>       
         <many-to-one
             name="endereco"
             column="idEndereco"            
