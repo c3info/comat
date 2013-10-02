@@ -13,7 +13,7 @@ import java.util.Set;
 public class ClienteFisica extends Cliente {
 
     private long cpf;
-    private Integer rg;
+    private long rg;
     private String nome;
     private Date dataNasc;
     private String celular;
@@ -21,7 +21,7 @@ public class ClienteFisica extends Cliente {
     public ClienteFisica() {
     }
 
-    public ClienteFisica(long cpf, Integer rg, String nome, Date dataNasc, String celular, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Date dataCadastro, Endereco endereco, Set contatos) {
+    public ClienteFisica(long cpf, long rg, String nome, Date dataNasc, String celular, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Date dataCadastro, Endereco endereco, Set contatos) {
         super(idCliente, status, email, site, telefone, observacoes, dataCadastro, endereco, contatos);
         this.cpf = cpf;
         this.rg = rg;
@@ -38,11 +38,11 @@ public class ClienteFisica extends Cliente {
         this.cpf = cpf;
     }
 
-    public Integer getRg() {
+    public long getRg() {
         return rg;
     }
 
-    public void setRg(Integer rg) {
+    public void setRg(long rg) {
         this.rg = rg;
     }
 

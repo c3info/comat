@@ -7,7 +7,7 @@
             <generator class="increment" />
         </id>
         <property name="nome" type="string">
-            <column name="nome" length="45" not-null="true" />
+            <column name="nome" length="36" not-null="true" />
         </property>
         <many-to-one
             name="estado"

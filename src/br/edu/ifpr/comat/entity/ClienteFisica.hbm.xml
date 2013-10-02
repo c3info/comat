@@ -6,7 +6,7 @@
         <property name="cpf" type="long">
             <column name="cpf" />           
         </property>
-        <property name="rg" type="int">
+        <property name="rg" type="long">
             <column name="rg" not-null="true" />
         </property>
         <property name="nome" type="string">

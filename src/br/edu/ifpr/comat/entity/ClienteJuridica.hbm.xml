@@ -6,7 +6,7 @@
         <property name="cnpj" type="long">
             <column name="cnpj" />          
         </property>
-        <property name="inscricao" type="java.lang.Integer">
+        <property name="inscricao" type="long">
             <column name="inscricao" />
         </property>
         <property name="razao" type="string">

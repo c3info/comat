@@ -4,23 +4,22 @@
  */
 package br.edu.ifpr.comat.ui;
 
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.Container;
+
+
 
 /**
  *
  * @author Cristhiano Konczak Cardoso <cristhiano@c3info.com.br>
  */
-public class ComatJFrame extends javax.swing.JFrame {
+public class ComatFrame extends javax.swing.JFrame {
 
-   
     /**
-     * Creates new form ComatJFrame
+     * Creates new form ComatFrame
      */
-    public ComatJFrame() {
+    public ComatFrame() {
         initComponents();
-        setExtendedState(ComatJFrame.MAXIMIZED_BOTH);             
+        setExtendedState(ComatFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -32,23 +31,38 @@ public class ComatJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToolBar1 = new javax.swing.JToolBar();
+        jPanel1 = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         mnuArquivo = new javax.swing.JMenu();
         mniClientes = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mniSair = new javax.swing.JMenuItem();
-        mnuAjuda = new javax.swing.JMenu();
-        mniSobre = new javax.swing.JMenuItem();
+        mnuCadastro = new javax.swing.JMenu();
+        mniCliente = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Comat");
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        mnuArquivo.setMnemonic('C');
+        jToolBar1.setRollover(true);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 222, Short.MAX_VALUE)
+        );
+
+        mnuArquivo.setMnemonic('A');
         mnuArquivo.setText("Arquivo");
 
-        mniClientes.setMnemonic('l');
+        mniClientes.setMnemonic('C');
         mniClientes.setText("Clientes");
         mniClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,7 +72,8 @@ public class ComatJFrame extends javax.swing.JFrame {
         mnuArquivo.add(mniClientes);
         mnuArquivo.add(jSeparator1);
 
-        mniSair.setMnemonic('s');
+        mniSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        mniSair.setMnemonic('S');
         mniSair.setText("Sair");
         mniSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,14 +84,19 @@ public class ComatJFrame extends javax.swing.JFrame {
 
         menuBar.add(mnuArquivo);
 
-        mnuAjuda.setMnemonic('a');
-        mnuAjuda.setText("Ajuda");
+        mnuCadastro.setMnemonic('A');
+        mnuCadastro.setText("Cadastros");
 
-        mniSobre.setMnemonic('s');
-        mniSobre.setText("Sobre");
-        mnuAjuda.add(mniSobre);
+        mniCliente.setMnemonic('C');
+        mniCliente.setText("Cliente");
+        mniCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniClienteActionPerformed(evt);
+            }
+        });
+        mnuCadastro.add(mniCliente);
 
-        menuBar.add(mnuAjuda);
+        menuBar.add(mnuCadastro);
 
         setJMenuBar(menuBar);
 
@@ -84,28 +104,44 @@ public class ComatJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniClientesActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                
-            }
-        });
+        
+        new ClientePanel().setVisible(true);
+  
+              
+                //meuJFrame.getContentPane().add(meuJpanel,BorderLayout.Center)
+
+       
     }//GEN-LAST:event_mniClientesActionPerformed
 
     private void mniSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_mniSairActionPerformed
+
+    private void mniClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniClienteActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                //new ClientePanel().setVisible(true);
+
+            }
+        });
+    }//GEN-LAST:event_mniClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,30 +160,34 @@ public class ComatJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ComatJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComatFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ComatJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComatFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ComatJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComatFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ComatJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComatFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ComatJFrame().setVisible(true);
+                new ComatFrame().setVisible(true);
+
+
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem mniCliente;
     private javax.swing.JMenuItem mniClientes;
     private javax.swing.JMenuItem mniSair;
-    private javax.swing.JMenuItem mniSobre;
-    private javax.swing.JMenu mnuAjuda;
     private javax.swing.JMenu mnuArquivo;
+    private javax.swing.JMenu mnuCadastro;
     // End of variables declaration//GEN-END:variables
 }

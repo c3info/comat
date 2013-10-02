@@ -38,19 +38,19 @@ public class Comat {
         Endereco n2 = new Endereco(null, "Av", "Brasil", 230, null, "Centro", 80010320, c2);
         Endereco n3 = new Endereco(null, "Rodovia", "PR 445", 233, null, null, 80010210, c3);
 
-        Contato ct1 = new Contato(null, "Joao", "4333443247", "438880000", "joao@joao.com", "Pedreiro", null);
-        new ContatoDAO().insert(ct1);
-
-        Set contatos = new HashSet();
-        contatos.add(ct1);
-
-        Cliente cl1 = new ClienteFisica(80238807991L, 802388079, "Cristhiano", new Date(), "84361902", null, 1, "cristhiano@c3info.com.br", "www.c3info.com.br", "33443247", "none", new Date(), n1, null);
-        Cliente cl2 = new ClienteFisica(80238807996L, 824551254, "Joao", new Date(), "88051294", null, 1, "joao@c3info.com.br", null, "33443247", "cliente novo", new Date(), n2, null);
-        Cliente cl3 = new ClienteJuridica(8146244000146L, 881584555, "Fibrillare", "L. Marquini e Cia", "43322760006", null, 1, "contato@fibrillare.com.br", "www.fibrillare.com.br", "4332460006", null, new Date(), n3, null);
+        Cliente cl1 = new ClienteFisica(80238807991L, 802388079L, "Cristhiano", new Date(), "84361902", null, 1, "cristhiano@c3info.com.br", "www.c3info.com.br", "33443247", "none", new Date(), n1, null);
+        Cliente cl2 = new ClienteFisica(80238807996L, 824551254L, "Joao", new Date(), "88051294", null, 1, "joao@c3info.com.br", null, "33442247", "cliente novo", new Date(), n2, null);
+        Cliente cl3 = new ClienteJuridica(8146244000146L, 881584555L, "Fibrillare", "L. Marquini e Cia", "43322760006", null, 1, "contato@fibrillare.com.br", "www.fibrillare.com.br", "4332460006", null, new Date(), n3, null);
 
         new ClienteDAO().insert(cl1);
         new ClienteDAO().insert(cl2);
         new ClienteDAO().insert(cl3);
+
+//        Contato ct1 = new Contato(null, "Joao", "4333443247", "438880000", "joao@joao.com", "Pedreiro", null);
+//        Set contatos = new HashSet();
+//        contatos.add(ct1);
+
+
 
 
 // TESTE INSERT        

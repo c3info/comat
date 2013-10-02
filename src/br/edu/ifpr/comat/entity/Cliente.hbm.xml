@@ -18,20 +18,18 @@
         <property name="telefone" type="string">
             <column name="telefone" length="12" />
         </property>
+        <property name="dataCadastro" type="date">
+            <column name="dataCadastro" length="10" />
+        </property> 
         <property name="observacoes" type="string">
             <column name="observacoes" />
-        </property> 
-         <property name="dataCadastro" type="date">
-            <column name="dataCadastro" length="10" />
-        </property>       
+        </property>              
         <many-to-one
             name="endereco"
             column="idEndereco"            
             not-null="true"
             cascade="save-update"/>         
-        <set name="contatos"
-             table="ContatosCliente"
-             inverse="false">			 
+        <set name="contatos" table="ContatosCliente">			 
             <key column="idCliente"/>
             <many-to-many class="br.edu.ifpr.comat.model.Contato" column="idContato"/>			
         </set>               
