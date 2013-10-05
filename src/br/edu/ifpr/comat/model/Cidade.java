@@ -9,41 +9,40 @@ import java.util.Objects;
  * @date 20/09/2013
  */
 public class Cidade implements java.io.Serializable {
+	private Integer idCidade;
+	private String nome;
+	private Estado estado;
 
-    private Integer idCidade;
-    private String nome;
-    private Estado estado;
+	public Cidade() {
+	}
 
-    public Cidade() {
-    }
+	public Cidade(Integer idCidade, String nome, Estado estado) {
+		this.idCidade = idCidade;
+		this.nome = nome;
+		this.estado = estado;
+	}
 
-    public Cidade(Integer idCidade, String nome, Estado estado) {
-        this.idCidade = idCidade;
-        this.nome = nome;
-        this.estado = estado;
-    }
+	public Integer getIdCidade() {
+		return idCidade;
+	}
 
-    public Integer getIdCidade() {
-        return idCidade;
-    }
+	public void setIdCidade(Integer idCidade) {
+		this.idCidade = idCidade;
+	}
 
-    public void setIdCidade(Integer idCidade) {
-        this.idCidade = idCidade;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public Estado getEstado() {
+		return estado;
+	}
 
-    public Estado getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
 }

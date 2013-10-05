@@ -21,7 +21,7 @@
         <property name="funcao" type="string">
             <column name="funcao" length="45" />
         </property>  
-        <set name="clientes" table="ContatosCliente" inverse="false">			 
+        <set name="clientes" table="ContatosCliente">			 
             <key column="idContato"/>
             <many-to-many class="br.edu.ifpr.comat.model.Cliente" column="idCliente"/>			
         </set>   

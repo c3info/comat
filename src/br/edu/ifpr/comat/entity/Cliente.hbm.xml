@@ -29,7 +29,7 @@
             column="idEndereco"            
             not-null="true"
             cascade="save-update"/>         
-        <set name="contatos" table="ContatosCliente">			 
+        <set name="contatos" table="ContatosCliente" inverse="false">			 
             <key column="idCliente"/>
             <many-to-many class="br.edu.ifpr.comat.model.Contato" column="idContato"/>			
         </set>               
