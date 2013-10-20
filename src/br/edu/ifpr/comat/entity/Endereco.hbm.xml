@@ -5,10 +5,7 @@
         <id name="idEndereco" type="java.lang.Integer">
             <column name="idEndereco" />
             <generator class="increment" />
-        </id>
-        <property name="tipo" type="string">
-            <column name="tipo" length="12" not-null="true" />
-        </property>
+        </id>       
         <property name="logradouro" type="string">
             <column name="logradouro" length="45" not-null="true" />
         </property>
@@ -26,7 +23,7 @@
         </property> 
         <many-to-one
             name="cidade"
-            column="idCidade"           
+            column="idCidadeFk"           
             not-null="true"
             cascade="save-update"/>     
     </class>

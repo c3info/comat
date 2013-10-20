@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="br.edu.ifpr.comat.model.Contato" table="Contato">
-        <id name="idContato" type="int">
+        <id name="idContato" type="java.lang.Integer">
             <column name="idContato" />
             <generator class="increment" />
         </id>
@@ -22,8 +22,8 @@
             <column name="funcao" length="45" />
         </property>  
         <set name="clientes" table="ContatosCliente">			 
-            <key column="idContato"/>
-            <many-to-many class="br.edu.ifpr.comat.model.Cliente" column="idCliente"/>			
+            <key column="idContatoFk"/>
+            <many-to-many class="br.edu.ifpr.comat.model.Cliente" column="idClienteFk"/>			
         </set>   
     </class> 
 </hibernate-mapping>

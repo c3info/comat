@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <joined-subclass name="br.edu.ifpr.comat.model.ClienteJuridica" extends="br.edu.ifpr.comat.model.Cliente">
-        <key column="idCliente"/>  
+        <key column="idClienteFk"/>  
         <property name="cnpj" type="long">
             <column name="cnpj" />          
         </property>

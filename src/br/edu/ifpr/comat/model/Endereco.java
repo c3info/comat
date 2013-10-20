@@ -10,8 +10,7 @@ import java.util.Objects;
  */
 public class Endereco implements java.io.Serializable {
 
-    private Integer idEndereco;
-    private String tipo;
+    private Integer idEndereco;  
     private String logradouro;
     private Integer numero;
     private String complemento;
@@ -22,9 +21,8 @@ public class Endereco implements java.io.Serializable {
     public Endereco() {
     }
 
-    public Endereco(Integer idEnderco, String tipo, String logradouro, Integer numero, String complemento, String bairro, Integer cep, Cidade cidade) {
-        this.idEndereco = idEnderco;
-        this.tipo = tipo;
+    public Endereco(Integer idEnderco, String logradouro, Integer numero, String complemento, String bairro, Integer cep, Cidade cidade) {
+        this.idEndereco = idEnderco;       
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
@@ -39,15 +37,7 @@ public class Endereco implements java.io.Serializable {
 
     public void setIdEndereco(Integer idEndereco) {
         this.idEndereco = idEndereco;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+    }   
 
     public String getLogradouro() {
         return logradouro;

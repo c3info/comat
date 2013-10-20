@@ -14,99 +14,100 @@ import org.hibernate.Transaction;
  * @author Cristhiano Konczak Cardoso <cristhiano@c3info.com.br>
  * @date 26/09/2013
  */
-public class ClienteFisicaDAO {
+public class ClienteFisicaDAO extends BaseDAO {
 
-    private final Session session;
-    private Transaction trns;
+	private final Session session;
+	private Transaction trns;
 
-    public ClienteFisicaDAO() {
-        this.session = SessionController.getSession();
-        this.trns = null;
-    }
+	public ClienteFisicaDAO() {
+		this.trns = null;
+		session = getConnection();
+	}
 
-    public void insert(ClienteFisica cli) {
-        try {
-            trns = session.beginTransaction();
-            session.save(cli);
-            session.getTransaction().commit();
-        } catch (HibernateException hi) {
-            if (trns != null) {
-                trns.rollback();
-            }
-            hi.printStackTrace();
-        } finally {
-            session.flush();
-            session.close();
-        }
-    }
+	public void insert(ClienteFisica cli) {
+		try {
+			trns = session.beginTransaction();
+			session.save(cli);
+			session.getTransaction().commit();
+		} catch (HibernateException hi) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			hi.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+	}
 
-    public void delete(Integer id) {
-        try {
-            trns = session.beginTransaction();
-            ClienteFisica cli = (ClienteFisica) session.load(ClienteFisica.class, new Integer(id));
-            session.delete(cli);
-            session.getTransaction().commit();
-        } catch (HibernateException hi) {
-            if (trns != null) {
-                trns.rollback();
-            }
-            hi.printStackTrace();
-        } finally {
-            session.flush();
-            session.close();
-        }
-    }
+	public void delete(Integer id) {
+		try {
+			trns = session.beginTransaction();
+			ClienteFisica cli = (ClienteFisica) session.load(
+					ClienteFisica.class, new Integer(id));
+			session.delete(cli);
+			session.getTransaction().commit();
+		} catch (HibernateException hi) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			hi.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+	}
 
-    public void update(ClienteFisica cli) {
-        try {
-            trns = session.beginTransaction();
-            session.update(cli);
-            session.getTransaction().commit();
-        } catch (HibernateException hi) {
-            if (trns != null) {
-                trns.rollback();
-            }
-            hi.printStackTrace();
-        } finally {
-            session.flush();
-            session.close();
-        }
-    }
+	public void update(ClienteFisica cli) {
+		try {
+			trns = session.beginTransaction();
+			session.update(cli);
+			session.getTransaction().commit();
+		} catch (HibernateException hi) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			hi.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+	}
 
-    public List<ClienteFisica> select() {
-        List<ClienteFisica> clientes = new ArrayList<>();
-        try {
-            trns = session.beginTransaction();
-            clientes = session.createQuery("from ClienteFisica").list();
-        } catch (HibernateException hi) {
-            if (trns != null) {
-                trns.rollback();
-            }
-            hi.printStackTrace();
-        } finally {
-            session.flush();
-            session.close();
-        }
-        return clientes;
-    }
+	public List<ClienteFisica> select() {
+		List<ClienteFisica> clientes = new ArrayList<>();
+		try {
+			trns = session.beginTransaction();
+			clientes = session.createQuery("from ClienteFisica").list();
+		} catch (HibernateException hi) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			hi.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return clientes;
+	}
 
-    public ClienteFisica select(Integer id) {
-        ClienteFisica cli = null;
-        try {
-            trns = session.beginTransaction();
-            String queryString = "from ClienteFisica where idCliente = :id";
-            Query query = session.createQuery(queryString);
-            query.setInteger("id", id);
-            cli = (ClienteFisica) query.uniqueResult();
-        } catch (HibernateException hi) {
-            if (trns != null) {
-                trns.rollback();
-            }
-            hi.printStackTrace();
-        } finally {
-            session.flush();
-            session.close();
-        }
-        return cli;
-    }
+	public ClienteFisica select(Integer id) {
+		ClienteFisica cli = null;
+		try {
+			trns = session.beginTransaction();
+			String queryString = "from ClienteFisica where idCliente = :id";
+			Query query = session.createQuery(queryString);
+			query.setInteger("id", id);
+			cli = (ClienteFisica) query.uniqueResult();
+		} catch (HibernateException hi) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			hi.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return cli;
+	}
 }

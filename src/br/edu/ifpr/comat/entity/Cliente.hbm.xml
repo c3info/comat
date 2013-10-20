@@ -26,12 +26,12 @@
         </property>              
         <many-to-one
             name="endereco"
-            column="idEndereco"            
+            column="idEnderecoFk"            
             not-null="true"
             cascade="save-update"/>         
         <set name="contatos" table="ContatosCliente" inverse="false">			 
-            <key column="idCliente"/>
-            <many-to-many class="br.edu.ifpr.comat.model.Contato" column="idContato"/>			
+            <key column="idClienteFk"/>
+            <many-to-many class="br.edu.ifpr.comat.model.Contato" column="idContatoFk"/>			
         </set>               
     </class>
 </hibernate-mapping>
