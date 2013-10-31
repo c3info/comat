@@ -17,15 +17,15 @@ import org.hibernate.Transaction;
 public class CidadeDAO extends BaseDAO {
 
 	private final Session session;
-	private Transaction trns;	
+	private Transaction trns;
 
-	public CidadeDAO() {		
+	public CidadeDAO() {
 		this.trns = null;
 		session = getConnection();
 	}
 
 	public void insert(Cidade cit) {
-		try {			
+		try {
 			trns = session.beginTransaction();
 			session.save(cit);
 			session.getTransaction().commit();
@@ -108,5 +108,45 @@ public class CidadeDAO extends BaseDAO {
 			session.close();
 		}
 		return cit;
+	}
+	
+	public Cidade select(String nome) {
+		Cidade cit = null;
+		try {
+			trns = session.beginTransaction();
+			String queryString = "from Cidade where nome = :nome";
+			Query query = session.createQuery(queryString);
+			query.setString("nome", nome);
+			cit = (Cidade) query.uniqueResult();
+		} catch (HibernateException hi) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			hi.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return cit;
+	}
+
+	public List<Cidade> selectPorEstado(String estado) {
+		List<Cidade> cidades = new ArrayList<>();
+		try {
+			trns = session.beginTransaction();
+			Query query = session.createQuery("from Cidade where ufFk = :es");
+			query.setString("es", estado);
+			cidades = query.list();
+
+		} catch (HibernateException hi) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			hi.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return cidades;
 	}
 }

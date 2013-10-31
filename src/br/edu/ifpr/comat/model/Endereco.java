@@ -15,13 +15,13 @@ public class Endereco implements java.io.Serializable {
     private Integer numero;
     private String complemento;
     private String bairro;
-    private Integer cep;
+    private String cep;
     private Cidade cidade;
 
     public Endereco() {
     }
 
-    public Endereco(Integer idEnderco, String logradouro, Integer numero, String complemento, String bairro, Integer cep, Cidade cidade) {
+    public Endereco(Integer idEnderco, String logradouro, Integer numero, String complemento, String bairro, String cep, Cidade cidade) {
         this.idEndereco = idEnderco;       
         this.logradouro = logradouro;
         this.numero = numero;
@@ -71,11 +71,11 @@ public class Endereco implements java.io.Serializable {
         this.bairro = bairro;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

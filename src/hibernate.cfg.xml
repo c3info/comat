@@ -17,5 +17,7 @@
     <mapping resource="br/edu/ifpr/comat/entity/ClienteFisica.hbm.xml"/>
     <mapping resource="br/edu/ifpr/comat/entity/ClienteJuridica.hbm.xml"/>
     <mapping resource="br/edu/ifpr/comat/entity/Contato.hbm.xml"/>
+    <mapping resource="br/edu/ifpr/comat/entity/Categoria.hbm.xml"/>
+    <mapping resource="br/edu/ifpr/comat/entity/Produto.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

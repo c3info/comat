@@ -6,8 +6,11 @@ import java.util.Set;
 
 import javax.swing.ListModel;
 
+import br.edu.ifpr.comat.dao.CidadeDAO;
 import br.edu.ifpr.comat.dao.ClienteDAO;
+import br.edu.ifpr.comat.dao.EnderecoDAO;
 import br.edu.ifpr.comat.dao.EstadoDAO;
+import br.edu.ifpr.comat.model.Cidade;
 import br.edu.ifpr.comat.model.Cliente;
 import br.edu.ifpr.comat.model.ClienteFisica;
 import br.edu.ifpr.comat.model.ClienteJuridica;
@@ -15,39 +18,60 @@ import br.edu.ifpr.comat.model.Endereco;
 import br.edu.ifpr.comat.model.Estado;
 
 public class ClienteController {
-	private final String[] statusList = { "Ativo", "Inativo", "Bloquado" };
+	private static final String[] statusList = { "Ativo", "Inativo", "Bloquado" };
 
 	public String[] getStatusList() {
 		return statusList;
 	}
 
-	public String[] getEstados() {
-		List<Estado> estados = new EstadoDAO().select();
-		String[] valores = new String[estados.size()];
-
-		int cont = 0;
-		for (Estado estado : estados) {
-			valores[cont++] = estado.getUf();
-		}
-		return valores;
-	}
-
-	public void salvar(long cpf, long rg, String nome, Date dataNasc,
-			String celular, Integer idCliente, Integer status, String email,
-			String site, String telefone, String observacoes,
-			Date dataCadastro, Endereco endereco, Set contatos) {
+	public void salvar(Date dataCadastro, 
+					   int status, 
+					   String nome,
+					   String cpf, 
+					   String rg, 
+					   Date dataNasc, 
+					   String telefone,					   
+					   String email, 
+					   String celular, 
+					   String site, 
+					   String cep,
+					   String endereco, 
+					   int numero, 
+					   String complemento, 
+					   String bairro,
+					   String estado, 
+					   String cidade, 
+					   String observacoes, 
+					   Set contatos) {		
+					
 		new ClienteDAO().insert(new ClienteFisica(cpf, rg, nome, dataNasc,
-				celular, idCliente, status, email, site, telefone, observacoes,
-				dataCadastro, endereco, contatos));
+				celular, null, status, email, site, telefone, observacoes,
+				dataCadastro, new Endereco(null, endereco, numero, complemento, bairro, cep, new CidadeDAO().select(cidade)), null));	    
 	}
 
-	public void salvar(long cnpj, long inscricao, String razao,
-			String fantasia, String fax, Integer idCliente, Integer status,
-			String email, String site, String telefone, String observacoes,
-			Date dataCadastro, Endereco endereco, Set contatos) {
-		new ClienteDAO().insert(new ClienteJuridica(cnpj, inscricao, razao,
-				fantasia, fax, idCliente, status, email, site, telefone,
-				observacoes, dataCadastro, endereco, contatos));
+	public void salvar(Date dataCadastro, 
+					   int status,
+					   String razao,
+					   String fantasia,
+					   String cnpj, 
+					   String inscricao, 					    
+					   String fax,
+					   String email, 
+					   String site, 
+					   String telefone,
+					   String cep,
+					   String endereco, 
+					   int numero, 
+					   String complemento, 
+					   String bairro,
+					   String estado, 
+					   String cidade, 
+					   String observacoes,
+					   Set contatos) {
 
-	}	
+		new ClienteDAO().insert(new ClienteJuridica(cnpj, inscricao, razao,
+				fantasia, fax, null, status, email, site, telefone,
+				observacoes, dataCadastro, new Endereco(null, endereco, numero, complemento, bairro, cep, new CidadeDAO().select(cidade)), null));
+		
+	}
 }

@@ -13,7 +13,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `comat`.`Cidade` (
   `idCidade` INT(11) NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(36) NOT NULL,
+  `nome` VARCHAR(38) NOT NULL,
   `ufFk` VARCHAR(2) NOT NULL,
   PRIMARY KEY (`idCidade`),  
   FOREIGN KEY (`ufFk`) REFERENCES `comat`.`Estado` (`uf`)
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `comat`.`Endereco` (
   `numero` INT(11) NOT NULL,
   `complemento` VARCHAR(45) NULL,
   `bairro` VARCHAR(45) NULL,
-  `cep` INT(11) NOT NULL,
+  `cep` VARCHAR(10) NOT NULL,
   `idCidadeFk` INT(11) NOT NULL,
   PRIMARY KEY (`idEndereco`),
   FOREIGN KEY (`idCidadeFk`) REFERENCES `comat`.`Cidade` (`idCidade`)
@@ -57,8 +57,8 @@ ENGINE = InnoDB;
 -- Table `comat`.`ClienteFisica`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `comat`.`ClienteFisica` (
-  `cpf` bigint(20) NOT NULL,
-  `rg` bigint(20) NOT NULL,
+  `cpf` VARCHAR(14) NOT NULL,
+  `rg` VARCHAR(11) NULL,
   `nome` VARCHAR(72) NOT NULL,
   `dataNasc` DATE NULL,
   `celular` VARCHAR(12) NULL,
@@ -72,8 +72,8 @@ ENGINE = InnoDB;
 -- Table `comat`.`ClienteJuridica`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `comat`.`ClienteJuridica` (
-  `cnpj` bigint(20) NOT NULL,
-  `inscricao` bigint(20) NULL,
+  `cnpj` VARCHAR(18) NOT NULL,
+  `inscricao` VARCHAR(12) NULL,
   `razao` VARCHAR(72) NOT NULL,
   `fantasia` VARCHAR(72) NULL,
   `fax` VARCHAR(12) NULL,
@@ -108,4 +108,3 @@ CREATE TABLE IF NOT EXISTS `comat`.`ContatosCliente` (
   FOREIGN KEY (`idClienteFK`) REFERENCES `comat`.`Cliente` (`idCliente`)
 )
 ENGINE = InnoDB;
-

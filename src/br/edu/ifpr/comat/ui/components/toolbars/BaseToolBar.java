@@ -17,8 +17,7 @@ public class BaseToolBar extends JToolBar {
 	public BaseToolBar(ActionListener listener) {
 		this.buttons = new HashMap<String, JButton>();
 		this.listener = listener;
-		loadDefaultButtons();
-		cancelar();
+		loadDefaultButtons();		
 	}
 
 	public Map<String, JButton> getButtons() {
@@ -37,8 +36,7 @@ public class BaseToolBar extends JToolBar {
 				.addButton("Alterar", "/br/edu/ifpr/comat/ui/images/pencil.png")
 				.addButton("Excluir", "/br/edu/ifpr/comat/ui/images/delete.png")
 				.addButton("Salvar", "/br/edu/ifpr/comat/ui/images/disk.png")
-				.addButton("Cancelar",
-						"/br/edu/ifpr/comat/ui/images/cancel.png");
+				.addButton("Cancelar","/br/edu/ifpr/comat/ui/images/cancel.png");
 	}
 
 	protected JButton buidButton(String text, String iconPath) {
@@ -77,10 +75,18 @@ public class BaseToolBar extends JToolBar {
 	}
 
 	public void salvar() {
-		excluir();
+		getButtons().get("incluir").setEnabled(true);
+		getButtons().get("alterar").setEnabled(false);
+		getButtons().get("excluir").setEnabled(false);
+		getButtons().get("salvar").setEnabled(false);
+		getButtons().get("cancelar").setEnabled(false);
 	}
 
 	public void cancelar() {
-		excluir();
+		getButtons().get("incluir").setEnabled(true);
+		getButtons().get("alterar").setEnabled(false);
+		getButtons().get("excluir").setEnabled(false);
+		getButtons().get("salvar").setEnabled(false);
+		getButtons().get("cancelar").setEnabled(false);
 	}
 }

@@ -10,6 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
+import javax.swing.UIManager;
 
 import br.edu.ifpr.comat.ui.components.panels.ComatJPanels;
 import br.edu.ifpr.comat.ui.components.panels.impl.FirstPanel;
@@ -45,7 +46,7 @@ public class ComatJFrame extends JFrame {
 		setTitle(SYSTEM_NAME);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, PREFERRED_WIDTH, PREFERRED_HEIGHT);
-		setMinimumSize(new java.awt.Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
+		setMinimumSize(new java.awt.Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));		
 
 		buildComponents();
 		listener = new ComatListener(this);
@@ -84,8 +85,7 @@ public class ComatJFrame extends JFrame {
 		mnArquivo.add(new JSeparator());
 
 		mniSair = new JMenuItem("Sair");
-		mniSair.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
-				InputEvent.CTRL_MASK));
+		mniSair.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,InputEvent.CTRL_MASK));
 		mnArquivo.add(mniSair);
 
 		mnCadastros = new JMenu("Cadastros");

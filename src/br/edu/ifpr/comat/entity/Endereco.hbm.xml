@@ -18,8 +18,8 @@
         <property name="bairro" type="string">
             <column name="bairro" length="45" />
         </property>
-        <property name="cep" type="java.lang.Integer">
-            <column name="cep" not-null="true" />
+        <property name="cep" type="string">
+            <column name="cep" length="10" not-null="true" />
         </property> 
         <many-to-one
             name="cidade"

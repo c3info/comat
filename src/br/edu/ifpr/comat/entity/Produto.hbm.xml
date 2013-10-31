@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.edu.ifpr.comat.model.Produto" table="PRODUTO">
+		<id name="refProduto" type="java.lang.Integer">
+			<column name="refProduto" />
+			<generator class="assigned" />
+		</id>
+		<property name="codBarra" type="java.lang.String">
+			<column name="codBarra" length="13" />
+		</property>
+		<property name="codFabricante" type="java.lang.String">
+			<column name="codFabricante" length="12" />
+		</property>
+		<property name="nome" type="java.lang.String">
+			<column name="nome" length="45" not-null="true" />
+		</property>
+		<property name="descricao" type="java.lang.String">
+			<column name="descricao" length="96" />
+		</property>
+		<property name="unidade" type="int">
+			<column name="unidade" not-null="true" />
+		</property>
+		<property name="precoCusto" type="java.math.BigDecimal">
+			<column name="precoCusto" />
+		</property>
+		<property name="precoVenda" type="java.math.BigDecimal">
+			<column name="precoVenda" />
+		</property>
+		<property name="descontoMax" type="double">
+			<column name="descontoMax" />
+		</property>
+		<property name="quantidade" type="int">
+			<column name="quantidade" />
+		</property>
+		<property name="status" type="int">
+			<column name="status" not-null="true" />
+		</property>
+		<property name="marca" type="java.lang.String">
+			<column name="marca" />
+		</property>
+		<property name="peso" type="double">
+			<column name="peso" />
+		</property>
+		<many-to-one 
+			name="categoria" 
+			column="idCategoriaFk"
+			not-null="true" 
+			fetch="join" />
+
+	</class>
+</hibernate-mapping>

@@ -10,10 +10,10 @@ import java.util.Set;
  * @author Cristhiano Konczak Cardoso <cristhiano@c3info.com.br>
  * @date 17/09/2013
  */
-public class ClienteJuridica extends Cliente {
+public class ClienteJuridica extends Cliente implements java.io.Serializable{
 
-    private long cnpj;
-    private long inscricao;
+    private String cnpj;
+    private String inscricao;
     private String razao;
     private String fantasia;
     private String fax;
@@ -21,7 +21,7 @@ public class ClienteJuridica extends Cliente {
     public ClienteJuridica() {
     }
 
-    public ClienteJuridica(long cnpj, long inscricao, String razao, String fantasia, String fax, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Date dataCadastro, Endereco endereco, Set contatos) {
+    public ClienteJuridica(String cnpj, String inscricao, String razao, String fantasia, String fax, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Date dataCadastro, Endereco endereco, Set contatos) {
         super(idCliente, status, email, site, telefone, observacoes, dataCadastro, endereco, contatos);
         this.cnpj = cnpj;
         this.inscricao = inscricao;
@@ -30,19 +30,19 @@ public class ClienteJuridica extends Cliente {
         this.fax = fax;
     }
 
-    public long getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(long cnpj) {
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 
-    public long getInscricao() {
+    public String getInscricao() {
         return inscricao;
     }
 
-    public void setInscricao(long inscricao) {
+    public void setInscricao(String inscricao) {
         this.inscricao = inscricao;
     }
 

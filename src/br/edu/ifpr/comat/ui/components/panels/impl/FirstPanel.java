@@ -12,8 +12,7 @@ public class FirstPanel extends JPanel implements ComatJPanels {
 		buildComponents();
 	}
 
-	@Override
-	public void buildComponents() {		
+	private void buildComponents() {		
 
 	}
 

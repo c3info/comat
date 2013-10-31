@@ -3,11 +3,11 @@
 <hibernate-mapping>
     <joined-subclass name="br.edu.ifpr.comat.model.ClienteJuridica" extends="br.edu.ifpr.comat.model.Cliente">
         <key column="idClienteFk"/>  
-        <property name="cnpj" type="long">
+        <property name="cnpj" type="string">
             <column name="cnpj" />          
         </property>
-        <property name="inscricao" type="long">
-            <column name="inscricao" />
+        <property name="inscricao" type="string">
+            <column name="inscricao" length="12"/>
         </property>
         <property name="razao" type="string">
             <column name="razao" length="72" not-null="true" />

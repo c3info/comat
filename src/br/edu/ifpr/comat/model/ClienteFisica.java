@@ -10,10 +10,10 @@ import java.util.Set;
  * @author Cristhiano Konczak Cardoso <cristhiano@c3info.com.br>
  * @date 17/09/2013
  */
-public class ClienteFisica extends Cliente {
+public class ClienteFisica extends Cliente implements java.io.Serializable{
 
-    private long cpf;
-    private long rg;
+    private String cpf;
+    private String rg;
     private String nome;
     private Date dataNasc;
     private String celular;
@@ -21,7 +21,7 @@ public class ClienteFisica extends Cliente {
     public ClienteFisica() {
     }
 
-    public ClienteFisica(long cpf, long rg, String nome, Date dataNasc, String celular, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Date dataCadastro, Endereco endereco, Set contatos) {
+    public ClienteFisica(String cpf, String rg, String nome, Date dataNasc, String celular, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Date dataCadastro, Endereco endereco, Set contatos) {
         super(idCliente, status, email, site, telefone, observacoes, dataCadastro, endereco, contatos);
         this.cpf = cpf;
         this.rg = rg;
@@ -30,19 +30,19 @@ public class ClienteFisica extends Cliente {
         this.celular = celular;
     }
 
-    public long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public long getRg() {
+    public String getRg() {
         return rg;
     }
 
-    public void setRg(long rg) {
+    public void setRg(String rg) {
         this.rg = rg;
     }
 

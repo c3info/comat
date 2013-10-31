@@ -24,11 +24,12 @@ public class ClienteDAO extends BaseDAO {
 		session = getConnection();
 	}
 
-	public void insert(Cliente cli) {
+	public int insert(Cliente cli) {
 		try {
 			trns = session.beginTransaction();
 			session.save(cli);
 			session.getTransaction().commit();
+			
 		} catch (HibernateException hi) {
 			if (trns != null) {
 				trns.rollback();
@@ -38,6 +39,8 @@ public class ClienteDAO extends BaseDAO {
 			session.flush();
 			session.close();
 		}
+		
+		return cli.getIdCliente();
 	}
 
 	public void delete(Integer id) {
@@ -95,7 +98,7 @@ public class ClienteDAO extends BaseDAO {
 		Cliente cli = null;
 		try {
 			trns = session.beginTransaction();
-			String queryString = "from Cliente as cli where cli.idCliente = :id";
+			String queryString = "from Cliente where idCliente = :id";
 			Query query = session.createQuery(queryString);
 			query.setInteger("id", id);
 			cli = (Cliente) query.uniqueResult();

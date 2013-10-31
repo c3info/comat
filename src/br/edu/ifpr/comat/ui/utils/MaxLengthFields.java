@@ -16,18 +16,17 @@ public class MaxLengthFields extends PlainDocument {
 		if (str == null)
 			return;
 
-		if (iMaxLength <= 0) // aceitara qualquer no. de caracteres
-		{
+		if (iMaxLength <= 0) {
 			super.insertString(offset, str, attr);
 			return;
 		}
 
 		int ilen = (getLength() + str.length());
-		if (ilen <= iMaxLength) // se o comprimento final for menor...
-			super.insertString(offset, str, attr); // ...aceita str
+		if (ilen <= iMaxLength)
+			super.insertString(offset, str, attr);
 		else {
 			if (getLength() == iMaxLength)
-				return; // nada a fazer
+				return;
 			String newStr = str.substring(0, (iMaxLength - getLength()));
 
 			super.insertString(offset, newStr, attr);

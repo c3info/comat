@@ -9,7 +9,7 @@ import java.util.Set;
  * @author Cristhiano Konczak Cardoso <cristhiano@c3info.com.br>
  * @date 20/09/2013
  */
-public class Contato {
+public class Contato implements java.io.Serializable {
 
     private Integer idContato;
     private String nome;

@@ -24,7 +24,7 @@ public class EnderecoDAO extends BaseDAO {
 		session = getConnection();
 	}
 
-	public void insert(Endereco end) {
+	public int insert(Endereco end) {
 		try {
 			trns = session.beginTransaction();
 			session.save(end);
@@ -38,6 +38,7 @@ public class EnderecoDAO extends BaseDAO {
 			session.flush();
 			session.close();
 		}
+		return end.getIdEndereco();
 	}
 
 	public void delete(Integer id) {

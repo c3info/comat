@@ -31,10 +31,24 @@ public class Comat {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-    	new ComatJFrame().setVisible(true);
+    	
+    	
+    new EnderecoDAO().delete(2);
+     // Cliente cl1 = new ClienteFisica("80238807991", "48991084", "Cristhiano", new Date(), "84361902", null, 1, "cristhiano@c3info.com.br", "www.c3info.com.br", "33443247", "none", new Date(), null, null);
 
-//        Estado e1 = new Estado("PR", "Paraná");
-//        Estado e2 = new Estado("SP", "São Paulo");
+    
+//      Estado e1 = new Estado("PR", "ParanÃ¡");
+//      Cidade c1 = new Cidade(null, "Curitiba", e1);
+//      Endereco n1 = new Endereco(null, "Rua XV de Novembo", 1233, null, "Centro", "80010210", c1);
+//      
+//      new EnderecoDAO().insert(n1);
+//      
+//      System.out.println(n1.getIdEndereco().toString());
+    	
+    	
+      //new ClienteDAO().insert(cl1);
+//        Estado e1 = new Estado("PR", "Paranï¿½");
+//        Estado e2 = new Estado("SP", "Sï¿½o Paulo");
 //        Estado e3 = new Estado("SC", "Santa Catarina");
 //
 //        Cidade c1 = new Cidade(null, "Curitiba", e1);
@@ -59,6 +73,7 @@ public class Comat {
         
 //        Set contatos = new HashSet();
 //        contatos.add(new ContatoDAO().select(1));
+      
 //       
 //        Cliente up = new ClienteDAO().select(1);
 //        up.setContatos(contatos);

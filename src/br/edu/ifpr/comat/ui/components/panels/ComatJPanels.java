@@ -4,9 +4,7 @@ import javax.swing.JPanel;
 
 public interface ComatJPanels {
 	
-	public JPanel getPanel();
-
-	public void buildComponents();
+	public JPanel getPanel();	
 	
 	public void setEnabledFields();
 	
