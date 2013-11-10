@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="br.edu.ifpr.comat.model.Endereco" table="Endereco" catalog="comat">
-        <id name="idEndereco" type="java.lang.Integer">
-            <column name="idEndereco" />
-            <generator class="increment" />
-        </id>       
-        <property name="logradouro" type="string">
-            <column name="logradouro" length="45" not-null="true" />
-        </property>
-        <property name="numero" type="java.lang.Integer">
-            <column name="numero" not-null="true" />
-        </property>
-        <property name="complemento" type="string">
-            <column name="complemento" length="45" />
-        </property>
-        <property name="bairro" type="string">
-            <column name="bairro" length="45" />
-        </property>
-        <property name="cep" type="string">
-            <column name="cep" length="10" not-null="true" />
-        </property> 
-        <many-to-one
-            name="cidade"
-            column="idCidadeFk"           
-            not-null="true"
-            cascade="save-update"/>     
-    </class>
+	<class name="br.edu.ifpr.comat.model.Endereco" table="Endereco"
+		catalog="comat">
+		<id name="idEndereco" type="java.lang.Integer">
+			<column name="idEndereco" />
+			<generator class="increment" />
+		</id>
+		<property name="logradouro" type="string">
+			<column name="logradouro" length="45" not-null="true" />
+		</property>
+		<property name="numero" type="java.lang.Integer">
+			<column name="numero" not-null="true" />
+		</property>
+		<property name="complemento" type="string">
+			<column name="complemento" length="45" />
+		</property>
+		<property name="bairro" type="string">
+			<column name="bairro" length="45" />
+		</property>
+		<property name="cep" type="string">
+			<column name="cep" length="10" not-null="true" />
+		</property>
+		<many-to-one name="cidade" column="idCidadeFk" not-null="true" lazy="false"
+			cascade="save-update" />
+	</class>
 </hibernate-mapping>

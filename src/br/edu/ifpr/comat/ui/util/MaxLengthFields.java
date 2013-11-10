@@ -1,9 +1,9 @@
-package br.edu.ifpr.comat.ui.utils;
+package br.edu.ifpr.comat.ui.util;
 
 import javax.swing.text.*;
 
-public class MaxLengthFields extends PlainDocument {
-
+public class MaxLengthFields extends PlainDocument {	
+	
 	private int iMaxLength;
 
 	public MaxLengthFields(int maxlen) {

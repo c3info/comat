@@ -81,7 +81,7 @@ public class ClienteDAO extends BaseDAO {
 		List<Cliente> clientes = new ArrayList<>();
 		try {
 			trns = session.beginTransaction();
-			clientes = session.createQuery("from Cliente").list();
+			clientes = session.createQuery("from Cliente ORDER BY dataCadastro desc").list();
 		} catch (HibernateException hi) {
 			if (trns != null) {
 				trns.rollback();
@@ -112,5 +112,5 @@ public class ClienteDAO extends BaseDAO {
 			session.close();
 		}
 		return cli;
-	}
+	}	
 }

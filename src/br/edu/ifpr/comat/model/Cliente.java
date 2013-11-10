@@ -11,100 +11,102 @@ import java.util.Set;
  */
 public class Cliente implements java.io.Serializable {
 
-    private Integer idCliente;
-    private Integer status;
-    private String email;
-    private String site;
-    private String telefone;
-    private String observacoes;
-    private Date dataCadastro;
-    private Endereco endereco;
-    private Set contatos;
+	private Integer idCliente;
+	private Integer status;
+	private String email;
+	private String site;
+	private String telefone;
+	private String observacoes;
+	private Date dataCadastro;
+	private Endereco endereco;
+	private Set contatos;
 
-    public Cliente() {
-    }
+	public Cliente() {
+	}
 
-    public Cliente(Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Date dataCadastro, Endereco endereco, Set contatos) {
-        this.idCliente = idCliente;
-        this.status = status;
-        this.email = email;
-        this.site = site;
-        this.telefone = telefone;
-        this.observacoes = observacoes;
-        this.dataCadastro = dataCadastro;
-        this.endereco = endereco;
-        this.contatos = contatos;
-    }
+	public Cliente(Integer idCliente, Integer status, String email,
+			String site, String telefone, String observacoes,
+			Date dataCadastro, Endereco endereco, Set contatos) {
+		this.idCliente = idCliente;
+		this.status = status;
+		this.email = email;
+		this.site = site;
+		this.telefone = telefone;
+		this.observacoes = observacoes;
+		this.dataCadastro = dataCadastro;
+		this.endereco = endereco;
+		this.contatos = contatos;
+	}
 
-    public Integer getIdCliente() {
-        return idCliente;
-    }
+	public Integer getIdCliente() {
+		return idCliente;
+	}
 
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
-    }
+	public void setIdCliente(Integer idCliente) {
+		this.idCliente = idCliente;
+	}
 
-    public Integer getStatus() {
-        return status;
-    }
+	public Integer getStatus() {
+		return status;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getSite() {
-        return site;
-    }
+	public String getSite() {
+		return site;
+	}
 
-    public void setSite(String site) {
-        this.site = site;
-    }
+	public void setSite(String site) {
+		this.site = site;
+	}
 
-    public String getTelefone() {
-        return telefone;
-    }
+	public String getTelefone() {
+		return telefone;
+	}
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
-    public String getObservacoes() {
-        return observacoes;
-    }
+	public String getObservacoes() {
+		return observacoes;
+	}
 
-    public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
-    }
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
 
-    public Date getDataCadastro() {
-        return dataCadastro;
-    }
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
 
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
+	public Endereco getEndereco() {
+		return endereco;
+	}
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
-    public Set getContatos() {
-        return contatos;
-    }
+	public Set getContatos() {
+		return contatos;
+	}
 
-    public void setContatos(Set contatos) {
-        this.contatos = contatos;
-    }
+	public void setContatos(Set contatos) {
+		this.contatos = contatos;
+	}
 }

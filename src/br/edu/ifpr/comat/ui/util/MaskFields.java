@@ -1,7 +1,6 @@
-package br.edu.ifpr.comat.ui.utils;
+package br.edu.ifpr.comat.ui.util;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 public class MaskFields {

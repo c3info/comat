@@ -110,4 +110,24 @@ public class ClienteJuridicaDAO extends BaseDAO {
 		}
 		return cli;
 	}
+	
+	public ClienteJuridica selectCnpj(String cnpj) {
+		ClienteJuridica cli = null;
+		try {
+			trns = session.beginTransaction();
+			String queryString = "from ClienteJuridica where cnpj = :cnpj";
+			Query query = session.createQuery(queryString);
+			query.setString("cnpj", cnpj);
+			cli = (ClienteJuridica) query.uniqueResult();
+		} catch (HibernateException hi) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			hi.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return cli;
+	}
 }

@@ -1,11 +1,10 @@
-package br.edu.ifpr.comat.ui.utils;
+package br.edu.ifpr.comat.ui.util;
 
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 
 public class CheckFields {
 

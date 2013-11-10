@@ -4,7 +4,6 @@ import java.util.List;
 
 import br.edu.ifpr.comat.dao.CidadeDAO;
 import br.edu.ifpr.comat.model.Cidade;
-import br.edu.ifpr.comat.model.Estado;
 
 public class CidadeController {
 
@@ -21,7 +20,7 @@ public class CidadeController {
 
 	}
 	
-	public List getCidadesDoEstado(String estado) {
+	public List<Cidade> getCidadesDoEstado(String estado) {
 		List<Cidade> cidades = new CidadeDAO().selectPorEstado(estado);		
 		return cidades;
 	}

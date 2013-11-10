@@ -3,18 +3,17 @@ package br.edu.ifpr.comat.ui.components.toolbars;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
-public class BaseToolBar extends JToolBar {
-
+public class CrudToolBar extends JToolBar {
+	
 	private Map<String, JButton> buttons;
 	private ActionListener listener;
 
-	public BaseToolBar(ActionListener listener) {
+	public CrudToolBar(ActionListener listener) {
 		this.buttons = new HashMap<String, JButton>();
 		this.listener = listener;
 		loadDefaultButtons();		
@@ -24,7 +23,7 @@ public class BaseToolBar extends JToolBar {
 		return buttons;
 	}
 
-	public BaseToolBar addButton(String text, String iconPath) {
+	public CrudToolBar addButton(String text, String iconPath) {
 		JButton button = buidButton(text, iconPath);
 		buttons.put(text.toLowerCase(), button);
 		add(button);
@@ -51,42 +50,27 @@ public class BaseToolBar extends JToolBar {
 	}
 
 	public void incluir() {
-		getButtons().get("incluir").setEnabled(false);
+		getButtons().get("incluir").setEnabled(true);
 		getButtons().get("alterar").setEnabled(false);
 		getButtons().get("excluir").setEnabled(false);
-		getButtons().get("salvar").setEnabled(true);
-		getButtons().get("cancelar").setEnabled(true);
+		getButtons().get("salvar").setEnabled(false);
+		getButtons().get("cancelar").setEnabled(false);
 	}
 
 	public void alterar() {
+		getButtons().get("incluir").setEnabled(true);
+		getButtons().get("alterar").setEnabled(true);
+		getButtons().get("excluir").setEnabled(true);
+		getButtons().get("salvar").setEnabled(false);
+		getButtons().get("cancelar").setEnabled(false);
+	}
+	
+	public void inclusao(){
 		getButtons().get("incluir").setEnabled(false);
 		getButtons().get("alterar").setEnabled(false);
 		getButtons().get("excluir").setEnabled(false);
 		getButtons().get("salvar").setEnabled(true);
 		getButtons().get("cancelar").setEnabled(true);
-	}
-
-	public void excluir() {
-		getButtons().get("incluir").setEnabled(true);
-		getButtons().get("alterar").setEnabled(false);
-		getButtons().get("excluir").setEnabled(false);
-		getButtons().get("salvar").setEnabled(false);
-		getButtons().get("cancelar").setEnabled(false);
-	}
-
-	public void salvar() {
-		getButtons().get("incluir").setEnabled(true);
-		getButtons().get("alterar").setEnabled(false);
-		getButtons().get("excluir").setEnabled(false);
-		getButtons().get("salvar").setEnabled(false);
-		getButtons().get("cancelar").setEnabled(false);
-	}
-
-	public void cancelar() {
-		getButtons().get("incluir").setEnabled(true);
-		getButtons().get("alterar").setEnabled(false);
-		getButtons().get("excluir").setEnabled(false);
-		getButtons().get("salvar").setEnabled(false);
-		getButtons().get("cancelar").setEnabled(false);
-	}
+		
+	}	
 }

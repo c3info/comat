@@ -1,67 +1,65 @@
 package br.edu.ifpr.comat.ui.components.panels.impl;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.EtchedBorder;
 
 import br.edu.ifpr.comat.controller.CidadeController;
 import br.edu.ifpr.comat.controller.EstadoController;
 import br.edu.ifpr.comat.ui.components.panels.ComatJPanels;
-import br.edu.ifpr.comat.ui.utils.MaskFields;
-import br.edu.ifpr.comat.ui.utils.MaxLengthFields;
+import br.edu.ifpr.comat.ui.util.MaskFields;
+import br.edu.ifpr.comat.ui.util.MaxLengthFields;
 
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.border.EtchedBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JComboBox;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 import javax.swing.JFormattedTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, ActionListener {
-	private JTextField txRazao, txFantasia, txInscricao, txTelefone, txFax,
-			txEmail, txSite,  txEndereco, txNumero, txComplemento,
+public class FormClientesFisica extends JPanel implements ComatJPanels, ActionListener {
+	private JTextField txNome, txRg, txTelefone, txCelular,
+			txEmail, txSite, txEndereco, txNumero, txComplemento,
 			txBairro;
-	private JFormattedTextField txCnpj, txCep;
-	private JTextArea txObservacoes;	
-	JComboBox<String> cbxUf, cbxCidade;
+	private JFormattedTextField txCep, txDataNasc, txCpf;	
+	private JTextArea txObservacoes;
+	private JComboBox<String> cbxUf, cbxCidade;
 	private String[] estados, cidades;
-	
-	public ClientesFormJuridicaPanel() {
+
+	public FormClientesFisica() {
 		setBorder(new EtchedBorder());
 		buildComponents();
 		setDisableFields();
-	}
-
+	}		
+	
 	private void buildComponents() {
 		
-		JLabel lblRazao = new JLabel("Razão social:");
-		txRazao = new JTextField(10);
-		txRazao.setDocument(new MaxLengthFields(72));
-		
-		JLabel lblFantasia = new JLabel("Fantasia:");		
-		txFantasia = new JTextField(10);
-		txFantasia.setDocument(new MaxLengthFields(72));
+		JLabel lblNome = new JLabel("Nome:");
+		txNome = new JTextField(10);		
+		txNome.setDocument(new MaxLengthFields(72)); 
 
-		JLabel lblCnpj = new JLabel("CNPJ:");
-		txCnpj = new JFormattedTextField(MaskFields.Mascara("##.###.###/####-##"));	
+		JLabel lblCpf = new JLabel("CPF:");		
+		txCpf = new JFormattedTextField(MaskFields.Mascara("###.###.###-##"));
 
-		JLabel lblInscricao = new JLabel("Inscrição Est.:");
-		txInscricao = new JTextField(10);	
-		txInscricao.setDocument(new MaxLengthFields(12));
+		JLabel lblRg = new JLabel("RG:");
+		txRg = new JTextField();
+		txRg.setDocument(new MaxLengthFields(11)); 
+
+		JLabel lblDataNasc = new JLabel("Data de nascimento:");		
+		txDataNasc = new JFormattedTextField(MaskFields.Mascara("##/##/####"));
 
 		JLabel lblTelefone = new JLabel("Telefone:");
 		txTelefone = new JTextField(10);
 		txTelefone.setDocument(new MaxLengthFields(12)); 
 
-		JLabel lblFax = new JLabel("Fax:");
-		txFax = new JTextField(10);
-		txFax.setDocument(new MaxLengthFields(12)); 
-		
+		JLabel lblCelular = new JLabel("Celular:");
+		txCelular = new JTextField(10);
+		txCelular.setDocument(new MaxLengthFields(12)); 
+
 		JLabel lblEmail = new JLabel("e-mail:");
 		txEmail = new JTextField(10);
 		txEmail.setDocument(new MaxLengthFields(72));
@@ -86,7 +84,7 @@ public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, A
 
 		JLabel lblBairro = new JLabel("Bairro:");
 		txBairro = new JTextField(10);
-		txBairro.setDocument(new MaxLengthFields(45));		
+		txBairro.setDocument(new MaxLengthFields(45));
 
 		JLabel lblUf = new JLabel("UF:");		
 		estados = new EstadoController().getEstadosStringVet();			
@@ -101,7 +99,7 @@ public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, A
 		JLabel lblObservacoes = new JLabel("Observações:");
 		txObservacoes = new JTextArea();
 		JScrollPane scrollPane = new JScrollPane(txObservacoes);
-		
+
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -109,25 +107,26 @@ public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, A
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
 							.addContainerGap())
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblRazao)
+							.addComponent(lblNome)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txRazao, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-							.addGap(18)
-							.addComponent(lblFantasia)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txFantasia, GroupLayout.PREFERRED_SIZE, 350, GroupLayout.PREFERRED_SIZE)
+							.addComponent(txNome, GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
 							.addGap(6))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblCnpj)
+							.addComponent(lblCpf)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txCnpj, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addComponent(txCpf, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(lblInscricao)
+							.addComponent(lblRg)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txInscricao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(txRg, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(lblDataNasc)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(txDataNasc, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblTelefone)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -135,16 +134,16 @@ public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, A
 							.addGap(18)
 							.addComponent(lblEmail)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txEmail, GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+							.addComponent(txEmail, GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
 							.addGap(6))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblFax)
+							.addComponent(lblCelular)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txFax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(txCelular, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(lblSite)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txSite, GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+							.addComponent(txSite, GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
 							.addGap(6))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblCep)
@@ -153,7 +152,7 @@ public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, A
 							.addGap(18)
 							.addComponent(lblEndereo)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txEndereco, GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+							.addComponent(txEndereco, GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
 							.addGap(18)
 							.addComponent(lblNmero)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -162,11 +161,11 @@ public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, A
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblComplemento)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txComplemento, GroupLayout.PREFERRED_SIZE, 200, Short.MAX_VALUE)
+							.addComponent(txComplemento, GroupLayout.PREFERRED_SIZE, 160, Short.MAX_VALUE)
 							.addGap(18)
 							.addComponent(lblBairro)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txBairro, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+							.addComponent(txBairro, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(lblUf)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -178,23 +177,23 @@ public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, A
 							.addGap(6))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblObservacoes)
-							.addContainerGap(699, Short.MAX_VALUE))))
+							.addContainerGap(746, Short.MAX_VALUE))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblRazao)
-						.addComponent(txRazao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblFantasia)
-						.addComponent(txFantasia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblNome)
+						.addComponent(txNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblCnpj)
-						.addComponent(txCnpj, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblInscricao)
-						.addComponent(txInscricao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblCpf)
+						.addComponent(txCpf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblRg)
+						.addComponent(txRg, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDataNasc)
+						.addComponent(txDataNasc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTelefone)
@@ -203,8 +202,8 @@ public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, A
 						.addComponent(txEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblFax)
-						.addComponent(txFax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblCelular)
+						.addComponent(txCelular, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblSite)
 						.addComponent(txSite, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -229,48 +228,42 @@ public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, A
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblObservacoes)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(134, Short.MAX_VALUE))
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 
 		scrollPane
 				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		setLayout(groupLayout);
-
-	}
-
-	@Override
-	public JPanel getPanel() {
-		return this;
+		setLayout(groupLayout);	
 	}	
+
+	public JTextField getTxNome() {
+		return txNome;
+	}	
+
+	public JFormattedTextField getTxCpf() {
+		return txCpf;
+	}
+
+	public JTextField getTxRg() {
+		return txRg;
+	}
+
+	public JFormattedTextField getTxDataNasc() {
+		return txDataNasc;
+	}
 	
-	public JTextField getTxRazao() {
-		return txRazao;
-	}
-
-	public JTextField getTxFantasia() {
-		return txFantasia;
-	}
-
-	public JFormattedTextField getTxCnpj() {
-		return txCnpj;
-	}
-
-	public JTextField getTxInscricao() {
-		return txInscricao;
-	}
-
 	public JTextField getTxTelefone() {
 		return txTelefone;
 	}
-
+	
 	public JTextField getTxEmail() {
 		return txEmail;
 	}
-	
-	public JTextField getTxFax() {
-		return txFax;
-	}
+
+	public JTextField getTxCelular() {
+		return txCelular;
+	}	
 
 	public JTextField getTxSite() {
 		return txSite;
@@ -294,33 +287,38 @@ public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, A
 
 	public JTextField getTxBairro() {
 		return txBairro;
-	}	
+	}
 
 	public JComboBox<String> getCbxUf() {
 		return cbxUf;
-	}
+	}	
 
 	public JComboBox<String> getCbxCidade() {
 		return cbxCidade;
-	}	
+	}
 	
 	private void setCbxCidade(String estado) {
 		String[] cidades = new CidadeController().getCidadesPorEstado(estado);
 		cbxCidade.setModel(new JComboBox<>(cidades).getModel());
 	}
-	
+
 	public JTextArea getTxObservacoes() {
 		return txObservacoes;
 	}
 
 	@Override
+	public JPanel getPanel() {
+		return this;
+	}	
+
+	@Override
 	public void setEnabledFields() {
-		txRazao.setEnabled(true);
-		txFantasia.setEnabled(true);
-		txInscricao.setEnabled(true);
-		txCnpj.setEnabled(true);		
+		txNome.setEnabled(true);
+		txCpf.setEnabled(true);
+		txRg.setEnabled(true);
+		txDataNasc.setEnabled(true);
 		txTelefone.setEnabled(true);
-		txFax.setEnabled(true);		
+		txCelular.setEnabled(true);
 		txEmail.setEnabled(true);
 		txSite.setEnabled(true);
 		txCep.setEnabled(true);
@@ -331,17 +329,17 @@ public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, A
 		cbxCidade.setEnabled(true);
 		cbxUf.setEnabled(true);
 		txObservacoes.setEnabled(true);
-		txRazao.requestFocusInWindow();	
+		txNome.requestFocusInWindow();
 	}
-
+	
 	@Override
 	public void setDisableFields() {
-		txRazao.setEnabled(false);
-		txFantasia.setEnabled(false);
-		txInscricao.setEnabled(false);
-		txCnpj.setEnabled(false);		
+		txNome.setEnabled(false);
+		txCpf.setEnabled(false);
+		txRg.setEnabled(false);
+		txDataNasc.setEnabled(false);
 		txTelefone.setEnabled(false);
-		txFax.setEnabled(false);		
+		txCelular.setEnabled(false);
 		txEmail.setEnabled(false);
 		txSite.setEnabled(false);
 		txCep.setEnabled(false);
@@ -351,17 +349,17 @@ public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, A
 		txBairro.setEnabled(false);
 		cbxCidade.setEnabled(false);
 		cbxUf.setEnabled(false);
-		txObservacoes.setEnabled(false);		
+		txObservacoes.setEnabled(false);
 	}
-
+	
 	@Override
 	public void setCleanFields() {
-		txRazao.setText("");
-		txFantasia.setText("");
-		txInscricao.setText("");
-		txCnpj.setText("");		
+		txNome.setText("");
+		txCpf.setText("");
+		txRg.setText("");
+		txDataNasc.setText("");
 		txTelefone.setText("");
-		txFax.setText("");		
+		txCelular.setText("");
 		txEmail.setText("");
 		txSite.setText("");
 		txCep.setText("");
@@ -369,14 +367,23 @@ public class ClientesFormJuridicaPanel extends JPanel implements ComatJPanels, A
 		txNumero.setText("");
 		txComplemento.setText("");
 		txBairro.setText("");		
-		txObservacoes.setText(""); 		
+		txObservacoes.setText("");   
+	}
+	
+	@Override
+	public void setLockFk() {
+		txCpf.setEditable(false);		
 	}
 
+	@Override
+	public void setUnLockFk() {
+		txCpf.setEditable(true);	
+	}	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JComboBox cb = (JComboBox) e.getSource();
 		String estado = (String) cb.getSelectedItem();
 		setCbxCidade(estado);
 	}	
-
 }

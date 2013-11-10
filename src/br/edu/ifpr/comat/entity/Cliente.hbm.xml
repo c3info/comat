@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="br.edu.ifpr.comat.model.Cliente" table="Cliente" catalog="comat">
-        <id name="idCliente" type="java.lang.Integer">
-            <column name="idCliente" />
-            <generator class="increment" />
-        </id>
-        <property name="status" type="java.lang.Integer">
-            <column name="status" />
-        </property>
-        <property name="email" type="string">
-            <column name="email" length="72" />
-        </property>
-        <property name="site" type="string">
-            <column name="site" length="72" />
-        </property>
-        <property name="telefone" type="string">
-            <column name="telefone" length="12" />
-        </property>
-        <property name="dataCadastro" type="date">
-            <column name="dataCadastro" length="10" />
-        </property> 
-        <property name="observacoes" type="string">
-            <column name="observacoes" />
-        </property>   
-         <!-- not-null="true" -->           
-        <many-to-one
-            name="endereco"
-            column="idEnderecoFk"                   
-            cascade="save-update"/>         
-        <set name="contatos" table="ContatosCliente" inverse="false">			 
-            <key column="idClienteFk"/>
-            <many-to-many class="br.edu.ifpr.comat.model.Contato" column="idContatoFk"/>			
-        </set>               
-    </class>
+	<class name="br.edu.ifpr.comat.model.Cliente" table="Cliente"
+		catalog="comat">
+		<id name="idCliente" type="java.lang.Integer">
+			<column name="idCliente" />
+			<generator class="increment" />
+		</id>
+		<property name="status" type="java.lang.Integer">
+			<column name="status" />
+		</property>
+		<property name="email" type="string">
+			<column name="email" length="72" />
+		</property>
+		<property name="site" type="string">
+			<column name="site" length="72" />
+		</property>
+		<property name="telefone" type="string">
+			<column name="telefone" length="12" />
+		</property>
+		<property name="dataCadastro" type="date">
+			<column name="dataCadastro" length="10" />
+		</property>
+		<property name="observacoes" type="string">
+			<column name="observacoes" />
+		</property>
+		<!-- not-null="true" -->
+		<many-to-one name="endereco" column="idEnderecoFk" lazy="false"
+			cascade="save-update" />
+		<set name="contatos" table="ContatosCliente" inverse="false">
+			<key column="idClienteFk" />
+			<many-to-many class="br.edu.ifpr.comat.model.Contato"
+				column="idContatoFk" />
+		</set>
+	</class>
 </hibernate-mapping>

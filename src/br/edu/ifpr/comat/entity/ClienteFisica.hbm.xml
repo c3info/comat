@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <joined-subclass name="br.edu.ifpr.comat.model.ClienteFisica" extends="br.edu.ifpr.comat.model.Cliente">
-        <key column="idClienteFk"/>   
-        <property name="cpf" type="string">
-            <column name="cpf" />           
-        </property>
-        <property name="rg" type="string">
-            <column name="rg" length="11" />
-        </property>
-        <property name="nome" type="string">
-            <column name="nome" length="72" not-null="true" />
-        </property>
-        <property name="dataNasc" type="date">
-            <column name="dataNasc" length="10" />
-        </property>
-        <property name="celular" type="string">
-            <column name="celular" length="12" />
-        </property>     
-    </joined-subclass>
+	<joined-subclass name="br.edu.ifpr.comat.model.ClienteFisica"
+		extends="br.edu.ifpr.comat.model.Cliente">
+		<key column="idClienteFk" />
+		<property name="cpf" type="string">
+			<column name="cpf" />
+		</property>
+		<property name="rg" type="string">
+			<column name="rg" length="11" />
+		</property>
+		<property name="nome" type="string">
+			<column name="nome" length="72" not-null="true" />
+		</property>
+		<property name="dataNasc" type="date">
+			<column name="dataNasc" length="10" />
+		</property>
+		<property name="celular" type="string">
+			<column name="celular" length="12" />
+		</property>
+	</joined-subclass>
 </hibernate-mapping>

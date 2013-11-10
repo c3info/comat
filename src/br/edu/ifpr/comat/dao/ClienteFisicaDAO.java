@@ -110,4 +110,24 @@ public class ClienteFisicaDAO extends BaseDAO {
 		}
 		return cli;
 	}
+	
+	public ClienteFisica selectCpf(String cpf) {
+		ClienteFisica cli = null;
+		try {
+			trns = session.beginTransaction();
+			String queryString = "from ClienteFisica where cpf = :cpf";
+			Query query = session.createQuery(queryString);
+			query.setString("cpf", cpf);
+			cli = (ClienteFisica) query.uniqueResult();
+		} catch (HibernateException hi) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			hi.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return cli;
+	}	
 }

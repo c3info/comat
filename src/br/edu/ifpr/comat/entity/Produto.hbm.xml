@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="br.edu.ifpr.comat.model.Produto" table="PRODUTO">
+	<class name="br.edu.ifpr.comat.model.Produto" table="Produto"
+		catalog="comat">
 		<id name="refProduto" type="java.lang.Integer">
 			<column name="refProduto" />
 			<generator class="assigned" />
@@ -42,11 +43,8 @@
 		<property name="peso" type="double">
 			<column name="peso" />
 		</property>
-		<many-to-one 
-			name="categoria" 
-			column="idCategoriaFk"
-			not-null="true" 
-			fetch="join" />
+		<many-to-one name="categoria" column="idCategoriaFk"
+			not-null="true" fetch="join" />
 
 	</class>
 </hibernate-mapping>

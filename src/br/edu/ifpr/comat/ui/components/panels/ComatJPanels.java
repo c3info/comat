@@ -11,5 +11,9 @@ public interface ComatJPanels {
 	public void setDisableFields();
 	
 	public void setCleanFields();
+	
+	public void setLockFk();
+	
+	public void setUnLockFk();
 
 }
