@@ -19,13 +19,13 @@
 		<property name="descricao" type="java.lang.String">
 			<column name="descricao" length="96" />
 		</property>
-		<property name="unidade" type="int">
-			<column name="unidade" not-null="true" />
+		<property name="unidade" type="java.lang.String">
+			<column name="unidade" length="4" not-null="true" />
 		</property>
-		<property name="precoCusto" type="java.math.BigDecimal">
+		<property name="precoCusto" type="double">
 			<column name="precoCusto" />
 		</property>
-		<property name="precoVenda" type="java.math.BigDecimal">
+		<property name="precoVenda" type="double">
 			<column name="precoVenda" />
 		</property>
 		<property name="descontoMax" type="double">
@@ -44,7 +44,7 @@
 			<column name="peso" />
 		</property>
 		<many-to-one name="categoria" column="idCategoriaFk"
-			not-null="true" fetch="join" />
+			lazy="false" not-null="true" fetch="join" />
 
 	</class>
 </hibernate-mapping>

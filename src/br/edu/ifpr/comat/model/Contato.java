@@ -17,74 +17,76 @@ public class Contato implements java.io.Serializable {
     private String celular;
     private String email;
     private String funcao;
-    private Set clientes;
+    private Cliente cliente;
 
     public Contato() {
     }
 
-    public Contato(Integer idContato, String nome, String telefone, String celular, String email, String funcao, Set clientes) {
-        this.idContato = idContato;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.celular = celular;
-        this.email = email;
-        this.funcao = funcao;
-        this.clientes = clientes;
-    }
+	public Contato(Integer idContato, String nome, String telefone,
+			String celular, String email, String funcao, Cliente cliente) {		
+		this.idContato = idContato;
+		this.nome = nome;
+		this.telefone = telefone;
+		this.celular = celular;
+		this.email = email;
+		this.funcao = funcao;
+		this.cliente = cliente;
+	}
 
-    public Integer getIdContato() {
-        return idContato;
-    }
+	public Integer getIdContato() {
+		return idContato;
+	}
 
-    public void setIdContato(Integer idContato) {
-        this.idContato = idContato;
-    }
+	public void setIdContato(Integer idContato) {
+		this.idContato = idContato;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public String getTelefone() {
-        return telefone;
-    }
+	public String getTelefone() {
+		return telefone;
+	}
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
-    public String getCelular() {
-        return celular;
-    }
+	public String getCelular() {
+		return celular;
+	}
 
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getFuncao() {
-        return funcao;
-    }
+	public String getFuncao() {
+		return funcao;
+	}
 
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
-    }
+	public void setFuncao(String funcao) {
+		this.funcao = funcao;
+	}
 
-    public Set getClientes() {
-        return clientes;
-    }
+	public Cliente getCliente() {
+		return cliente;
+	}
 
-    public void setClientes(Set clientes) {
-        this.clientes = clientes;
-    }
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}    
+
 }

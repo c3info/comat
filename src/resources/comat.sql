@@ -88,23 +88,76 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `comat`.`Contato` (
   `idContato` INT(11) NOT NULL,
-  `nome` VARCHAR(45) NULL,
+  `nome` VARCHAR(45) NOT NULL,
   `telefone` VARCHAR(12) NULL,
-  `celular` VARCHAR(12) NULL,
+  `celular` VARCHAR(12) NOT NULL,
   `email` VARCHAR(72) NULL,
   `funcao` VARCHAR(45) NULL,
-  PRIMARY KEY (`idContato`)
+  `idClienteFk` INT(11) NOT NULL,
+  PRIMARY KEY (`idContato`),
+  FOREIGN KEY (`idClienteFK`) REFERENCES `comat`.`Cliente` (`idCliente`)
 )
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `comat`.`ContatosCliente`
+-- Table `comat`.`Obra`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `comat`.`ContatosCliente` (
-  `idContatoFk` INT(11) NOT NULL,
-  `idClienteFk` INT(11) NOT NULL,
-  PRIMARY KEY (`idContatoFk`, `idClienteFk`),  
-  FOREIGN KEY (`idContatoFk`) REFERENCES `comat`.`Contato` (`idContato`),
-  FOREIGN KEY (`idClienteFK`) REFERENCES `comat`.`Cliente` (`idCliente`)
+CREATE TABLE IF NOT EXISTS `comat`.`Obra` (
+  `idObra` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `telefone` VARCHAR(12) NULL,
+  `responsavel` VARCHAR(72) NULL,
+  `idClienteFk` INT NOT NULL,
+  `idEnderecoFk` INT NOT NULL,
+  PRIMARY KEY (`idObra`), 
+  FOREIGN KEY (`idClienteFk`) REFERENCES `comat`.`Cliente` (`idCliente`),
+  FOREIGN KEY (`idEnderecoFk`) REFERENCES `comat`.`Endereco` (`idEndereco`)
+) 
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `comat`.`Categoria`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `comat`.`Categoria` (
+  `idCategoria` INT(11) NOT NULL AUTO_INCREMENT,
+  `nomeCategoria` VARCHAR(42) NOT NULL UNIQUE,
+  PRIMARY KEY (`idCategoria`)
+)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `comat`.`Produto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `comat`.`Produto` (
+  `refProduto` INT(11) NOT NULL,
+  `codBarra` VARCHAR(13) NULL,
+  `CodFabricante` VARCHAR(12) NULL,
+  `nome` VARCHAR(45) NOT NULL,
+  `descricao` VARCHAR(96) NULL,
+  `unidade` VARCHAR(4) NOT NULL,
+  `precoCusto` DOUBLE NULL,
+  `precoVenda` DOUBLE NULL,
+  `descontoMax` DOUBLE NULL,
+  `quantidade` DOUBLE NULL,
+  `status` INT NOT NULL,
+  `marca` VARCHAR(45) NULL,
+  `peso` DOUBLE NULL,
+  `idCategoriaFk` INT NOT NULL,
+  PRIMARY KEY (`refProduto`),
+  FOREIGN KEY (`idCategoriaFk`) REFERENCES `comat`.`Categoria` (`idCategoria`)
+)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `comat`.`CorrelacaoProdutos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `comat`.`CorrelacaoProdutos` (
+  `refProdutoFk` INT NOT NULL,
+  `refProdutoRelFk` INT NOT NULL,
+  `data` DATETIME NOT NULL,
+  `tipo` INT NULL,
+  PRIMARY KEY (`refProdutoFk`, `refProdutoRelFk`),  
+  FOREIGN KEY (`refProdutoFk`) REFERENCES `comat`.`Produto` (`refProduto`), 
+  FOREIGN KEY (`refProdutoRelFk`) REFERENCES `comat`.`Produto` (`refProduto`)
 )
 ENGINE = InnoDB;

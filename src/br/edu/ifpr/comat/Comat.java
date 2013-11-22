@@ -1,5 +1,6 @@
 package br.edu.ifpr.comat;
 
+import br.edu.ifpr.comat.controller.ClienteController;
 import br.edu.ifpr.comat.dao.CidadeDAO;
 import br.edu.ifpr.comat.dao.ClienteDAO;
 import br.edu.ifpr.comat.dao.ClienteFisicaDAO;
@@ -13,10 +14,12 @@ import br.edu.ifpr.comat.model.ClienteJuridica;
 import br.edu.ifpr.comat.model.Contato;
 import br.edu.ifpr.comat.model.Endereco;
 import br.edu.ifpr.comat.model.Estado;
+import br.edu.ifpr.comat.model.Obra;
 import br.edu.ifpr.comat.ui.ComatMainFrame;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -32,10 +35,11 @@ public class Comat {
      */
     public static void main(String[] args) {
     	
+
     	
-    new EnderecoDAO().delete(1);
-    new EnderecoDAO().delete(3);
-    new EnderecoDAO().delete(4);
+//    new EnderecoDAO().delete(1);
+//    new EnderecoDAO().delete(3);
+//    new EnderecoDAO().delete(4);
      // Cliente cl1 = new ClienteFisica("80238807991", "48991084", "Cristhiano", new Date(), "84361902", null, 1, "cristhiano@c3info.com.br", "www.c3info.com.br", "33443247", "none", new Date(), null, null);
 
     

@@ -1,3 +1,23 @@
+INSERT INTO `cliente` (`idCliente`, `status`, `email`, `site`, `telefone`, `dataCadastro`, `observacoes`, `idEnderecoFk`) VALUES
+(1, 1, 'cristhiano@c3info.com.br', 'www.c3info.com.br', '4333443247', '2013-11-08', 'Teste', 1),
+(2, 0, 'cristina@maximacom.jor.br', NULL, '433325452', '2013-11-07', NULL, 2),
+(3, 1, 'maxima@sercomtel.com.br', 'www.maximacom.jor.br', '433342545', '2013-11-08', NULL, 3),
+(4, 0, 'contato@fibrillare.com.br', 'www.fibrillare.com.br', '4332760006', '2013-11-10', NULL, 4);
+
+INSERT INTO `clientefisica` (`cpf`, `rg`, `nome`, `dataNasc`, `celular`, `idClienteFk`) VALUES
+('014.425.179-56', '4548484', 'Cristina Luchini', '1793-09-01', '4384089996', 2),
+('802.388.079-91', '48991084', 'Cristhiano Konczak Cardoso', '1973-11-01', '4384361902', 1);
+
+INSERT INTO `clientejuridica` (`cnpj`, `inscricao`, `razao`, `fantasia`, `fax`, `idClienteFk`) VALUES
+('03.146.244/0001-75', '1254485', 'Máxima Comunicação', 'Máxima', NULL, 3),
+('11.044.074/0001-46', '122012424', 'Fibrillare Comércio de Móveis Ltda', 'Fibrillare', NULL, 4);
+
+INSERT INTO `endereco` (`idEndereco`, `logradouro`, `numero`, `complemento`, `bairro`, `cep`, `idCidadeFk`) VALUES
+(1, 'Rua Chipre', 74, NULL, 'Vilas Boas', '86.010-210', 6151),
+(2, 'Rua Souza Naves', 1400, NULL, 'Centro', '86.010-210', 6151),
+(3, 'sfasda', 120, NULL, NULL, '86.010-210', 5656),
+(4, 'Av. Maracanã', 4630, NULL, 'Pq. Industrical', '86.703-000', 5707);
+
 INSERT INTO `estado` (`uf`, `nome`) VALUES
 ('AC','Acre'),
 ('AL','Alagoas'),

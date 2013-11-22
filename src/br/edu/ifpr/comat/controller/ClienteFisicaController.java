@@ -2,9 +2,7 @@ package br.edu.ifpr.comat.controller;
 
 import java.util.List;
 
-import br.edu.ifpr.comat.dao.ClienteDAO;
 import br.edu.ifpr.comat.dao.ClienteFisicaDAO;
-import br.edu.ifpr.comat.model.Cliente;
 import br.edu.ifpr.comat.model.ClienteFisica;
 
 public class ClienteFisicaController {
@@ -20,4 +18,8 @@ public class ClienteFisicaController {
 	public List<ClienteFisica> search(){
 		return new ClienteFisicaDAO().select();		
 	}	
+	
+	public List<ClienteFisica> searchStatus(int status){
+		return new ClienteFisicaDAO().selectStatus(status);		
+	}
 }

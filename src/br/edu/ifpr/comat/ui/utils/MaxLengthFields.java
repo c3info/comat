@@ -1,4 +1,4 @@
-package br.edu.ifpr.comat.ui.util;
+package br.edu.ifpr.comat.ui.utils;
 
 import javax.swing.text.*;
 

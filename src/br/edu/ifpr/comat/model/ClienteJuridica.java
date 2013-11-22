@@ -21,8 +21,8 @@ public class ClienteJuridica extends Cliente implements java.io.Serializable{
     public ClienteJuridica() {
     }
 
-    public ClienteJuridica(String cnpj, String inscricao, String razao, String fantasia, String fax, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Date dataCadastro, Endereco endereco, Set contatos) {
-        super(idCliente, status, email, site, telefone, observacoes, dataCadastro, endereco, contatos);
+    public ClienteJuridica(String cnpj, String inscricao, String razao, String fantasia, String fax, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Date dataCadastro, Endereco endereco) {
+        super(idCliente, status, email, site, telefone, observacoes, dataCadastro, endereco);
         this.cnpj = cnpj;
         this.inscricao = inscricao;
         this.razao = razao;

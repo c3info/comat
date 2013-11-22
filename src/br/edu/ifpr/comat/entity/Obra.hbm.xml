@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="br.edu.ifpr.comat.model.Obra" table="Obra" catalog="comat">
+        <id name="idObra" type="java.lang.Integer">
+            <column name="idObra" />
+            <generator class="increment" />
+        </id>
+        <property name="nome" type="java.lang.String">
+            <column name="nome" length="45" not-null="true"/>
+        </property>
+        <property name="telefone" type="java.lang.String">
+            <column name="telefone" length="12"/>
+        </property>
+        <property name="responsavel" type="java.lang.String">
+            <column name="responsavel" length="72"/>
+        </property>
+        <many-to-one name="cliente" class="br.edu.ifpr.comat.model.Cliente" fetch="join">
+            <column name="idClienteFk" />
+        </many-to-one>
+        <many-to-one name="endereco" class="br.edu.ifpr.comat.model.Endereco" fetch="join" cascade="save-update" lazy="false">
+            <column name="idEnderecoFk" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -21,8 +21,8 @@ public class ClienteFisica extends Cliente implements java.io.Serializable{
     public ClienteFisica() {
     }
 
-    public ClienteFisica(String cpf, String rg, String nome, Date dataNasc, String celular, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Date dataCadastro, Endereco endereco, Set contatos) {
-        super(idCliente, status, email, site, telefone, observacoes, dataCadastro, endereco, contatos);
+    public ClienteFisica(String cpf, String rg, String nome, Date dataNasc, String celular, Integer idCliente, Integer status, String email, String site, String telefone, String observacoes, Date dataCadastro, Endereco endereco) {
+        super(idCliente, status, email, site, telefone, observacoes, dataCadastro, endereco);
         this.cpf = cpf;
         this.rg = rg;
         this.nome = nome;

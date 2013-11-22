@@ -1,11 +1,13 @@
-package br.edu.ifpr.comat.ui.util;
+package br.edu.ifpr.comat.ui.utils;
+
+import java.text.NumberFormat;
 
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 public class MaskFields {
-
-	public static MaskFormatter Mascara(String masc) {
+	
+	public static MaskFormatter marcarate(String masc) {
 
 		MaskFormatter mascara = new MaskFormatter();
 		try {
@@ -15,6 +17,5 @@ public class MaskFields {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro");
 		}
 		return mascara;
-	}
-
+	}	
 }

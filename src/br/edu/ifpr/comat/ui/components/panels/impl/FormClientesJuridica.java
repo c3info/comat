@@ -14,8 +14,8 @@ import javax.swing.border.EtchedBorder;
 import br.edu.ifpr.comat.controller.CidadeController;
 import br.edu.ifpr.comat.controller.EstadoController;
 import br.edu.ifpr.comat.ui.components.panels.ComatJPanels;
-import br.edu.ifpr.comat.ui.util.MaskFields;
-import br.edu.ifpr.comat.ui.util.MaxLengthFields;
+import br.edu.ifpr.comat.ui.utils.MaskFields;
+import br.edu.ifpr.comat.ui.utils.MaxLengthFields;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,7 +47,7 @@ public class FormClientesJuridica extends JPanel implements ComatJPanels, Action
 		txFantasia.setDocument(new MaxLengthFields(72));
 
 		JLabel lblCnpj = new JLabel("CNPJ:");
-		txCnpj = new JFormattedTextField(MaskFields.Mascara("##.###.###/####-##"));	
+		txCnpj = new JFormattedTextField(MaskFields.marcarate("##.###.###/####-##"));	
 
 		JLabel lblInscricao = new JLabel("Inscrição Est.:");
 		txInscricao = new JTextField(10);	
@@ -70,7 +70,7 @@ public class FormClientesJuridica extends JPanel implements ComatJPanels, Action
 		txSite.setDocument(new MaxLengthFields(72));
 
 		JLabel lblCep = new JLabel("CEP:");
-		txCep = new JFormattedTextField(MaskFields.Mascara("##.###-###"));		
+		txCep = new JFormattedTextField(MaskFields.marcarate("##.###-###"));		
 
 		JLabel lblEndereo = new JLabel("Endereço:");
 		txEndereco = new JTextField(10);
@@ -89,13 +89,13 @@ public class FormClientesJuridica extends JPanel implements ComatJPanels, Action
 
 		JLabel lblUf = new JLabel("UF:");		
 		estados = new EstadoController().getEstadosStringVet();			
-		cbxUf = new JComboBox(estados);
+		cbxUf = new JComboBox<String>(estados);
 		cbxUf.setSelectedItem("PR");		
 		cbxUf.addActionListener(this);
 		
 		JLabel lblCidade = new JLabel("Cidade:");		
 		cidades = new CidadeController().getCidadesPorEstado("PR");			
-		cbxCidade = new JComboBox(cidades);					
+		cbxCidade = new JComboBox<String>(cidades);					
 
 		JLabel lblObservacoes = new JLabel("Observações:");
 		txObservacoes = new JTextArea();
@@ -306,6 +306,8 @@ public class FormClientesJuridica extends JPanel implements ComatJPanels, Action
 	private void setCbxCidade(String estado) {
 		String[] cidades = new CidadeController().getCidadesPorEstado(estado);
 		cbxCidade.setModel(new JComboBox<>(cidades).getModel());
+		
+		cbxCidade.setSelectedIndex(0);
 	}
 	
 	public JTextArea getTxObservacoes() {

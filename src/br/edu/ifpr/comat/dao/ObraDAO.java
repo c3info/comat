@@ -1,6 +1,5 @@
 package br.edu.ifpr.comat.dao;
 
-import br.edu.ifpr.comat.model.Contato;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -8,26 +7,28 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import br.edu.ifpr.comat.model.Obra;
+
 /**
  * @project comat
- * @class ContatoDAO
+ * @class ObraDAO
  * @author Cristhiano Konczak Cardoso <cristhiano@c3info.com.br>
- * @date 26/09/2013
+ * @date 20/11/2013
  */
-public class ContatoDAO extends BaseDAO {
+public class ObraDAO extends BaseDAO {
 
 	private final Session session;
 	private Transaction trns;
 
-	public ContatoDAO() {
+	public ObraDAO() {
 		this.trns = null;
 		session = getConnection();
 	}
 
-	public void insert(Contato con) {
+	public int insert(Obra obra) {
 		try {
 			trns = session.beginTransaction();
-			session.save(con);
+			session.save(obra);
 			session.getTransaction().commit();
 		} catch (HibernateException hi) {
 			if (trns != null) {
@@ -38,14 +39,14 @@ public class ContatoDAO extends BaseDAO {
 			session.flush();
 			session.close();
 		}
+		return obra.getIdObra();
 	}
 
 	public void delete(Integer id) {
 		try {
 			trns = session.beginTransaction();
-			Contato con = (Contato) session
-					.load(Contato.class, new Integer(id));
-			session.delete(con);
+			Obra obra = (Obra) session.load(Obra.class, new Integer(id));
+			session.delete(obra);
 			session.getTransaction().commit();
 		} catch (HibernateException hi) {
 			if (trns != null) {
@@ -58,10 +59,10 @@ public class ContatoDAO extends BaseDAO {
 		}
 	}
 
-	public void update(Contato con) {
+	public void update(Obra obra) {
 		try {
 			trns = session.beginTransaction();
-			session.update(con);
+			session.update(obra);
 			session.getTransaction().commit();
 		} catch (HibernateException hi) {
 			if (trns != null) {
@@ -74,11 +75,11 @@ public class ContatoDAO extends BaseDAO {
 		}
 	}
 
-	public List<Contato> select() {
-		List<Contato> contatos = new ArrayList<>();
+	public List<Obra> select() {
+		List<Obra> obras = new ArrayList<>();
 		try {
 			trns = session.beginTransaction();
-			contatos = session.createQuery("from Contato").list();
+			obras = session.createQuery("from Obra").list();
 		} catch (HibernateException hi) {
 			if (trns != null) {
 				trns.rollback();
@@ -88,16 +89,16 @@ public class ContatoDAO extends BaseDAO {
 			session.flush();
 			session.close();
 		}
-		return contatos;
+		return obras;
 	}
 	
-	public List<Contato> selectCliente(int idCliente) {
-		List<Contato> contatos = new ArrayList<>();
+	public List<Obra> selectCliente(int idCliente) {
+		List<Obra> obras = new ArrayList<>();
 		try {
 			trns = session.beginTransaction();			
-			Query query = session.createQuery("from Contato where idClienteFk = :id");
+			Query query = session.createQuery("from Obra where idClienteFk = :id");
 			query.setInteger("id", idCliente);
-			contatos = query.list();
+			obras = query.list();
 			
 		} catch (HibernateException hi) {
 			if (trns != null) {
@@ -108,17 +109,17 @@ public class ContatoDAO extends BaseDAO {
 			session.flush();
 			session.close();
 		}
-		return contatos;
+		return obras;
 	}
 
-	public Contato select(Integer id) {
-		Contato con = null;
+	public Obra select(Integer id) {
+		Obra obra = null;
 		try {
 			trns = session.beginTransaction();
-			String queryString = "from Contato where idContato = :id";
+			String queryString = "from Obra where idObra = :id";
 			Query query = session.createQuery(queryString);
 			query.setInteger("id", id);
-			con = (Contato) query.uniqueResult();
+			obra = (Obra) query.uniqueResult();
 		} catch (HibernateException hi) {
 			if (trns != null) {
 				trns.rollback();
@@ -128,6 +129,6 @@ public class ContatoDAO extends BaseDAO {
 			session.flush();
 			session.close();
 		}
-		return con;
+		return obra;
 	}
 }

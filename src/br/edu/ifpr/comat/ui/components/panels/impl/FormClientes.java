@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.util.Date;
-
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -19,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
 import br.edu.ifpr.comat.controller.ClienteController;
 import br.edu.ifpr.comat.controller.ClienteFisicaController;
 import br.edu.ifpr.comat.controller.ClienteJuridicaController;
@@ -27,18 +25,22 @@ import br.edu.ifpr.comat.model.Cliente;
 import br.edu.ifpr.comat.model.ClienteFisica;
 import br.edu.ifpr.comat.model.ClienteJuridica;
 import br.edu.ifpr.comat.ui.components.panels.ComatJPanels;
+import br.edu.ifpr.comat.ui.components.panels.tabbeds.TabViewContatos;
+import br.edu.ifpr.comat.ui.components.panels.tabbeds.TabViewObras;
 import br.edu.ifpr.comat.ui.components.toolbars.CrudToolBar;
-import br.edu.ifpr.comat.ui.util.CheckFields;
+import br.edu.ifpr.comat.ui.utils.CheckFields;
 import br.edu.ifpr.comat.util.CheckDocuments;
 import br.edu.ifpr.comat.util.DateUtils;
-
 import javax.swing.border.EtchedBorder;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 
 public class FormClientes extends JPanel implements ComatJPanels, ActionListener {
+	
 	private Boolean insert = false;
 	private JPanel headerPanel, topPanel, gridPanel, contentPanel;
+	private TabViewObras tabObras;
+	private TabViewContatos tabContatos;
+		
 	private GridBagConstraints cons;
 
 	private ComatJPanels currentPanel;
@@ -55,23 +57,24 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 		buildComponents();
 		rbtFisica.setSelected(true);
 		setDisableFields();
-		crudBar.incluir();
+		crudBar.incluir();	
 	}
 
 	public FormClientes(int id, int tipo) {
+		
 		switch (tipo) {
 		case 1:
 			currentPanel = new FormClientesFisica();			
 			buildComponents();
 			rbtFisica.setSelected(true);
-			recoverFieldsFisica(id);
+			restoreFieldsFisica(id);
 			break;
 
 		case 2:
 			currentPanel = new FormClientesJuridica();
 			buildComponents();
 			rbtJuridica.setSelected(true);			
-			recoverFieldsJuridica(id);
+			restoreFieldsJuridica(id);
 			break;
 		}
 
@@ -80,7 +83,11 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 		rbtFisica.setEnabled(false);
 		rbtJuridica.setEnabled(false);
 		cbxStatus.setEnabled(false);
-		crudBar.alterar();
+		crudBar.alterar();		
+		tabObras.setIdCliente(id);
+		tabObras.loadModelTable();
+		tabContatos.setIdCliente(id);
+		tabContatos.loadModelTable();
 	}
 
 	private void buildComponents() {
@@ -101,9 +108,8 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 		crudBar.setFloatable(false);
 
 		headerPanel.add(BorderLayout.NORTH, crudBar);
-		contentPanel.add(BorderLayout.CENTER, currentPanel.getPanel());
-
 		headerPanel.add(BorderLayout.SOUTH, topPanel);
+		contentPanel.add(BorderLayout.CENTER, currentPanel.getPanel());		
 
 		JLabel lbPessoa = new JLabel("Pessoa:");
 
@@ -121,12 +127,12 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 		lblCadastroDate = new JLabel();
 
 		JLabel lblStatus = new JLabel("Status:");
-		cbxStatus = new JComboBox(new ClienteController().getStatusList());
+		cbxStatus = new JComboBox<String>(new ClienteController().getStatusList());
 
-		GroupLayout gl_topPanel = new GroupLayout(topPanel);
-		gl_topPanel.setHorizontalGroup(
-			gl_topPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_topPanel.createSequentialGroup()
+		GroupLayout grTopPanel = new GroupLayout(topPanel);
+		grTopPanel.setHorizontalGroup(
+			grTopPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(grTopPanel.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lbPessoa)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -143,11 +149,11 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 					.addComponent(cbxStatus, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
-		gl_topPanel.setVerticalGroup(
-			gl_topPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_topPanel.createSequentialGroup()
+		grTopPanel.setVerticalGroup(
+			grTopPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(grTopPanel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_topPanel.createParallelGroup(Alignment.BASELINE)
+					.addGroup(grTopPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lbPessoa)
 						.addComponent(rbtFisica)
 						.addComponent(rbtJuridica)
@@ -157,36 +163,32 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 						.addComponent(lblCadastro))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		topPanel.setLayout(gl_topPanel);
+		topPanel.setLayout(grTopPanel);
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);		
-		tabbedPane.setBorder(new EtchedBorder());
+		tabbedPane.setBorder(new EtchedBorder());		
+	
+		tabObras = new TabViewObras();
+		tabContatos = new TabViewContatos();
 		
-		JTextField textField = new JTextField();
-		JTextField textField1 = new JTextField();
-		JTextField textField2 = new JTextField();
-		JTextField textField3 = new JTextField();		
-		
-		tabbedPane.addTab("Contatos", null, textField, "Contatos");
-		tabbedPane.addTab("Obras", null, textField1, "Obras");
-		tabbedPane.addTab("Orçamentos", null, textField2, "Orçamentos");
-		tabbedPane.addTab("Pedidos", null, textField3, "Pedidos");			
+		tabbedPane.addTab("Obras", null, tabObras, "Obras");
+		tabbedPane.addTab("Contatos", null, tabContatos, "Contatos");		
 		
 		cons = new GridBagConstraints();		
 		cons.fill = GridBagConstraints.BOTH; 		
 		cons.gridx = 0;
 		cons.gridy = 0;		
 		gridPanel.add(contentPanel,cons);
-		
+			
 		cons.weightx = 1;  
 		cons.weighty = 1;
 		cons.gridx = 0;
 		cons.gridy = 1;
+		
 		gridPanel.add(tabbedPane,cons);	    
 		
 		add(BorderLayout.NORTH, headerPanel);
-		add(BorderLayout.CENTER, gridPanel);				
-		// topPanel.setPreferredSize(new Dimension(760, 40));
+		add(BorderLayout.CENTER, gridPanel);		
 	}
 
 	@Override
@@ -225,25 +227,39 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 	private void incluir() {
 		insert = true;
 
-		crudBar.inclusao();
-		
+		crudBar.inclusao();		
 		setCleanFields();
 		currentPanel.setCleanFields();		
 		setEnabledFields();
 		currentPanel.setEnabledFields();
-		currentPanel.setUnLockFk();
+		currentPanel.setUnLockFk();			
 
 		new DateUtils();
 		lblCadastroDate.setText(DateUtils.formatarData(new Date()));
+		
+		if(tabObras.getIdCliente() != null){
+			tabObras.setIdCliente(null);
+			tabObras.loadModelTable();			
+		}
+		
+		tabObras.stop();
+		
+		if(tabContatos.getIdCliente() != null){
+			tabContatos.setIdCliente(null);
+			tabContatos.loadModelTable();			
+		}
+		
+		tabContatos.stop();
 	}
 
 	private void alterar() {
 		insert = false;
 
-		crudBar.inclusao();
-		
+		crudBar.inclusao();		
 		setEnabledFields();
 		currentPanel.setEnabledFields();
+		tabObras.start();
+		tabContatos.start();
 	}
 
 	private void excluir() {
@@ -256,12 +272,20 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 				FormClientesFisica cf = (FormClientesFisica) currentPanel.getPanel();				
 				new ClienteFisicaController().delete(cf.getTxCpf().getText());
 			} else {
-				FormClientesJuridica cj = (FormClientesJuridica) currentPanel	.getPanel();
+				FormClientesJuridica cj = (FormClientesJuridica) currentPanel.getPanel();
 				new ClienteJuridicaController().delete(cj.getTxCnpj().getText());
 			}
 			
 			crudBar.incluir();
 			currentPanel.setCleanFields();
+			
+			tabObras.setIdCliente(null);
+			tabObras.loadModelTable();
+			tabObras.stop();
+			
+			tabContatos.setIdCliente(null);
+			tabContatos.loadModelTable();
+			tabContatos.stop();			
 		}
 	}
 
@@ -290,11 +314,11 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 					String telefone = cf.getTxTelefone().getText().trim();
 					String site = cf.getTxSite().getText().trim();
 
-					String cep = cf.getTxCep().getText();
-					String endereco = cf.getTxEndereco().getText();
+					String cep = cf.getTxCep().getText().trim();
+					String endereco = cf.getTxEndereco().getText().trim();
 					int numero = Integer.parseInt(cf.getTxNumero().getText());
-					String complemento = cf.getTxComplemento().getText();
-					String bairro = cf.getTxBairro().getText();
+					String complemento = cf.getTxComplemento().getText().trim();
+					String bairro = cf.getTxBairro().getText().trim();
 
 					String estado = (String) cf.getCbxUf().getSelectedItem();
 					String cidade = (String) cf.getCbxCidade().getSelectedItem();
@@ -309,13 +333,15 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 					if (observacoes.isEmpty()) { observacoes = null;}
 
 					if (insert) {
-						new ClienteController().save(dataCadastro, status,
+						int id = new ClienteController().save(dataCadastro, status,
 								nome, cpf, rg, dataNasc, telefone, email,
 								celular, site, cep, endereco, numero,
 								complemento, bairro, estado, cidade,
-								observacoes, null);
+								observacoes);
 
-						insert = false;
+						insert = false;								
+						tabObras.setIdCliente(id);
+						tabContatos.setIdCliente(id);
 
 						JOptionPane.showMessageDialog(null, "Cliente " + nome + " cadastrado com sucesso");
 					} else {						
@@ -325,17 +351,13 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 								complemento, bairro, estado, cidade,
 								observacoes, null);
 
+						tabObras.stop();
+						tabContatos.stop();
+						
 						JOptionPane.showMessageDialog(null, "Cliente " + nome + " atualizado com sucesso");
 					}	
 					
-					setDisableFields();
-					currentPanel.setDisableFields();
-					
-					rbtFisica.setEnabled(false);
-					rbtJuridica.setEnabled(false);
-					cbxStatus.setEnabled(false);
-					
-					crudBar.alterar();
+					setSalvarFields();
 
 				} else {
 					cf.getTxCpf().setBackground(Color.cyan); 
@@ -391,13 +413,15 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 
 					if (insert) {
 
-						new ClienteController().save(dataCadastro, status,
+						int id = new ClienteController().save(dataCadastro, status,
 								razao, fantasia, cnpj, inscricao, fax, email,
 								site, telefone, cep, endereco, numero,
 								complemento, bairro, estado, cidade,
-								observacoes, null);
+								observacoes);
 
 						insert = false;
+						tabObras.setIdCliente(id);	
+						tabContatos.setIdCliente(id);
 
 						JOptionPane.showMessageDialog(null, "Cliente " + razao
 								+ " cadastrado com sucesso");
@@ -408,17 +432,14 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 								complemento, bairro, estado, cidade,
 								observacoes, null);
 
+						tabObras.stop();
+						tabContatos.stop();
+						
 						JOptionPane.showMessageDialog(null, "Cliente " + razao
 								+ " atualizado com sucesso");
 					}
-					setDisableFields();
-					currentPanel.setDisableFields();
+					setSalvarFields();
 					
-					rbtFisica.setEnabled(false);
-					rbtJuridica.setEnabled(false);
-					cbxStatus.setEnabled(false);
-					
-					crudBar.alterar();
 
 				} else {
 					cj.getTxCnpj().setBackground(Color.cyan);
@@ -429,6 +450,17 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 				JOptionPane.showMessageDialog(null, "Verifique os campos obrigatórios");
 			}
 		}
+	}
+	
+	private void setSalvarFields(){
+		setDisableFields();
+		currentPanel.setDisableFields();
+		
+		rbtFisica.setEnabled(false);
+		rbtJuridica.setEnabled(false);
+		cbxStatus.setEnabled(false);
+		
+		crudBar.alterar();		
 	}
 
 	private void cancelar() {
@@ -442,6 +474,19 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 		currentPanel.setDisableFields();
 
 		CheckFields.restoreFields(currentPanel.getPanel());
+		
+		if(tabObras.getIdCliente() != null){
+			tabObras.setIdCliente(null);
+		}
+		tabObras.loadModelTable();
+		tabObras.stop();
+		
+
+		if(tabContatos.getIdCliente() != null){
+			tabContatos.setIdCliente(null);
+		}
+		tabContatos.loadModelTable();
+		tabContatos.stop();
 	}
 	
 	private void recoverFieldsSuper(int id) {
@@ -450,7 +495,7 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 		cbxStatus.setSelectedIndex(c.getStatus());
 	}
 
-	private void recoverFieldsFisica(int id) {
+	private void restoreFieldsFisica(int id) {
 		FormClientesFisica cf = (FormClientesFisica) currentPanel.getPanel();
 		ClienteFisica c = new ClienteFisicaController().search(id);
 		
@@ -460,19 +505,19 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 		cf.getTxDataNasc().setText((DateUtils.formatarData(c.getDataNasc())));
 		cf.getTxTelefone().setText(c.getTelefone());
 		cf.getTxEmail().setText(c.getEmail());
-		cf.getTxCelular().setText(c.getCelular());
 		cf.getTxSite().setText(c.getSite());
+		cf.getTxCelular().setText(c.getCelular());
 		cf.getTxCep().setText(c.getEndereco().getCep());
 		cf.getTxEndereco().setText(c.getEndereco().getLogradouro());
 		cf.getTxNumero().setText(c.getEndereco().getNumero().toString());
 		cf.getTxComplemento().setText(c.getEndereco().getComplemento());
 		cf.getTxBairro().setText(c.getEndereco().getBairro());
-		cf.getCbxUf().setSelectedItem(c.getEndereco().getCidade().getEstado());
+		cf.getCbxUf().setSelectedItem(c.getEndereco().getCidade().getEstado().getUf());
 		cf.getCbxCidade().setSelectedItem(c.getEndereco().getCidade().getNome());
 		cf.getTxObservacoes().setText(c.getObservacoes());
 	}
 
-	private void recoverFieldsJuridica(int id) {
+	private void restoreFieldsJuridica(int id) {
 		FormClientesJuridica cj = (FormClientesJuridica) currentPanel.getPanel();
 		ClienteJuridica c = new ClienteJuridicaController().search(id);
 
@@ -531,5 +576,6 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 	public void setUnLockFk() {
 		// TODO Auto-generated method stub
 		
-	}
+	}	
+	
 }

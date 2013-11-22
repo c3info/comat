@@ -90,6 +90,26 @@ public class ClienteJuridicaDAO extends BaseDAO {
 		}
 		return clientes;
 	}
+	
+	public List<ClienteJuridica> selectStatus(int status) {
+		List<ClienteJuridica> clientes = new ArrayList<>();
+		try {
+			trns = session.beginTransaction();
+			Query query = session.createQuery("from ClienteJuridica where status = :st");
+			query.setInteger("st", status);
+			clientes = query.list();
+			
+		} catch (HibernateException hi) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			hi.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return clientes;
+	}
 
 	public ClienteJuridica select(Integer id) {
 		ClienteJuridica cli = null;

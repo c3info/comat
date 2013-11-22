@@ -28,7 +28,7 @@ public class CategoriaDAO extends BaseDAO {
 	public int insert(Categoria cat) {
 		try {
 			trns = session.beginTransaction();
-			session.save(cat);
+			session.save(cat);			
 			session.getTransaction().commit();
 		} catch (HibernateException hi) {
 			if (trns != null) {
@@ -80,7 +80,7 @@ public class CategoriaDAO extends BaseDAO {
 		List<Categoria> categorias = new ArrayList<>();
 		try {
 			trns = session.beginTransaction();
-			categorias = session.createQuery("from Categoria").list();
+			categorias = session.createQuery("from Categoria ORDER BY nomeCategoria ASC ").list();
 		} catch (HibernateException hi) {
 			if (trns != null) {
 				trns.rollback();
@@ -100,6 +100,26 @@ public class CategoriaDAO extends BaseDAO {
 			String queryString = "from Categoria where idCategoria = :id";
 			Query query = session.createQuery(queryString);
 			query.setInteger("id", id);
+			cat = (Categoria) query.uniqueResult();
+		} catch (HibernateException hi) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			hi.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return cat;
+	}
+	
+	public Categoria select(String nome) {
+		Categoria cat = null;
+		try {
+			trns = session.beginTransaction();
+			String queryString = "from Categoria where nomeCategoria = :nome";
+			Query query = session.createQuery(queryString);
+			query.setString("nome", nome);
 			cat = (Categoria) query.uniqueResult();
 		} catch (HibernateException hi) {
 			if (trns != null) {

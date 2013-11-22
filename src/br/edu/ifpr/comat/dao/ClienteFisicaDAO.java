@@ -90,7 +90,29 @@ public class ClienteFisicaDAO extends BaseDAO {
 		}
 		return clientes;
 	}
-
+	
+	public List<ClienteFisica> selectStatus(int status) {
+		List<ClienteFisica> clientes = new ArrayList<>();
+		try {
+			trns = session.beginTransaction();
+			Query query = session.createQuery("from ClienteFisica where status = :st");
+			query.setInteger("st", status);
+			clientes = query.list();
+			
+		System.out.println("Clintes em ClienteFisica" + clientes);
+			
+		} catch (HibernateException hi) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			hi.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return clientes;
+	}
+		
 	public ClienteFisica select(Integer id) {
 		ClienteFisica cli = null;
 		try {

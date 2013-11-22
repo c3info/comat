@@ -28,8 +28,8 @@ import javax.swing.ImageIcon;
 
 public class ComatMainFrame extends JFrame {
 	private static final String SYSTEM_NAME = "COMAT - Controle de Orçamentos para Materiais de Construção";
-	private static final int PREFERRED_WIDTH = 960;
-	private static final int PREFERRED_HEIGHT = 720;
+	private static final int PREFERRED_WIDTH = 980;
+	private static final int PREFERRED_HEIGHT = 740;
 
 	private JPanel mainPanel, contentPanel, statusPanel;
 	private ComatJPanels currentPanel = null;

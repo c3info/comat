@@ -1,7 +1,6 @@
 package br.edu.ifpr.comat.controller;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import br.edu.ifpr.comat.dao.CidadeDAO;
@@ -16,14 +15,15 @@ import br.edu.ifpr.comat.model.ClienteJuridica;
 import br.edu.ifpr.comat.model.Contato;
 import br.edu.ifpr.comat.model.Endereco;
 
-public class ClienteController {
-	private static final String[] statusList = { "Ativo", "Inativo", "Bloqueado" };
+public class ClienteController {	
+
+	private static final String[] STATUS = { "Ativo", "Inativo", "Bloqueado" };
 
 	public String[] getStatusList() {
-		return statusList;
+		return STATUS;				
 	}
 
-	public void save(Date dataCadastro, 
+	public int save(Date dataCadastro, 
 					   int status, 
 					   String nome,
 					   String cpf, 
@@ -40,15 +40,14 @@ public class ClienteController {
 					   String bairro,
 					   String estado, 
 					   String cidade, 
-					   String observacoes, 
-					   Set<Contato> contatos) {		
+					   String observacoes) {		
 					
-		new ClienteDAO().insert(new ClienteFisica(cpf, rg, nome, dataNasc,
+		return new ClienteDAO().insert(new ClienteFisica(cpf, rg, nome, dataNasc,
 				celular, null, status, email, site, telefone, observacoes,
-				dataCadastro, new Endereco(null, endereco, numero, complemento, bairro, cep, new CidadeDAO().select(cidade)), null));	    
+				dataCadastro, new Endereco(null, endereco, numero, complemento, bairro, cep, new CidadeDAO().select(cidade))));	    
 	}
 
-	public void save(Date dataCadastro, 
+	public int save(Date dataCadastro, 
 					   int status,
 					   String razao,
 					   String fantasia,
@@ -65,12 +64,11 @@ public class ClienteController {
 					   String bairro,
 					   String estado, 
 					   String cidade, 
-					   String observacoes,
-					   Set<Contato> contatos) {
+					   String observacoes) {
 
-		new ClienteDAO().insert(new ClienteJuridica(cnpj, inscricao, razao,
+		return new ClienteDAO().insert(new ClienteJuridica(cnpj, inscricao, razao,
 				fantasia, fax, null, status, email, site, telefone,
-				observacoes, dataCadastro, new Endereco(null, endereco, numero, complemento, bairro, cep, new CidadeDAO().select(cidade)), null));
+				observacoes, dataCadastro, new Endereco(null, endereco, numero, complemento, bairro, cep, new CidadeDAO().select(cidade))));
 		
 	}
 	

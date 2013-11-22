@@ -1,4 +1,4 @@
-package br.edu.ifpr.comat.ui.model;
+package br.edu.ifpr.comat.ui.components.tables;
 
 import java.util.List;
 
@@ -17,13 +17,14 @@ public class TbModelClienteFisica extends AbstractTableModel {
 	private static final int COL_EMAIL = 6;
 	private static final int COL_CIDADE = 7;
 	private static final int COL_ESTADO = 8;
+	private static final int COL_STATUS = 9;
 
 	private List<ClienteFisica> rows;
 	private String[] columns = new String[] { "Id", "Dt. Cadastro", "Nome",
-			"CPF", "Telefone", "Celular", "Email", "Cidade", "UF" };
+			"CPF", "Telefone", "Celular", "Email", "Cidade", "UF", "Status" };
 
 	public TbModelClienteFisica(List<ClienteFisica> clientes) {
-		this.rows = clientes;
+		this.rows = clientes;			
 	}
 
 	@Override
@@ -62,7 +63,9 @@ public class TbModelClienteFisica extends AbstractTableModel {
 			return c.getEndereco().getCidade().getNome();
 		} else if (column == COL_ESTADO) {
 			return c.getEndereco().getCidade().getEstado().getNome();
-		}
+		} else if (column == COL_STATUS) {
+			return c.getStatus();
+		} 
 
 		return "";
 	}

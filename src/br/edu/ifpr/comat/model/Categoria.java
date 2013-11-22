@@ -1,5 +1,11 @@
 package br.edu.ifpr.comat.model;
 
+/**
+ * @project comat
+ * @class Categoria
+ * @author Cristhiano Konczak Cardoso <cristhiano@c3info.com.br>
+ * @date 12/11/2013
+ */
 public class Categoria implements java.io.Serializable {
 
 	private Integer idCategoria;

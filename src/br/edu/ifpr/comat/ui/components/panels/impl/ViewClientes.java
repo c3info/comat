@@ -3,13 +3,11 @@ package br.edu.ifpr.comat.ui.components.panels.impl;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -31,16 +29,16 @@ import br.edu.ifpr.comat.controller.ClienteFisicaController;
 import br.edu.ifpr.comat.controller.ClienteJuridicaController;
 import br.edu.ifpr.comat.ui.ComatMainFrame;
 import br.edu.ifpr.comat.ui.components.panels.ComatJPanels;
-import br.edu.ifpr.comat.ui.model.TbModelClienteFisica;
-import br.edu.ifpr.comat.ui.model.TbModelClienteJuridica;
+import br.edu.ifpr.comat.ui.components.tables.TbModelClienteFisica;
+import br.edu.ifpr.comat.ui.components.tables.TbModelClienteJuridica;
+import br.edu.ifpr.comat.ui.components.tables.TbRenderCliente;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import java.awt.Font;
 
-public class ViewClientes extends JPanel implements ComatJPanels,
-		ActionListener {
+public class ViewClientes extends JPanel implements ComatJPanels, ActionListener {
 	
 	private ComatMainFrame frame;
 	
@@ -83,7 +81,7 @@ public class ViewClientes extends JPanel implements ComatJPanels,
 		btGrPessoa.add(rbtFisica);
 		btGrPessoa.add(rbtJuridica);
 		
-		cbxStatus = new JComboBox(new ClienteController().getStatusList());
+		cbxStatus = new JComboBox<String>(new ClienteController().getStatusList());
 		cbxStatus.addItem("Qualquer");
 		cbxStatus.setSelectedItem("Qualquer");
 		cbxStatus.addActionListener(this);
@@ -146,9 +144,10 @@ public class ViewClientes extends JPanel implements ComatJPanels,
 		topPanel.setLayout(gl_topPanel);
 	
 		table = new JTable();
-		setModelTable(new TbModelClienteFisica(new ClienteFisicaController().search()));
-		
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);		
+		setModelTable(new TbModelClienteFisica(new ClienteFisicaController().search()));		
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setShowHorizontalLines(true);		
+		table.setRowHeight(28);
 		
 		table.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent me) {
@@ -170,9 +169,8 @@ public class ViewClientes extends JPanel implements ComatJPanels,
 				
 		contentPanel.setViewportView(table);
 		add(BorderLayout.NORTH, topPanel);
-		add(BorderLayout.CENTER, contentPanel);	
-		
-	    //	add(BorderLayout.SOUTH, bottomPanel);		
+		add(BorderLayout.CENTER, contentPanel);			
+	    // add(BorderLayout.SOUTH, bottomPanel);		
 		// contentPanel.setPreferredSize(new Dimension(760, 40));	
 	}
 	
@@ -187,11 +185,20 @@ public class ViewClientes extends JPanel implements ComatJPanels,
     }
 	
 	public void setModelTable(AbstractTableModel model){		
-		table.setModel(model);		
 		
-		sorter = new TableRowSorter<TableModel>(model);
-		table.setRowSorter(sorter);
-
+		table.setModel(model);		
+				
+		if(model.getRowCount() >= 1){
+			sorter = new TableRowSorter<TableModel>(model);
+			table.setRowSorter(sorter);	
+			txtSearch.setEnabled(true);
+		} else {			
+			table.setRowSorter(null);
+			txtSearch.setEnabled(false);
+		}
+		
+		table.setDefaultRenderer(Object.class, new TbRenderCliente(9));
+		
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
 		table.getColumnModel().getColumn(0).setPreferredWidth(0);
@@ -203,8 +210,9 @@ public class ViewClientes extends JPanel implements ComatJPanels,
 		table.getColumnModel().getColumn(6).setPreferredWidth(120);	
 		table.getColumnModel().getColumn(7).setPreferredWidth(30);
 		table.getColumnModel().getColumn(8).setPreferredWidth(20);	
-		
-		cbxStatus.setSelectedItem("Qualquer");
+		table.getColumnModel().getColumn(9).setMinWidth(0);
+		table.getColumnModel().getColumn(9).setMaxWidth(0);
+		table.getColumnModel().getColumn(9).setPreferredWidth(0);		
 	}
 	
 	@Override
@@ -216,26 +224,43 @@ public class ViewClientes extends JPanel implements ComatJPanels,
 		if(e.getSource() == cbxStatus ){
 			JComboBox cb = (JComboBox) e.getSource();
 			String status = (String) cb.getSelectedItem();
+			int selectid = cb.getSelectedIndex();
 			
-			if (status.equals("Ativo")){			
-				System.out.println(status);
-			} else if (status.equals("Inativo")){			
-				System.out.println(status);
-			} else if (status.equals("Bloqueado")){			
-				System.out.println(status);
+			if (status.equals("Ativo")){				
+				actionUpdateModel(selectid);
+			} else if (status.equals("Inativo")){					
+				actionUpdateModel(selectid);
+			} else if (status.equals("Bloqueado")){		
+				actionUpdateModel(selectid);
 			} else if (status.equals("Qualquer")){			
-				System.out.println(status);
+				if(rbtFisica.isSelected()){
+					setModelTable(new TbModelClienteFisica(new ClienteFisicaController().search()));
+				} else {
+					setModelTable(new TbModelClienteJuridica(new ClienteJuridicaController().search()));
+				}
 			}
 			
 		} else {
-			if (e.getSource() == rbtFisica) {			
+			if (e.getSource() == rbtFisica) {	
+				cbxStatus.setSelectedItem("Qualquer");
 				setModelTable(new TbModelClienteFisica(new ClienteFisicaController().search()));	
 				txtSearch.setText("");
+				
 			} else if (e.getSource() == rbtJuridica) {
+				cbxStatus.setSelectedItem("Qualquer");
 				setModelTable(new TbModelClienteJuridica(new ClienteJuridicaController().search()));
-				txtSearch.setText("");
+				txtSearch.setText("");				
 			} 		
 		}				 
+	}
+	
+	private void actionUpdateModel(int i){	
+		
+		if(rbtFisica.isSelected()){		
+			setModelTable(new TbModelClienteFisica(new ClienteFisicaController().searchStatus(i)));
+		} else {
+			setModelTable(new TbModelClienteJuridica(new ClienteJuridicaController().searchStatus(i)));
+		}
 	}
 
 	@Override

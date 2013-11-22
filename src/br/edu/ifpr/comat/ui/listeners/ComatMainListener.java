@@ -64,7 +64,7 @@ public class ComatMainListener implements ActionListener {
 
 	private void produtosAction() {
 		if (!(frame.getCurrentPanel() instanceof ViewProdutos)) {
-			frame.setCurrentPanel(new ViewProdutos());
+			frame.setCurrentPanel(new ViewProdutos(frame));
 		}
 	}
 

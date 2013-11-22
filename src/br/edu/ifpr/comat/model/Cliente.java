@@ -10,7 +10,7 @@ import java.util.Set;
  * @date 17/09/2013
  */
 public class Cliente implements java.io.Serializable {
-
+	
 	private Integer idCliente;
 	private Integer status;
 	private String email;
@@ -18,15 +18,14 @@ public class Cliente implements java.io.Serializable {
 	private String telefone;
 	private String observacoes;
 	private Date dataCadastro;
-	private Endereco endereco;
-	private Set contatos;
+	private Endereco endereco;	
 
 	public Cliente() {
 	}
 
 	public Cliente(Integer idCliente, Integer status, String email,
 			String site, String telefone, String observacoes,
-			Date dataCadastro, Endereco endereco, Set contatos) {
+			Date dataCadastro, Endereco endereco) {
 		this.idCliente = idCliente;
 		this.status = status;
 		this.email = email;
@@ -34,8 +33,7 @@ public class Cliente implements java.io.Serializable {
 		this.telefone = telefone;
 		this.observacoes = observacoes;
 		this.dataCadastro = dataCadastro;
-		this.endereco = endereco;
-		this.contatos = contatos;
+		this.endereco = endereco;		
 	}
 
 	public Integer getIdCliente() {
@@ -100,13 +98,5 @@ public class Cliente implements java.io.Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-
-	public Set getContatos() {
-		return contatos;
-	}
-
-	public void setContatos(Set contatos) {
-		this.contatos = contatos;
-	}
+	}	
 }

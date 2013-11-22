@@ -7,13 +7,13 @@
 			<generator class="increment" />
 		</id>
 		<property name="nome" type="string">
-			<column name="nome" length="45" />
+			<column name="nome" length="45" not-null="true"/>
 		</property>
 		<property name="telefone" type="string">
 			<column name="telefone" length="12" />
 		</property>
 		<property name="celular" type="string">
-			<column name="celular" length="12" />
+			<column name="celular" length="12" not-null="true"/>
 		</property>
 		<property name="email" type="string">
 			<column name="email" length="72" />
@@ -21,10 +21,7 @@
 		<property name="funcao" type="string">
 			<column name="funcao" length="45" />
 		</property>
-		<set name="clientes" table="ContatosCliente">
-			<key column="idContatoFk" />
-			<many-to-many class="br.edu.ifpr.comat.model.Cliente"
-				column="idClienteFk" />
-		</set>
+
+		<many-to-one name="cliente" column="idClienteFk" lazy="false" />
 	</class>
 </hibernate-mapping>

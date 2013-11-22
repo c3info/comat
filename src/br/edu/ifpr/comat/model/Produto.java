@@ -3,19 +3,20 @@ package br.edu.ifpr.comat.model;
 import java.math.BigDecimal;
 
 public class Produto implements java.io.Serializable {
+	
 	private Integer refProduto;
 	private String codBarra;
 	private String codFabricante;
 	private String nome;
 	private String descricao;
 	private String unidade;
-	private BigDecimal precoCusto;
-	private BigDecimal precoVenda;
-	private double descontoMax;
-	private int quantidade;
+	private Double precoCusto;
+	private Double precoVenda;
+	private Double descontoMax;
+	private Integer quantidade;
 	private int status;
 	private String marca;
-	private double peso;
+	private Double peso;
 	private Categoria categoria;
 
 	public Produto() {
@@ -24,8 +25,8 @@ public class Produto implements java.io.Serializable {
 
 	public Produto(Integer refProduto, String codBarra, String codFabricante,
 			String nome, String descricao, String unidade,
-			BigDecimal precoCusto, BigDecimal precoVenda, double descontoMax,
-			int quantidade, int status, String marca, double peso,
+			Double precoCusto, Double precoVenda, Double descontoMax,
+			Integer quantidade, int status, String marca, Double peso,
 			Categoria categoria) {
 
 		this.refProduto = refProduto;
@@ -92,35 +93,35 @@ public class Produto implements java.io.Serializable {
 		this.unidade = unidade;
 	}
 
-	public BigDecimal getPrecoCusto() {
+	public Double getPrecoCusto() {
 		return precoCusto;
 	}
 
-	public void setPrecoCusto(BigDecimal precoCusto) {
+	public void setPrecoCusto(Double precoCusto) {
 		this.precoCusto = precoCusto;
 	}
 
-	public BigDecimal getPrecoVenda() {
+	public Double getPrecoVenda() {
 		return precoVenda;
 	}
 
-	public void setPrecoVenda(BigDecimal precoVenda) {
+	public void setPrecoVenda(Double precoVenda) {
 		this.precoVenda = precoVenda;
 	}
 
-	public double getDescontoMax() {
+	public Double getDescontoMax() {
 		return descontoMax;
 	}
 
-	public void setDescontoMax(double descontoMax) {
+	public void setDescontoMax(Double descontoMax) {
 		this.descontoMax = descontoMax;
 	}
 
-	public int getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 
@@ -140,11 +141,11 @@ public class Produto implements java.io.Serializable {
 		this.marca = marca;
 	}
 
-	public double getPeso() {
+	public Double getPeso() {
 		return peso;
 	}
 
-	public void setPeso(double peso) {
+	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
 
@@ -156,4 +157,5 @@ public class Produto implements java.io.Serializable {
 		this.categoria = categoria;
 	}
 
+	
 }
