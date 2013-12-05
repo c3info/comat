@@ -1,12 +1,14 @@
 package br.edu.ifpr.comat.dao;
 
-import br.edu.ifpr.comat.model.Cidade;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import br.edu.ifpr.comat.model.Cidade;
 
 /**
  * @project comat
@@ -109,7 +111,7 @@ public class CidadeDAO extends BaseDAO {
 		}
 		return cit;
 	}
-	
+
 	public Cidade select(String nome) {
 		Cidade cit = null;
 		try {

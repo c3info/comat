@@ -1,16 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="br.edu.ifpr.comat.model.Cidade" table="Cidade"
 		catalog="comat">
 		<id name="idCidade" type="java.lang.Integer">
 			<column name="idCidade" />
-			<generator class="increment" />
+			<generator class="identity" />
 		</id>
 		<property name="nome" type="string">
 			<column name="nome" length="38" not-null="true" />
 		</property>
-		<many-to-one name="estado" column="ufFk" not-null="true"
-			lazy="false" cascade="save-update" />
+		<many-to-one name="estado" class="br.edu.ifpr.comat.model.Estado" lazy="false" fetch="select">
+            <column name="ufFk" length="2" not-null="true" />
+        </many-to-one>        
+        <set name="enderecos" table="endereco" inverse="true" lazy="true" fetch="join">
+            <key>
+                <column name="idCidadeFk" not-null="true" />
+            </key>
+            <one-to-many class="br.edu.ifpr.comat.model.Endereco" />
+        </set>
 	</class>
 </hibernate-mapping>

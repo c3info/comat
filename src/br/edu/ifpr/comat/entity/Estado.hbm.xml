@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="br.edu.ifpr.comat.model.Estado" table="Estado"
-		catalog="comat">
+	<class name="br.edu.ifpr.comat.model.Estado" table="Estado" catalog="comat">
 		<id name="uf" type="string">
 			<column name="uf" length="2" />
 			<generator class="assigned" />
@@ -10,5 +9,11 @@
 		<property name="nome" type="string">
 			<column name="nome" length="22" not-null="true" unique="true" />
 		</property>
+		<set name="cidades" table="cidade" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ufFk" length="2" not-null="true" />
+            </key>
+            <one-to-many class="br.edu.ifpr.comat.model.Cidade" />
+        </set>
 	</class>
 </hibernate-mapping>

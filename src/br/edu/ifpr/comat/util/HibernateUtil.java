@@ -4,12 +4,11 @@
  */
 package br.edu.ifpr.comat.util;
 
-import org.hibernate.cfg.Configuration;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 /**
- * Hibernate Utility class with a convenient method to get Session Factory
- * object.
+ * Hibernate Utility class with a convenient method to get Session Factory object.
  * 
  * @author Cristhiano Konczak Cardoso <cristhiano@c3info.com.br>
  */
@@ -19,10 +18,8 @@ public class HibernateUtil {
 
 	static {
 		try {
-			// Create the SessionFactory from standard (hibernate.cfg.xml)
-			// config file.
-			sessionFactory = new Configuration().configure()
-					.buildSessionFactory();
+			// Create the SessionFactory from standard (hibernate.cfg.xml)			
+			sessionFactory = new Configuration().configure().buildSessionFactory();
 		} catch (Throwable ex) {
 			// Log the exception.
 			System.err.println("Initial SessionFactory creation failed." + ex);

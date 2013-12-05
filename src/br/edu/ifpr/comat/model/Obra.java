@@ -1,20 +1,20 @@
 package br.edu.ifpr.comat.model;
 
 public class Obra implements java.io.Serializable {
+	
 	private Integer idObra;
 	private String nome;
 	private String telefone;
 	private String responsavel;
 	private Cliente cliente;
 	private Endereco endereco;
-	
-	public Obra() {		
+
+	public Obra() {
 	}
 
-	public Obra(Integer idObra, String nome, String telefone,
+	public Obra(String nome, String telefone,
 			String responsavel, Cliente cliente, Endereco endereco) {
-
-		this.idObra = idObra;
+		
 		this.nome = nome;
 		this.telefone = telefone;
 		this.responsavel = responsavel;

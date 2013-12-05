@@ -1,30 +1,30 @@
 package br.edu.ifpr.comat.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JSeparator;
-import br.edu.ifpr.comat.ui.components.panels.ComatJPanels;
-import br.edu.ifpr.comat.ui.components.panels.impl.FirstPanel;
-import br.edu.ifpr.comat.ui.listeners.ComatMainListener;
-
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.InputEvent;
-import java.awt.SystemColor;
-import javax.swing.ImageIcon;
+import br.edu.ifpr.comat.ui.components.panels.ComatJPanels;
+import br.edu.ifpr.comat.ui.components.panels.impl.ViewLogo;
+import br.edu.ifpr.comat.ui.listeners.ComatMainListener;
 
 public class ComatMainFrame extends JFrame {
 	private static final String SYSTEM_NAME = "COMAT - Controle de Orçamentos para Materiais de Construção";
@@ -44,16 +44,16 @@ public class ComatMainFrame extends JFrame {
 		setTitle(SYSTEM_NAME);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, PREFERRED_WIDTH, PREFERRED_HEIGHT);
-		setMinimumSize(new java.awt.Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));		
+		setMinimumSize(new java.awt.Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
 
 		buildComponents();
 		listener = new ComatMainListener(this);
 
 		// Define janela inicial
-		setCurrentPanel(new FirstPanel());
+		setCurrentPanel(new ViewLogo());
 		setContentPane(mainPanel);
 		pack();
-	}	
+	}
 
 	private void buildComponents() {
 		// Panels
@@ -79,24 +79,24 @@ public class ComatMainFrame extends JFrame {
 
 		mniClientes = new JMenuItem("Clientes");
 		mniClientes.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.ALT_MASK));
-		mniClientes.setIcon(new ImageIcon(ComatMainFrame.class.getResource("/br/edu/ifpr/comat/ui/images/folder.png")));	
+		mniClientes.setIcon(new ImageIcon(ComatMainFrame.class.getResource("/br/edu/ifpr/comat/ui/images/folder.png")));
 		mnArquivo.add(mniClientes);
-		
+
 		mniOrcamentos = new JMenuItem("Orçamentos");
 		mniOrcamentos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.ALT_MASK));
 		mniOrcamentos.setIcon(new ImageIcon(ComatMainFrame.class.getResource("/br/edu/ifpr/comat/ui/images/folder.png")));
 		mnArquivo.add(mniOrcamentos);
-		
+
 		mniProdutos = new JMenuItem("Produtos");
 		mniProdutos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.ALT_MASK));
 		mniProdutos.setIcon(new ImageIcon(ComatMainFrame.class.getResource("/br/edu/ifpr/comat/ui/images/folder.png")));
 		mnArquivo.add(mniProdutos);
-		
+
 		mnArquivo.add(new JSeparator());
 
 		mniSair = new JMenuItem("Sair");
+		mniSair.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_MASK));
 		mniSair.setIcon(new ImageIcon(ComatMainFrame.class.getResource("/br/edu/ifpr/comat/ui/images/shut_down.png")));
-		mniSair.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,InputEvent.CTRL_MASK));
 		mnArquivo.add(mniSair);
 
 		mnCadastros = new JMenu("Cadastro");
@@ -104,20 +104,20 @@ public class ComatMainFrame extends JFrame {
 		menuBar.add(mnCadastros);
 
 		mniCliente = new JMenuItem("Cliente");
-		mniCliente.setIcon(new ImageIcon(ComatMainFrame.class.getResource("/br/edu/ifpr/comat/ui/images/page.png")));
 		mniCliente.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.ALT_MASK | InputEvent.SHIFT_MASK));
+		mniCliente.setIcon(new ImageIcon(ComatMainFrame.class.getResource("/br/edu/ifpr/comat/ui/images/page.png")));
 		mnCadastros.add(mniCliente);
-		
+
 		mniOrcamento = new JMenuItem("Orçamento");
-		mniOrcamento.setIcon(new ImageIcon(ComatMainFrame.class.getResource("/br/edu/ifpr/comat/ui/images/page.png")));
 		mniOrcamento.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.ALT_MASK | InputEvent.SHIFT_MASK));
+		mniOrcamento.setIcon(new ImageIcon(ComatMainFrame.class.getResource("/br/edu/ifpr/comat/ui/images/page.png")));		
 		mnCadastros.add(mniOrcamento);
-		
+
 		mniProduto = new JMenuItem("Produto");
-		mniProduto.setIcon(new ImageIcon(ComatMainFrame.class.getResource("/br/edu/ifpr/comat/ui/images/page.png")));
 		mniProduto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.ALT_MASK | InputEvent.SHIFT_MASK));
+		mniProduto.setIcon(new ImageIcon(ComatMainFrame.class.getResource("/br/edu/ifpr/comat/ui/images/page.png")));
 		mnCadastros.add(mniProduto);
-	
+
 		status = new JLabel();
 		status.setFont(new Font("Arial", Font.PLAIN, 11));
 		status.setForeground(Color.DARK_GRAY);
@@ -161,7 +161,7 @@ public class ComatMainFrame extends JFrame {
 
 	public JMenuItem getMniCliente() {
 		return mniCliente;
-	}	
+	}
 
 	public JMenuItem getMniProdutos() {
 		return mniProdutos;
@@ -169,7 +169,7 @@ public class ComatMainFrame extends JFrame {
 
 	public JMenuItem getMniProduto() {
 		return mniProduto;
-	}	
+	}
 
 	public JMenuItem getMniOrcamentos() {
 		return mniOrcamentos;
@@ -185,39 +185,5 @@ public class ComatMainFrame extends JFrame {
 
 	public void setStatusbar(String messagem) {
 		status.setText(" " + messagem);
-	}
-
-	public static void main(String[] args) {
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
-					.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(ComatMainFrame.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(ComatMainFrame.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(ComatMainFrame.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(ComatMainFrame.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new ComatMainFrame().setVisible(true);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	}	
 }

@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.util.Date;
+
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -17,7 +18,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EtchedBorder;
+
 import br.edu.ifpr.comat.controller.ClienteController;
 import br.edu.ifpr.comat.controller.ClienteFisicaController;
 import br.edu.ifpr.comat.controller.ClienteJuridicaController;
@@ -28,19 +32,18 @@ import br.edu.ifpr.comat.ui.components.panels.ComatJPanels;
 import br.edu.ifpr.comat.ui.components.panels.tabbeds.TabViewContatos;
 import br.edu.ifpr.comat.ui.components.panels.tabbeds.TabViewObras;
 import br.edu.ifpr.comat.ui.components.toolbars.CrudToolBar;
-import br.edu.ifpr.comat.ui.utils.CheckFields;
+import br.edu.ifpr.comat.ui.utils.CheckEmptyFields;
 import br.edu.ifpr.comat.util.CheckDocuments;
 import br.edu.ifpr.comat.util.DateUtils;
-import javax.swing.border.EtchedBorder;
-import javax.swing.JTabbedPane;
 
-public class FormClientes extends JPanel implements ComatJPanels, ActionListener {
-	
+public class FormCliente extends JPanel implements ComatJPanels, ActionListener {
+
 	private Boolean insert = false;
 	private JPanel headerPanel, topPanel, gridPanel, contentPanel;
+	private JTabbedPane tabbedPane;
 	private TabViewObras tabObras;
 	private TabViewContatos tabContatos;
-		
+
 	private GridBagConstraints cons;
 
 	private ComatJPanels currentPanel;
@@ -50,30 +53,29 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 	private JRadioButton rbtFisica, rbtJuridica;
 	private JLabel lblCadastroDate;
 	private JComboBox<String> cbxStatus;
-	private JTabbedPane tabbedPane;	
 
-	public FormClientes() {
-		currentPanel = new FormClientesFisica();		
+	public FormCliente() {
+		currentPanel = new FormClienteFisica();
 		buildComponents();
 		rbtFisica.setSelected(true);
 		setDisableFields();
-		crudBar.incluir();	
+		crudBar.incluir();
 	}
 
-	public FormClientes(int id, int tipo) {
-		
+	public FormCliente(int id, int tipo) {
+
 		switch (tipo) {
 		case 1:
-			currentPanel = new FormClientesFisica();			
+			currentPanel = new FormClienteFisica();
 			buildComponents();
 			rbtFisica.setSelected(true);
 			restoreFieldsFisica(id);
 			break;
 
 		case 2:
-			currentPanel = new FormClientesJuridica();
+			currentPanel = new FormClienteJuridica();
 			buildComponents();
-			rbtJuridica.setSelected(true);			
+			rbtJuridica.setSelected(true);
 			restoreFieldsJuridica(id);
 			break;
 		}
@@ -83,7 +85,7 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 		rbtFisica.setEnabled(false);
 		rbtJuridica.setEnabled(false);
 		cbxStatus.setEnabled(false);
-		crudBar.alterar();		
+		crudBar.alterar();
 		tabObras.setIdCliente(id);
 		tabObras.loadModelTable();
 		tabContatos.setIdCliente(id);
@@ -101,15 +103,15 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 		headerPanel.setLayout(new BorderLayout(0, 0));
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		gridPanel.setLayout(new GridBagLayout());
-		
-		topPanel.setBorder(new EtchedBorder());		
+
+		topPanel.setBorder(new EtchedBorder());
 
 		crudBar = new CrudToolBar(this);
 		crudBar.setFloatable(false);
 
 		headerPanel.add(BorderLayout.NORTH, crudBar);
 		headerPanel.add(BorderLayout.SOUTH, topPanel);
-		contentPanel.add(BorderLayout.CENTER, currentPanel.getPanel());		
+		contentPanel.add(BorderLayout.CENTER, currentPanel.getPanel());
 
 		JLabel lbPessoa = new JLabel("Pessoa:");
 
@@ -127,7 +129,7 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 		lblCadastroDate = new JLabel();
 
 		JLabel lblStatus = new JLabel("Status:");
-		cbxStatus = new JComboBox<String>(new ClienteController().getStatusList());
+		cbxStatus = new JComboBox(new ClienteController().getClienteStatusVetString());
 
 		GroupLayout grTopPanel = new GroupLayout(topPanel);
 		grTopPanel.setHorizontalGroup(
@@ -164,31 +166,30 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		topPanel.setLayout(grTopPanel);
-		
-		tabbedPane = new JTabbedPane(JTabbedPane.TOP);		
-		tabbedPane.setBorder(new EtchedBorder());		
-	
+
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBorder(new EtchedBorder());
+
 		tabObras = new TabViewObras();
 		tabContatos = new TabViewContatos();
-		
+
 		tabbedPane.addTab("Obras", null, tabObras, "Obras");
-		tabbedPane.addTab("Contatos", null, tabContatos, "Contatos");		
-		
-		cons = new GridBagConstraints();		
-		cons.fill = GridBagConstraints.BOTH; 		
+		tabbedPane.addTab("Contatos", null, tabContatos, "Contatos");
+
+		cons = new GridBagConstraints();
+		cons.fill = GridBagConstraints.BOTH;
 		cons.gridx = 0;
-		cons.gridy = 0;		
-		gridPanel.add(contentPanel,cons);
-			
-		cons.weightx = 1;  
+		cons.gridy = 0;
+		gridPanel.add(contentPanel, cons);
+
+		cons.weightx = 1;
 		cons.weighty = 1;
 		cons.gridx = 0;
 		cons.gridy = 1;
-		
-		gridPanel.add(tabbedPane,cons);	    
-		
+		gridPanel.add(tabbedPane, cons);
+
 		add(BorderLayout.NORTH, headerPanel);
-		add(BorderLayout.CENTER, gridPanel);		
+		add(BorderLayout.CENTER, gridPanel);
 	}
 
 	@Override
@@ -196,16 +197,16 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 		return this;
 	}
 
-	public Boolean getInsert(){
+	public Boolean getInsert() {
 		return insert;
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == rbtFisica) {
-			setCurrentPanel(new FormClientesFisica());
+			setCurrentPanel(new FormClienteFisica());
 
 		} else if (e.getSource() == rbtJuridica) {
-			setCurrentPanel(new FormClientesJuridica());
+			setCurrentPanel(new FormClienteJuridica());
 
 		} else if (e.getActionCommand().equals("Incluir")) {
 			incluir();
@@ -227,35 +228,35 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 	private void incluir() {
 		insert = true;
 
-		crudBar.inclusao();		
+		crudBar.inclusao();
 		setCleanFields();
-		currentPanel.setCleanFields();		
+		currentPanel.setCleanFields();
 		setEnabledFields();
 		currentPanel.setEnabledFields();
-		currentPanel.setUnLockFk();			
+		currentPanel.setUnLockFk();
 
 		new DateUtils();
 		lblCadastroDate.setText(DateUtils.formatarData(new Date()));
-		
-		if(tabObras.getIdCliente() != null){
+
+		if (tabObras.getIdCliente() != null) {
 			tabObras.setIdCliente(null);
-			tabObras.loadModelTable();			
+			tabObras.loadModelTable();
 		}
-		
+
 		tabObras.stop();
-		
-		if(tabContatos.getIdCliente() != null){
+
+		if (tabContatos.getIdCliente() != null) {
 			tabContatos.setIdCliente(null);
-			tabContatos.loadModelTable();			
+			tabContatos.loadModelTable();
 		}
-		
+
 		tabContatos.stop();
 	}
 
 	private void alterar() {
 		insert = false;
 
-		crudBar.inclusao();		
+		crudBar.inclusao();
 		setEnabledFields();
 		currentPanel.setEnabledFields();
 		tabObras.start();
@@ -267,35 +268,37 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 				"Deseja realmente excluir os dados ?", "Pedido de Exclusão",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		if (excluir == JOptionPane.YES_OPTION) {
-			
-			if(currentPanel.getPanel() instanceof FormClientesFisica) {
-				FormClientesFisica cf = (FormClientesFisica) currentPanel.getPanel();				
+
+			if (currentPanel.getPanel() instanceof FormClienteFisica) {
+				FormClienteFisica cf = (FormClienteFisica) currentPanel.getPanel();
 				new ClienteFisicaController().delete(cf.getTxCpf().getText());
+				
 			} else {
-				FormClientesJuridica cj = (FormClientesJuridica) currentPanel.getPanel();
+				FormClienteJuridica cj = (FormClienteJuridica) currentPanel.getPanel();
 				new ClienteJuridicaController().delete(cj.getTxCnpj().getText());
 			}
-			
+
 			crudBar.incluir();
 			currentPanel.setCleanFields();
-			
+
 			tabObras.setIdCliente(null);
 			tabObras.loadModelTable();
 			tabObras.stop();
-			
+
 			tabContatos.setIdCliente(null);
 			tabContatos.loadModelTable();
-			tabContatos.stop();			
+			tabContatos.stop();
 		}
 	}
 
 	private void salvar() {
 
-		if (currentPanel.getPanel() instanceof FormClientesFisica) {
-			FormClientesFisica cf = (FormClientesFisica) currentPanel.getPanel();
+		if (currentPanel.getPanel() instanceof FormClienteFisica) {
+			FormClienteFisica cf = (FormClienteFisica) currentPanel
+					.getPanel();
 
-			Component ignoreComponents[] = { cf.getTxTelefone(),cf.getTxEmail(), cf.getTxSite(), cf.getTxComplemento(), cf.getTxBairro() };
-			if (CheckFields.checkEmptyFields(currentPanel.getPanel(), ignoreComponents)) {
+			Component ignoreComponents[] = { cf.getTxTelefone(), cf.getTxEmail(), cf.getTxSite(), cf.getTxComplemento(), cf.getTxBairro() };
+			if (CheckEmptyFields.checkEmptyFields(currentPanel.getPanel(), ignoreComponents)) {
 
 				if (CheckDocuments.checkCPF(cf.getTxCpf().getText())) {
 
@@ -321,58 +324,68 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 					String bairro = cf.getTxBairro().getText().trim();
 
 					String estado = (String) cf.getCbxUf().getSelectedItem();
-					String cidade = (String) cf.getCbxCidade().getSelectedItem();
+					String cidade = (String) cf.getCbxCidade()
+							.getSelectedItem();
 
 					String observacoes = cf.getTxObservacoes().getText().trim();
 
-					if (telefone.isEmpty()) { telefone = null; }
-					if (email.isEmpty()) { email = null;}
-					if (site.isEmpty()) { site = null;}
-					if (complemento.isEmpty()) { complemento = null;}
-					if (bairro.isEmpty()) { bairro = null;}
-					if (observacoes.isEmpty()) { observacoes = null;}
+					if (site.isEmpty()) {
+						site = null;
+					}					
+					if(email.isEmpty()){
+						email = null;
+					}					
+					if (complemento.isEmpty()) {
+						complemento = null;
+					}
+					if (bairro.isEmpty()) {
+						bairro = null;
+					}
+					if (observacoes.isEmpty()) {
+						observacoes = null;
+					}
 
 					if (insert) {
-						int id = new ClienteController().save(dataCadastro, status,
+						int id = new ClienteController().save(dataCadastro,
+								status, nome, cpf, rg, dataNasc, telefone,
+								email, celular, site, cep, endereco, numero,
+								complemento, bairro, estado, cidade,
+								observacoes);
+
+						insert = false;
+						tabObras.setIdCliente(id);
+						tabContatos.setIdCliente(id);
+						setSalvarFields();
+						JOptionPane.showMessageDialog(null, "Cliente " + nome + " cadastrado com sucesso");
+					} else {
+						new ClienteController().alter(dataCadastro, status,
 								nome, cpf, rg, dataNasc, telefone, email,
 								celular, site, cep, endereco, numero,
 								complemento, bairro, estado, cidade,
 								observacoes);
 
-						insert = false;								
-						tabObras.setIdCliente(id);
-						tabContatos.setIdCliente(id);
-
-						JOptionPane.showMessageDialog(null, "Cliente " + nome + " cadastrado com sucesso");
-					} else {						
-						new ClienteController().alter(dataCadastro, status,
-								nome, cpf, rg, dataNasc, telefone, email,
-								celular, site, cep, endereco, numero,
-								complemento, bairro, estado, cidade,
-								observacoes, null);
-
 						tabObras.stop();
 						tabContatos.stop();
-						
+						setSalvarFields();
 						JOptionPane.showMessageDialog(null, "Cliente " + nome + " atualizado com sucesso");
-					}	
+					}
 					
-					setSalvarFields();
 
 				} else {
-					cf.getTxCpf().setBackground(Color.cyan); 
-					JOptionPane.showMessageDialog(null, "Verifique o valor informado em CPF");
+					cf.getTxCpf().setBackground(Color.cyan);
+					JOptionPane.showMessageDialog(null,	"Verifique o valor informado em CPF");
 				}
 
 			} else {
 				JOptionPane.showMessageDialog(null, "Verifique os campos obrigatórios");
-			} 
+			}
 
 		} else {
-			FormClientesJuridica cj = (FormClientesJuridica) currentPanel	.getPanel();
-			Component ignoreComponents[] = { cj.getTxFantasia(), cj.getTxFax(),	cj.getTxEmail(), cj.getTxSite(), cj.getTxComplemento(),	cj.getTxBairro() };
+			FormClienteJuridica cj = (FormClienteJuridica) currentPanel
+					.getPanel();
+			Component ignoreComponents[] = { cj.getTxFantasia(), cj.getTxFax(), cj.getTxEmail(), cj.getTxSite(), cj.getTxComplemento(), cj.getTxBairro() };
 
-			if (CheckFields.checkEmptyFields(currentPanel.getPanel(), ignoreComponents)) {
+			if (CheckEmptyFields.checkEmptyFields(currentPanel.getPanel(), ignoreComponents)) {
 
 				if (CheckDocuments.checkCNPJ(cj.getTxCnpj().getText())) {
 
@@ -398,52 +411,60 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 					String bairro = cj.getTxBairro().getText();
 
 					String estado = (String) cj.getCbxUf().getSelectedItem();
-					String cidade = (String) cj.getCbxCidade().getSelectedItem();
+					String cidade = (String) cj.getCbxCidade()
+							.getSelectedItem();
 
 					String observacoes = cj.getTxObservacoes().getText().trim();
 
-					if (fantasia.isEmpty()) { fantasia = null;}
-					if (telefone.isEmpty()) { telefone = null;}
-					if (fax.isEmpty()) { fax = null;}
-					if (email.isEmpty()) { email = null;}
-					if (site.isEmpty()) { site = null;}
-					if (complemento.isEmpty()) { complemento = null;}
-					if (bairro.isEmpty()) {bairro = null;}
-					if (observacoes.isEmpty()) {observacoes = null;}
+					if (fantasia.isEmpty()) {
+						fantasia = null;
+					}										
+					if (site.isEmpty()) {
+						site = null;
+					}
+					if(email.isEmpty()){
+						email = null;
+					}
+					if (complemento.isEmpty()) {
+						complemento = null;
+					}
+					if (bairro.isEmpty()) {
+						bairro = null;
+					}
+					if (observacoes.isEmpty()) {
+						observacoes = null;
+					}
 
 					if (insert) {
 
-						int id = new ClienteController().save(dataCadastro, status,
+						int id = new ClienteController().save(dataCadastro,
+								status, razao, fantasia, cnpj, inscricao, fax,
+								email, site, telefone, cep, endereco, numero,
+								complemento, bairro, estado, cidade,
+								observacoes);
+
+						insert = false;
+						tabObras.setIdCliente(id);
+						tabContatos.setIdCliente(id);
+						setSalvarFields();
+						JOptionPane.showMessageDialog(null, "Cliente " + razao + " cadastrado com sucesso");
+					} else {
+						new ClienteController().alter(dataCadastro, status,
 								razao, fantasia, cnpj, inscricao, fax, email,
 								site, telefone, cep, endereco, numero,
 								complemento, bairro, estado, cidade,
 								observacoes);
 
-						insert = false;
-						tabObras.setIdCliente(id);	
-						tabContatos.setIdCliente(id);
-
-						JOptionPane.showMessageDialog(null, "Cliente " + razao
-								+ " cadastrado com sucesso");
-					} else {
-						new ClienteController().alter(dataCadastro, status, 
-								razao, fantasia, cnpj, inscricao, fax, email, 
-								site, telefone, cep, endereco, numero, 
-								complemento, bairro, estado, cidade,
-								observacoes, null);
-
 						tabObras.stop();
 						tabContatos.stop();
-						
-						JOptionPane.showMessageDialog(null, "Cliente " + razao
-								+ " atualizado com sucesso");
+						setSalvarFields();
+						JOptionPane.showMessageDialog(null, "Cliente " + razao + " atualizado com sucesso");
 					}
-					setSalvarFields();
 					
 
 				} else {
 					cj.getTxCnpj().setBackground(Color.cyan);
-					JOptionPane.showMessageDialog(null,	"Verifique o valor informado em CNPJ");
+					JOptionPane.showMessageDialog(null, "Verifique o valor informado em CNPJ");
 				}
 
 			} else {
@@ -451,20 +472,20 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 			}
 		}
 	}
-	
-	private void setSalvarFields(){
+
+	private void setSalvarFields() {
 		setDisableFields();
 		currentPanel.setDisableFields();
-		
+
 		rbtFisica.setEnabled(false);
 		rbtJuridica.setEnabled(false);
 		cbxStatus.setEnabled(false);
-		
-		crudBar.alterar();		
+
+		crudBar.alterar();
 	}
 
 	private void cancelar() {
-		if (insert)	
+		if (insert)
 			insert = false;
 
 		crudBar.incluir();
@@ -473,32 +494,31 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 		setDisableFields();
 		currentPanel.setDisableFields();
 
-		CheckFields.restoreFields(currentPanel.getPanel());
-		
-		if(tabObras.getIdCliente() != null){
+		CheckEmptyFields.restoreFields(currentPanel.getPanel());
+
+		if (tabObras.getIdCliente() != null) {
 			tabObras.setIdCliente(null);
 		}
 		tabObras.loadModelTable();
 		tabObras.stop();
-		
 
-		if(tabContatos.getIdCliente() != null){
+		if (tabContatos.getIdCliente() != null) {
 			tabContatos.setIdCliente(null);
 		}
 		tabContatos.loadModelTable();
 		tabContatos.stop();
 	}
-	
+
 	private void recoverFieldsSuper(int id) {
 		Cliente c = new ClienteController().search(id);
-		lblCadastroDate.setText(DateUtils.formatarData(c.getDataCadastro()));	
+		lblCadastroDate.setText(DateUtils.formatarData(c.getDataCadastro()));
 		cbxStatus.setSelectedIndex(c.getStatus());
 	}
 
 	private void restoreFieldsFisica(int id) {
-		FormClientesFisica cf = (FormClientesFisica) currentPanel.getPanel();
+		FormClienteFisica cf = (FormClienteFisica) currentPanel.getPanel();
 		ClienteFisica c = new ClienteFisicaController().search(id);
-		
+
 		cf.getTxNome().setText(c.getNome());
 		cf.getTxCpf().setText(c.getCpf());
 		cf.getTxRg().setText(c.getRg());
@@ -518,7 +538,7 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 	}
 
 	private void restoreFieldsJuridica(int id) {
-		FormClientesJuridica cj = (FormClientesJuridica) currentPanel.getPanel();
+		FormClienteJuridica cj = (FormClienteJuridica) currentPanel.getPanel();
 		ClienteJuridica c = new ClienteJuridicaController().search(id);
 
 		cj.getTxRazao().setText(c.getRazao());
@@ -569,13 +589,12 @@ public class FormClientes extends JPanel implements ComatJPanels, ActionListener
 	@Override
 	public void setLockFk() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setUnLockFk() {
 		// TODO Auto-generated method stub
-		
-	}	
-	
+
+	}
 }

@@ -41,9 +41,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `comat`.`Cliente` (
   `idCliente` INT(11) NOT NULL AUTO_INCREMENT,
-  `status` INT NULL,
+  `status` INT NOT NULL,
   `email` VARCHAR(72) NULL UNIQUE,
-  `site` VARCHAR(72) NULL UNIQUE,
+  `site` VARCHAR(72) NULL,
   `telefone` VARCHAR(12) NULL UNIQUE,
   `dataCadastro` DATE NOT NULL, 
   `observacoes` LONGTEXT NULL,
@@ -87,7 +87,7 @@ ENGINE = InnoDB;
 -- Table `comat`.`Contato`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `comat`.`Contato` (
-  `idContato` INT(11) NOT NULL,
+  `idContato` INT(11) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `telefone` VARCHAR(12) NULL,
   `celular` VARCHAR(12) NOT NULL,
@@ -159,5 +159,40 @@ CREATE TABLE IF NOT EXISTS `comat`.`CorrelacaoProdutos` (
   PRIMARY KEY (`refProdutoFk`, `refProdutoRelFk`),  
   FOREIGN KEY (`refProdutoFk`) REFERENCES `comat`.`Produto` (`refProduto`), 
   FOREIGN KEY (`refProdutoRelFk`) REFERENCES `comat`.`Produto` (`refProduto`)
+)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `comat`.`Orcamento`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `comat`.`Orcamento` (
+  `idOrcamento` INT NOT NULL AUTO_INCREMENT,
+  `data` DATE NOT NULL,
+  `status` INT NOT NULL,
+  `validade` DATE NOT NULL,
+  `observacoes` LONGTEXT NULL,
+  `total` DOUBLE NULL,
+  `idClienteFk` INT NOT NULL,
+  `idObraFk` INT NULL,
+  `idUsuarioFk` INT NULL,
+  PRIMARY KEY (`idOrcamento`),
+  FOREIGN KEY (`idClienteFk`) REFERENCES `comat`.`Cliente` (`idCliente`),
+  FOREIGN KEY (`idObraFk`)REFERENCES `comat`.`Obra` (`idObra`)
+)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `comat`.`ItensOrcamento`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `comat`.`ItensOrcamento` (
+  `idOrcamentoFk` INT NOT NULL,
+  `refProdutoFk` INT NOT NULL,
+  `preco` DOUBLE NOT NULL,
+  `quantidade` INT NOT NULL,
+  `desconto` DOUBLE NULL,
+  PRIMARY KEY (`idOrcamentoFk`, `refProdutoFk`),
+  FOREIGN KEY (`idOrcamentoFk`) REFERENCES `comat`.`Orcamento` (`idOrcamento`),
+  FOREIGN KEY (`refProdutoFk`) REFERENCES `comat`.`Produto` (`refProduto`)
 )
 ENGINE = InnoDB;

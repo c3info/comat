@@ -1,9 +1,11 @@
 package br.edu.ifpr.comat.ui.utils;
 
-import javax.swing.text.*;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 
-public class MaxLengthFields extends PlainDocument {	
-	
+public class MaxLengthFields extends PlainDocument {
+
 	private int iMaxLength;
 
 	public MaxLengthFields(int maxlen) {

@@ -3,6 +3,7 @@ package br.edu.ifpr.comat.ui.components.tables;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
 import br.edu.ifpr.comat.model.ClienteJuridica;
 import br.edu.ifpr.comat.util.DateUtils;
 
@@ -21,7 +22,7 @@ public class TbModelClienteJuridica extends AbstractTableModel {
 
 	private List<ClienteJuridica> rows;
 	private String[] columns = new String[] { "Id", "Dt. Cadastro", "Razão",
-			"CNPJ", "Telefone", "Fax", "Email", "Cidade", "UF",  "Status" };
+			"CNPJ", "Telefone", "Fax", "Email", "Cidade", "UF", "Status" };
 
 	public TbModelClienteJuridica(List<ClienteJuridica> clientes) {
 		this.rows = clientes;
@@ -65,7 +66,7 @@ public class TbModelClienteJuridica extends AbstractTableModel {
 			return c.getEndereco().getCidade().getEstado().getNome();
 		} else if (column == COL_STATUS) {
 			return c.getStatus();
-		} 
+		}
 		return "";
 	}
 

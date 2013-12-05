@@ -6,20 +6,24 @@ import br.edu.ifpr.comat.dao.ClienteFisicaDAO;
 import br.edu.ifpr.comat.model.ClienteFisica;
 
 public class ClienteFisicaController {
-	
-	public void delete(String cpf) {		
+
+	public void delete(String cpf) {
 		new ClienteController().delete(new ClienteFisicaDAO().selectCpf(cpf).getIdCliente());
 	}
 
 	public ClienteFisica search(int id) {
 		return new ClienteFisicaDAO().select(id);
-	}	
+	}
+
+	public List<ClienteFisica> search() {
+		return new ClienteFisicaDAO().select();
+	}
 	
-	public List<ClienteFisica> search(){
-		return new ClienteFisicaDAO().select();		
-	}	
-	
-	public List<ClienteFisica> searchStatus(int status){
-		return new ClienteFisicaDAO().selectStatus(status);		
+	public ClienteFisica searchCpf(String cpf){
+		return new ClienteFisicaDAO().selectCpf(cpf);
+	}
+
+	public List<ClienteFisica> searchStatus(int status) {
+		return new ClienteFisicaDAO().selectStatus(status);
 	}
 }

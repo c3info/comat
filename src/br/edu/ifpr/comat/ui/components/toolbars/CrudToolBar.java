@@ -3,20 +3,21 @@ package br.edu.ifpr.comat.ui.components.toolbars;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 public class CrudToolBar extends JToolBar {
-	
+
 	private Map<String, JButton> buttons;
 	private ActionListener listener;
 
 	public CrudToolBar(ActionListener listener) {
 		this.buttons = new HashMap<String, JButton>();
 		this.listener = listener;
-		loadDefaultButtons();		
+		loadDefaultButtons();
 	}
 
 	public Map<String, JButton> getButtons() {
@@ -35,7 +36,7 @@ public class CrudToolBar extends JToolBar {
 				.addButton("Alterar", "/br/edu/ifpr/comat/ui/images/pencil.png")
 				.addButton("Excluir", "/br/edu/ifpr/comat/ui/images/delete.png")
 				.addButton("Salvar", "/br/edu/ifpr/comat/ui/images/disk.png")
-				.addButton("Cancelar","/br/edu/ifpr/comat/ui/images/cancel.png");
+				.addButton("Cancelar", "/br/edu/ifpr/comat/ui/images/cancel.png");
 	}
 
 	protected JButton buidButton(String text, String iconPath) {
@@ -64,13 +65,13 @@ public class CrudToolBar extends JToolBar {
 		getButtons().get("salvar").setEnabled(false);
 		getButtons().get("cancelar").setEnabled(false);
 	}
-	
-	public void inclusao(){
+
+	public void inclusao() {
 		getButtons().get("incluir").setEnabled(false);
 		getButtons().get("alterar").setEnabled(false);
 		getButtons().get("excluir").setEnabled(false);
 		getButtons().get("salvar").setEnabled(true);
 		getButtons().get("cancelar").setEnabled(true);
-		
-	}	
+
+	}
 }

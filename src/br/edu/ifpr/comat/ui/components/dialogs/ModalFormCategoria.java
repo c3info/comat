@@ -9,29 +9,27 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javassist.expr.Instanceof;
-
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EtchedBorder;
+
 import br.edu.ifpr.comat.controller.CategoriaController;
 import br.edu.ifpr.comat.ui.components.tables.TbModelCategoria;
 import br.edu.ifpr.comat.ui.components.toolbars.CrudToolBar;
-import br.edu.ifpr.comat.ui.utils.CheckFields;
+import br.edu.ifpr.comat.ui.utils.CheckEmptyFields;
 import br.edu.ifpr.comat.ui.utils.MaxLengthFields;
 
-import javax.swing.JLabel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-
-public class FormCategoria extends JDialog implements ActionListener {
+public class ModalFormCategoria extends JDialog implements ActionListener {
 
 	private Integer id = null;
 	private Boolean insert = false;
@@ -43,7 +41,7 @@ public class FormCategoria extends JDialog implements ActionListener {
 	private JScrollPane scrollPane;
 	private JTable table;
 
-	public FormCategoria() {
+	public ModalFormCategoria() {
 		buildComponents();
 		setDisableFields();
 		crudBar.incluir();
@@ -56,7 +54,7 @@ public class FormCategoria extends JDialog implements ActionListener {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 520, 300);
 		getContentPane().setLayout(new BorderLayout());
-		
+
 		topPanel = new JPanel();
 		topPanel.setLayout(new BorderLayout());
 
@@ -80,7 +78,7 @@ public class FormCategoria extends JDialog implements ActionListener {
 					.addContainerGap()
 					.addComponent(lblNewLabel)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(txCategoria, GroupLayout.PREFERRED_SIZE, 357, Short.MAX_VALUE)
+					.addComponent(txCategoria, GroupLayout.PREFERRED_SIZE, 427, Short.MAX_VALUE)
 					.addGap(12))
 		);
 		grInsertPanel.setVerticalGroup(
@@ -98,7 +96,7 @@ public class FormCategoria extends JDialog implements ActionListener {
 
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setShowHorizontalLines(true);		
+		table.setShowHorizontalLines(true);
 		table.setRowHeight(28);
 		loadModelTable();
 
@@ -107,16 +105,15 @@ public class FormCategoria extends JDialog implements ActionListener {
 				JTable tb = (JTable) me.getSource();
 				Point p = me.getPoint();
 				int row = tb.rowAtPoint(p);
-				if (me.getClickCount() == 2) {
-					int rowSelected = tb.getSelectedRow();
+				if (me.getClickCount() == 2) {		
 
-					id = (Integer) tb.getValueAt(rowSelected, 0);
-					String nome = (String) tb.getValueAt(rowSelected, 1);
+					id = (Integer) tb.getValueAt(row, 0);
+					String nome = (String) tb.getValueAt(row, 1);
 
 					txCategoria.setText(nome);
 					crudBar.alterar();
 					btRecuperar.setEnabled(true);
-				}
+				} 
 			}
 		});
 
@@ -128,11 +125,11 @@ public class FormCategoria extends JDialog implements ActionListener {
 		buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-		btRecuperar = new JButton("Recuperar");		
+		btRecuperar = new JButton("Recuperar");
 		btRecuperar.addActionListener(this);
 		buttonPane.add(btRecuperar);
 
-		btCancelar = new JButton("Cancelar");		
+		btCancelar = new JButton("Cancelar");
 		btCancelar.addActionListener(this);
 		buttonPane.add(btCancelar);
 
@@ -154,7 +151,8 @@ public class FormCategoria extends JDialog implements ActionListener {
 		setEnabledFields();
 		setCleanFields();
 		btRecuperar.setEnabled(false);
-		if(id != null)  id = null;
+		if (id != null)
+			id = null;
 	}
 
 	private void alterar() {
@@ -169,7 +167,7 @@ public class FormCategoria extends JDialog implements ActionListener {
 				"Deseja rexcluir a categoria ?", "Pedido de Exclusão",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		if (excluir == JOptionPane.YES_OPTION) {
-			new CategoriaController().delete(id);			
+			new CategoriaController().delete(id);
 			crudBar.incluir();
 			setCleanFields();
 			setDisableFields();
@@ -180,8 +178,7 @@ public class FormCategoria extends JDialog implements ActionListener {
 
 	private void salvar() {
 		Component emptyComponentes[] = {};
-		if (CheckFields.checkEmptyFields(contentPanel, emptyComponentes)) {
-
+		if (CheckEmptyFields.checkEmptyFields(contentPanel, emptyComponentes)) {
 			String nome = txCategoria.getText();
 
 			if (insert) {
@@ -198,17 +195,18 @@ public class FormCategoria extends JDialog implements ActionListener {
 			loadModelTable();
 
 		} else {
-			JOptionPane.showMessageDialog(null, "Verifique os campos obrigatórios");
+			JOptionPane.showMessageDialog(null,	"Verifique os campos obrigatórios");
 		}
 	}
 
 	private void cancelar() {
-		if (insert) insert = false;
+		if (insert)
+			insert = false;
 
 		crudBar.incluir();
 		setCleanFields();
 		setDisableFields();
-		CheckFields.restoreFields(contentPanel);
+		CheckEmptyFields.restoreFields(contentPanel);
 	}
 
 	public void setEnabledFields() {
@@ -225,34 +223,35 @@ public class FormCategoria extends JDialog implements ActionListener {
 	}
 
 	public String retornavalor() {
-		if(id != null){
+		if (id != null) {
 			String categoria = null;
-			
+
 			int selectedRow = -1;
 			selectedRow = table.getSelectedRow();
-	        
-	        if (selectedRow >= 0) {        	
-	        	categoria = (String) table.getValueAt(selectedRow, 1);         
-	        }		
+
+			if (selectedRow >= 0) {
+				categoria = (String) table.getValueAt(selectedRow, 1);
+			}
 			return categoria;
 		} else {
 			return null;
 		}
-		
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		if (e.getSource() == btCancelar) {			
-			dispose();			
+
+		if (e.getSource() == btCancelar) {
+			dispose();
 
 		} else if (e.getSource() == btRecuperar) {
 			dispose();
-		} else  if (e.getActionCommand().equals("Incluir")) {
+			
+		} else if (e.getActionCommand().equals("Incluir")) {
 			incluir();
 
-		} else if (e.getActionCommand().equals("Alterar")) { 
+		} else if (e.getActionCommand().equals("Alterar")) {
 			alterar();
 
 		} else if (e.getActionCommand().equals("Excluir")) {
@@ -263,6 +262,6 @@ public class FormCategoria extends JDialog implements ActionListener {
 
 		} else if (e.getActionCommand().equals("Cancelar")) {
 			cancelar();
-		} 
+		}
 	}
 }

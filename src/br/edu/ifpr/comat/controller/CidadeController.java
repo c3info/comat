@@ -7,9 +7,9 @@ import br.edu.ifpr.comat.model.Cidade;
 
 public class CidadeController {
 
-	public String[] getCidadesPorEstado(String estado) {
+	public String[] getCidadesVetString(String estado) {
+		
 		List<Cidade> cidades = new CidadeDAO().selectPorEstado(estado);
-
 		String[] valores = new String[cidades.size()];
 
 		int cont = 0;
@@ -19,10 +19,14 @@ public class CidadeController {
 		return valores;
 
 	}
-	
+
 	public List<Cidade> getCidadesDoEstado(String estado) {
-		List<Cidade> cidades = new CidadeDAO().selectPorEstado(estado);		
+		List<Cidade> cidades = new CidadeDAO().selectPorEstado(estado);
 		return cidades;
+	}
+	
+	public Cidade search(String cidade){
+		return new CidadeDAO().select(cidade);
 	}
 
 }

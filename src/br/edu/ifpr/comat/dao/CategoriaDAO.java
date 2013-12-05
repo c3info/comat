@@ -2,6 +2,7 @@ package br.edu.ifpr.comat.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -28,7 +29,7 @@ public class CategoriaDAO extends BaseDAO {
 	public int insert(Categoria cat) {
 		try {
 			trns = session.beginTransaction();
-			session.save(cat);			
+			session.save(cat);
 			session.getTransaction().commit();
 		} catch (HibernateException hi) {
 			if (trns != null) {
@@ -80,7 +81,8 @@ public class CategoriaDAO extends BaseDAO {
 		List<Categoria> categorias = new ArrayList<>();
 		try {
 			trns = session.beginTransaction();
-			categorias = session.createQuery("from Categoria ORDER BY nomeCategoria ASC ").list();
+			categorias = session.createQuery(
+					"from Categoria ORDER BY nomeCategoria ASC ").list();
 		} catch (HibernateException hi) {
 			if (trns != null) {
 				trns.rollback();
@@ -112,7 +114,7 @@ public class CategoriaDAO extends BaseDAO {
 		}
 		return cat;
 	}
-	
+
 	public Categoria select(String nome) {
 		Categoria cat = null;
 		try {

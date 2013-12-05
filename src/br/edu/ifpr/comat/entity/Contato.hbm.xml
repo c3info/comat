@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="br.edu.ifpr.comat.model.Contato" table="Contato">
 		<id name="idContato" type="java.lang.Integer">
 			<column name="idContato" />
-			<generator class="increment" />
+			<generator class="identity" />
 		</id>
 		<property name="nome" type="string">
 			<column name="nome" length="45" not-null="true"/>

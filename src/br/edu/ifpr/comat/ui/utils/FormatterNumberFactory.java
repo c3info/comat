@@ -5,18 +5,18 @@ import java.text.ParseException;
 
 import javax.swing.text.NumberFormatter;
 
-public class FormatterFactory {
-	
+public class FormatterNumberFactory {
+
 	private NumberFormat amountDisplayFormat;
 	private NumberFormat amountEditFormat;
 	private NumberFormat percentDisplayFormat;
 	private NumberFormat percentEditFormat;
 	private NumberFormat paymentFormat;
-	private NumberFormat decimalDisplayFormat;	
+	private NumberFormat decimalDisplayFormat;
 
 	private NumberFormatter percentEditFormatter;
 
-	public FormatterFactory() {
+	public FormatterNumberFactory() {
 		setUpFormats();
 
 		percentEditFormatter = new NumberFormatter(percentEditFormat) {
@@ -51,10 +51,10 @@ public class FormatterFactory {
 		percentEditFormat.setMinimumFractionDigits(2);
 
 		paymentFormat = NumberFormat.getCurrencyInstance();
-		
+
 		decimalDisplayFormat = NumberFormat.getNumberInstance();
 		decimalDisplayFormat.setMinimumFractionDigits(3);
-		
+
 	}
 
 	public NumberFormat getAmountDisplayFormat() {

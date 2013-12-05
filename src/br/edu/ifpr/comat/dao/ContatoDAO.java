@@ -1,12 +1,14 @@
 package br.edu.ifpr.comat.dao;
 
-import br.edu.ifpr.comat.model.Contato;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import br.edu.ifpr.comat.model.Contato;
 
 /**
  * @project comat
@@ -90,15 +92,16 @@ public class ContatoDAO extends BaseDAO {
 		}
 		return contatos;
 	}
-	
+
 	public List<Contato> selectCliente(int idCliente) {
 		List<Contato> contatos = new ArrayList<>();
 		try {
-			trns = session.beginTransaction();			
-			Query query = session.createQuery("from Contato where idClienteFk = :id");
+			trns = session.beginTransaction();
+			Query query = session
+					.createQuery("from Contato where idClienteFk = :id");
 			query.setInteger("id", idCliente);
 			contatos = query.list();
-			
+
 		} catch (HibernateException hi) {
 			if (trns != null) {
 				trns.rollback();

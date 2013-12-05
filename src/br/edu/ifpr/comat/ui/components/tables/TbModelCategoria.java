@@ -10,7 +10,6 @@ public class TbModelCategoria extends AbstractTableModel {
 
 	private static final int COL_ID = 0;
 	private static final int COL_NOME = 1;
-	
 
 	private List<Categoria> rows;
 	private String[] columns = new String[] { "ID.", "Nome" };
@@ -41,7 +40,7 @@ public class TbModelCategoria extends AbstractTableModel {
 			return c.getIdCategoria();
 		} else if (column == COL_NOME) {
 			return c.getNomeCategoria();
-		} 
+		}
 
 		return "";
 	}

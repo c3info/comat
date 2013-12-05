@@ -2,7 +2,9 @@ package br.edu.ifpr.comat.ui.components.tables;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
+
 import br.edu.ifpr.comat.model.Obra;
 
 public class TbModelObra extends AbstractTableModel {
@@ -14,12 +16,12 @@ public class TbModelObra extends AbstractTableModel {
 	private static final int COL_ENDER = 4;
 	private static final int COL_CIDADE = 5;
 	private static final int COL_UF = 6;
-	
-	private List<Obra> rows;
-	private String[] columns = new String[] { "ID.", "Nome / Apelido", "Telefone",
-			"Responsável", "Endereço", "Cidade", "UF" };
 
-	public TbModelObra(List<Obra> obras) {	
+	private List<Obra> rows;
+	private String[] columns = new String[] { "ID.", "Nome / Apelido",
+			"Telefone", "Responsável", "Endereço", "Cidade", "UF" };
+
+	public TbModelObra(List<Obra> obras) {
 		this.rows = new ArrayList<>(obras);
 	}
 

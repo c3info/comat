@@ -8,9 +8,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EtchedBorder;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
@@ -18,43 +29,33 @@ import javax.swing.text.NumberFormatter;
 import br.edu.ifpr.comat.controller.CategoriaController;
 import br.edu.ifpr.comat.controller.ProdutoController;
 import br.edu.ifpr.comat.model.Produto;
-import br.edu.ifpr.comat.ui.components.dialogs.FormCategoria;
+import br.edu.ifpr.comat.ui.components.dialogs.ModalFormCategoria;
 import br.edu.ifpr.comat.ui.components.panels.ComatJPanels;
+import br.edu.ifpr.comat.ui.components.panels.tabbeds.TabViewProdutosRel;
 import br.edu.ifpr.comat.ui.components.toolbars.CrudToolBar;
-import br.edu.ifpr.comat.ui.utils.CheckFields;
-import br.edu.ifpr.comat.ui.utils.FormatterFactory;
+import br.edu.ifpr.comat.ui.utils.CheckEmptyFields;
+import br.edu.ifpr.comat.ui.utils.FormatterNumberFactory;
 import br.edu.ifpr.comat.ui.utils.MaxLengthFields;
 import br.edu.ifpr.comat.ui.utils.OnlyNumberFields;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import javax.swing.JFormattedTextField;
 
 public class FormProduto extends JPanel implements ComatJPanels, ActionListener {
 
 	private Boolean insert = false;
 	private JPanel headerPanel, topPanel, gridPanel, contentPanel;
-	private GridBagConstraints cons;
 	private JTabbedPane tabbedPane;
+	private TabViewProdutosRel tabProdutosRel;
 
-	private JComboBox cbxCategoria, cbxStatus, cbxUnidade;
+	private GridBagConstraints cons;
 
 	private CrudToolBar crudBar;
-	private JTextArea txDescricao;
+	private JComboBox cbxCategoria, cbxStatus, cbxUnidade;
 
+	private JButton btNewCategoria;
+	private JTextArea txDescricao;
 	private JTextField txNome, txCodBar, txCodFabricante, txMarca, txQuantidade;
 	private JFormattedTextField txReferencia, txPeso, txCusto, txVenda, txDesconto;
-	private JButton btNewCategoria;
 
-	FormatterFactory formater;
+	private FormatterNumberFactory formater;
 
 	public FormProduto() {
 		buildComponents();
@@ -75,7 +76,7 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 
 	private void buildComponents() {
 		setLayout(new BorderLayout(0, 0));
-		formater = new FormatterFactory();
+		formater = new FormatterNumberFactory();
 
 		headerPanel = new JPanel();
 		topPanel = new JPanel();
@@ -98,7 +99,7 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 		txReferencia.setDocument(new OnlyNumberFields(12));
 
 		JLabel lblCategoria = new JLabel("Categoria:");
-		cbxCategoria = new JComboBox<String>( new CategoriaController().getCategoriasList());
+		cbxCategoria = new JComboBox( new CategoriaController().getCategoriasVetString());
 		cbxCategoria.addItem("Qualquer");
 		cbxCategoria.setSelectedItem("Qualquer");
 
@@ -108,7 +109,7 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 		btNewCategoria.addActionListener(this);
 
 		JLabel lblStatus = new JLabel("Status:");
-		cbxStatus = new JComboBox<String>(new ProdutoController().getStatusList());
+		cbxStatus = new JComboBox(new ProdutoController().getStatusList());
 
 		GroupLayout grTopPanel = new GroupLayout(topPanel);
 		grTopPanel.setHorizontalGroup(
@@ -210,7 +211,7 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 						.addGroup(gcontentPanel.createSequentialGroup()
 							.addComponent(lblNome)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txNome, GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
+							.addComponent(txNome, GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE)
 							.addGap(6))
 						.addGroup(gcontentPanel.createSequentialGroup()
 							.addComponent(lblCodBarras)
@@ -223,10 +224,15 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 							.addGap(18)
 							.addComponent(lblMarca)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txMarca, GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+							.addComponent(txMarca, GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
 							.addContainerGap())
 						.addGroup(gcontentPanel.createSequentialGroup()
-							.addComponent(lblUnidade)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 839, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(gcontentPanel.createSequentialGroup()
+							.addGroup(gcontentPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblUnidade)
+								.addComponent(lblDescricao))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(cbxUnidade, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
@@ -248,11 +254,7 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 							.addGap(18)
 							.addComponent(lblDesconto)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txDesconto, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblDescricao)
-						.addGroup(gcontentPanel.createSequentialGroup()
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
-							.addContainerGap())))
+							.addComponent(txDesconto, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE))))
 		);
 		gcontentPanel.setVerticalGroup(
 			gcontentPanel.createParallelGroup(Alignment.LEADING)
@@ -295,8 +297,10 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBorder(new EtchedBorder());
 
-		JTextField textField = new JTextField();
-		tabbedPane.addTab("Produtos Relacionados", null, textField, "Produtos");
+		tabProdutosRel = new TabViewProdutosRel();
+
+		tabbedPane.addTab("Produtos Relacionados", null, tabProdutosRel,
+				"Produtos");
 
 		cons = new GridBagConstraints();
 		cons.fill = GridBagConstraints.BOTH;
@@ -309,7 +313,7 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 		cons.weighty = 1;
 		cons.gridx = 0;
 		cons.gridy = 1;
-		gridPanel.add(tabbedPane, cons);
+		gridPanel.add(tabbedPane, cons);		
 
 		add(BorderLayout.NORTH, headerPanel);
 		add(BorderLayout.CENTER, gridPanel);
@@ -317,8 +321,8 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 	}
 
 	private void reloadCategorias() {
-		String[] categorias = new CategoriaController().getCategoriasList();
-		cbxCategoria.setModel(new JComboBox<String>(categorias).getModel());
+		String[] categorias = new CategoriaController().getCategoriasVetString();
+		cbxCategoria.setModel(new JComboBox<>(categorias).getModel());
 	}
 
 	private void restoreFields(int ref) {
@@ -333,13 +337,13 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 		txMarca.setText(p.getMarca());
 		cbxUnidade.setSelectedItem(p.getUnidade());
 		txPeso.setText(p.getPeso().toString());
-		txQuantidade.setText(p.getQuantidade().toString());		
+		txQuantidade.setText(p.getQuantidade().toString());
 		txCusto.setText(NumberFormat.getCurrencyInstance().format(p.getPrecoCusto()));
-		txVenda.setText(NumberFormat.getCurrencyInstance().format(p.getPrecoVenda()));	
-		
-		NumberFormat num =  NumberFormat.getPercentInstance();
+		txVenda.setText(NumberFormat.getCurrencyInstance().format(p.getPrecoVenda()));
+
+		NumberFormat num = NumberFormat.getPercentInstance();
 		num.setMinimumFractionDigits(2);
-		txDesconto.setText(num .format(p.getDescontoMax()/100));		
+		txDesconto.setText(num.format(p.getDescontoMax() / 100));
 		txDescricao.setText(p.getDescricao());
 	}
 
@@ -375,11 +379,11 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 
 			@Override
 			public void run() {
-				FormCategoria categorias = new FormCategoria();
+				ModalFormCategoria categorias = new ModalFormCategoria();
 				categorias.setModal(true);
 				categorias.setVisible(true);
 				String valor = categorias.retornavalor();
-				if(valor != null){
+				if (valor != null) {
 					reloadCategorias();
 					cbxCategoria.setSelectedItem(valor);
 				} else {
@@ -399,7 +403,7 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 		setCleanFields();
 		setEnabledFields();
 		setUnLockFk();
-		
+
 		txReferencia.requestFocusInWindow();
 	}
 
@@ -409,7 +413,7 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 		crudBar.inclusao();
 		setEnabledFields();
 		setLockFk();
-		
+
 		txNome.requestFocusInWindow();
 	}
 
@@ -418,7 +422,7 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 				"Deseja realmente excluir os dados ?", "Pedido de Exclusão",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		if (excluir == JOptionPane.YES_OPTION) {
-            new ProdutoController().delete(Integer.parseInt(txReferencia.getText()));
+			new ProdutoController().delete(Integer.parseInt(txReferencia.getText()));
 			crudBar.incluir();
 			setCleanFields();
 		}
@@ -429,8 +433,7 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 
 		Component ignoreComponents[] = { txCodBar, txCodFabricante,	txDescricao, txCusto, txVenda, txDesconto, txQuantidade, txMarca, txPeso };
 		Component emptyComponentes[] = {};
-		if (CheckFields.checkEmptyFields(topPanel, emptyComponentes)
-				|| CheckFields.checkEmptyFields(contentPanel, ignoreComponents)) {
+		if (CheckEmptyFields.checkEmptyFields(topPanel, emptyComponentes) & CheckEmptyFields.checkEmptyFields(contentPanel, ignoreComponents)) {
 			if (!cbxCategoria.getSelectedItem().equals("Qualquer")) {
 				int refProduto = Integer.parseInt(txReferencia.getText());
 				String codBarra = txCodBar.getText().trim();
@@ -440,17 +443,17 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 				String unidade = (String) cbxUnidade.getSelectedItem();
 
 				Double precoCusto = 0.00d;
-				if (!txCusto.getText().isEmpty()) {	
+				if (!txCusto.getText().isEmpty()) {
 					precoCusto = Double.parseDouble(((txVenda.getText().replace(".", "")).replace("R$", "")).replace(",","."));
 				}
 
 				Double precoVenda = 0.00d;
-				if (!txVenda.getText().isEmpty()) {	
-					precoVenda = Double.parseDouble(((txVenda.getText().replace(".", "")).replace("R$", "")).replace(",","."));				
+				if (!txVenda.getText().isEmpty()) {
+					precoVenda = Double.parseDouble(((txVenda.getText().replace(".", "")).replace("R$", "")).replace(",","."));
 				}
 
 				Double descontoMax = 0.00d;
-				if (!txDesconto.getText().isEmpty()) { 
+				if (!txDesconto.getText().isEmpty()) {
 					descontoMax = Double.parseDouble((txDesconto.getText().replaceAll(",", ".").replace("%", "")).trim());
 				}
 
@@ -460,7 +463,7 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 				}
 
 				Double peso = 0.00d;
-				if (!txPeso.getText().isEmpty()) { 
+				if (!txPeso.getText().isEmpty()) {
 					peso = Double.parseDouble((txPeso.getText().replaceAll(",",".")).trim());
 				}
 
@@ -468,13 +471,9 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 				String marca = txMarca.getText().trim();
 				String categoria = (String) cbxCategoria.getSelectedItem();
 
-				if (codBarra.isEmpty())
-					codBarra = null;
-				if (codFabricante.isEmpty())
-					codFabricante = null;
-				if (marca.isEmpty())
-					marca = " ";
-
+				if (codBarra.isEmpty()) codBarra = null;
+				if (codFabricante.isEmpty()) codFabricante = null;
+				
 				if (insert) {
 					new ProdutoController().save(refProduto, codBarra,
 							codFabricante, nome, descricao, unidade,
@@ -482,6 +481,9 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 							status, marca, peso, categoria);
 
 					insert = false;
+					setDisableFields();
+					cbxStatus.setEnabled(false);
+					crudBar.alterar();
 					JOptionPane.showMessageDialog(null, "Produto" + nome + " cadastrado com sucesso");
 				} else {
 
@@ -489,17 +491,17 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 							codFabricante, nome, descricao, unidade,
 							precoCusto, precoVenda, descontoMax, quantidade,
 							status, marca, peso, categoria);
+					setDisableFields();
+					cbxStatus.setEnabled(false);
+					crudBar.alterar();
 					JOptionPane.showMessageDialog(null, "Produto " + nome + " atualizado com sucesso");
 				}
 
-				setDisableFields();
-				cbxStatus.setEnabled(false);
-				crudBar.alterar();
 			} else {
 				JOptionPane.showMessageDialog(null, "Selecione uma categoria!");
 			}
 		} else {
-			JOptionPane.showMessageDialog(null,	"Verifique os campos obrigatórios");
+			JOptionPane.showMessageDialog(null, "Verifique os campos obrigatórios");
 		}
 	}
 
@@ -510,8 +512,8 @@ public class FormProduto extends JPanel implements ComatJPanels, ActionListener 
 		crudBar.incluir();
 		setCleanFields();
 		setDisableFields();
-		CheckFields.restoreFields(topPanel);
-		CheckFields.restoreFields(contentPanel);
+		CheckEmptyFields.restoreFields(topPanel);
+		CheckEmptyFields.restoreFields(contentPanel);
 		cbxCategoria.setSelectedItem("Qualquer");
 		cbxStatus.setSelectedIndex(0);
 	}

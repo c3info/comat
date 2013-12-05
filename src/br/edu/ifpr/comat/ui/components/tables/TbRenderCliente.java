@@ -19,20 +19,20 @@ public class TbRenderCliente extends DefaultTableCellRenderer {
 				isSelected, hasFocus, row, column);
 
 		Integer status = (Integer) table.getValueAt(row, coll);
-		
+
 		switch (status) {
 		case 1:
 			setForeground(Color.gray);
 			break;
-			
-		case 2: 
-			setForeground(Color.red);			
+
+		case 2:
+			setForeground(Color.red);
 			break;
 
 		default:
 			setForeground(Color.black);
 			break;
-		}	
+		}
 
 		return result;
 	}

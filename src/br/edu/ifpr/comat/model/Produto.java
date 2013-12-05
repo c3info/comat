@@ -1,9 +1,7 @@
 package br.edu.ifpr.comat.model;
 
-import java.math.BigDecimal;
-
 public class Produto implements java.io.Serializable {
-	
+
 	private Integer refProduto;
 	private String codBarra;
 	private String codFabricante;
@@ -24,10 +22,9 @@ public class Produto implements java.io.Serializable {
 	}
 
 	public Produto(Integer refProduto, String codBarra, String codFabricante,
-			String nome, String descricao, String unidade,
-			Double precoCusto, Double precoVenda, Double descontoMax,
-			Integer quantidade, int status, String marca, Double peso,
-			Categoria categoria) {
+			String nome, String descricao, String unidade, Double precoCusto,
+			Double precoVenda, Double descontoMax, Integer quantidade,
+			int status, String marca, Double peso, Categoria categoria) {
 
 		this.refProduto = refProduto;
 		this.codBarra = codBarra;
@@ -157,5 +154,4 @@ public class Produto implements java.io.Serializable {
 		this.categoria = categoria;
 	}
 
-	
 }

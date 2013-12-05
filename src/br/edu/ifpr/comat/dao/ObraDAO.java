@@ -2,6 +2,7 @@ package br.edu.ifpr.comat.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -91,15 +92,16 @@ public class ObraDAO extends BaseDAO {
 		}
 		return obras;
 	}
-	
+
 	public List<Obra> selectCliente(int idCliente) {
 		List<Obra> obras = new ArrayList<>();
 		try {
-			trns = session.beginTransaction();			
-			Query query = session.createQuery("from Obra where idClienteFk = :id");
+			trns = session.beginTransaction();
+			Query query = session
+					.createQuery("from Obra where idClienteFk = :id");
 			query.setInteger("id", idCliente);
 			obras = query.list();
-			
+
 		} catch (HibernateException hi) {
 			if (trns != null) {
 				trns.rollback();

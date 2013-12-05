@@ -1,15 +1,14 @@
 package br.edu.ifpr.comat.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-import br.edu.ifpr.comat.dao.CategoriaDAO;
+
 import br.edu.ifpr.comat.dao.ProdutoDAO;
-import br.edu.ifpr.comat.model.Categoria;
 import br.edu.ifpr.comat.model.Produto;
 
 public class ProdutoController {
 
-	private static final String[] STATUS = { "Disponível", "Indisponível",
-			"Fora de linha" };
+	private static final String[] STATUS = { "Disponível", "Indisponível","Fora de linha" };
 	private static final String[] UNDS = { "KG", "M2", "PC" };
 
 	public String[] getStatusList() {
@@ -23,13 +22,11 @@ public class ProdutoController {
 	public void save(Integer refProduto, String codBarra, String codFabricante,
 			String nome, String descricao, String unidade, Double precoCusto,
 			Double precoVenda, Double descontoMax, Integer quantidade,
-			int status, String marca, Double peso, String categoria) {
-
-		Categoria c = new CategoriaDAO().select(categoria);
+			int status, String marca, Double peso, String categoria) {		
 
 		new ProdutoDAO().insert(new Produto(refProduto, codBarra,
 				codFabricante, nome, descricao, unidade, precoCusto,
-				precoVenda, descontoMax, quantidade, status, marca, peso, c));
+				precoVenda, descontoMax, quantidade, status, marca, peso, new CategoriaController().search(categoria)));
 	}
 
 	public void alter(Integer refProduto, String codBarra,
@@ -52,15 +49,18 @@ public class ProdutoController {
 		p.setStatus(status);
 		p.setMarca(marca);
 		p.setPeso(peso);
-
-		Categoria c = new CategoriaDAO().select(categoria);
-		p.setCategoria(c);
+		
+		p.setCategoria(new CategoriaController().search(categoria));
 
 		new ProdutoDAO().update(p);
 	}
 
 	public List<Produto> search() {
 		return new ProdutoDAO().select();
+	}
+
+	public List<Produto> searchRel() {
+		return new ArrayList<Produto>();
 	}
 
 	public Produto search(int ref) {
@@ -78,9 +78,10 @@ public class ProdutoController {
 	}
 
 	public List<Produto> searchCategoria(String cat) {
-		return new ProdutoDAO().selectCategoria(new CategoriaController().search(cat).getIdCategoria());
-	}
-
+		return new ProdutoDAO().selectCategoria(new CategoriaController()
+				.search(cat).getIdCategoria());
+	}	
+	
 	public List<Produto> searchStatusCategoria(String sts, String cat) {
 
 		int status = 0;
@@ -89,11 +90,11 @@ public class ProdutoController {
 				break;
 			status++;
 		}
-		
+
 		return new ProdutoDAO().selectStatusCategoria(status, new CategoriaController().search(cat).getIdCategoria());
 	}
-	
-	public void delete(int id){		
+
+	public void delete(int id) {
 		new ProdutoDAO().delete(id);
 	}
 

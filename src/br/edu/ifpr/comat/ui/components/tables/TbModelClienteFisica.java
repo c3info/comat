@@ -3,6 +3,7 @@ package br.edu.ifpr.comat.ui.components.tables;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
 import br.edu.ifpr.comat.model.ClienteFisica;
 import br.edu.ifpr.comat.util.DateUtils;
 
@@ -24,7 +25,7 @@ public class TbModelClienteFisica extends AbstractTableModel {
 			"CPF", "Telefone", "Celular", "Email", "Cidade", "UF", "Status" };
 
 	public TbModelClienteFisica(List<ClienteFisica> clientes) {
-		this.rows = clientes;			
+		this.rows = clientes;
 	}
 
 	@Override
@@ -53,25 +54,26 @@ public class TbModelClienteFisica extends AbstractTableModel {
 			return c.getNome();
 		} else if (column == COL_CPF) {
 			return c.getCpf();
-		} else if (column == COL_TELEFONE) {
+		} else if (column == COL_TELEFONE) {			
 			return c.getTelefone();
 		} else if (column == COL_CELULAR) {
 			return c.getCelular();
 		} else if (column == COL_EMAIL) {
-			return c.getEmail();
+			if(c.getEmail() == null) return " ";
+			else return	c.getEmail();
 		} else if (column == COL_CIDADE) {
 			return c.getEndereco().getCidade().getNome();
 		} else if (column == COL_ESTADO) {
 			return c.getEndereco().getCidade().getEstado().getNome();
 		} else if (column == COL_STATUS) {
 			return c.getStatus();
-		} 
+		}
 
 		return "";
 	}
 
 	public Class getColumnClass(int c) {
-        return getValueAt(0, c).getClass();
-    }
+		return getValueAt(0, c).getClass();
+	}
 
 }

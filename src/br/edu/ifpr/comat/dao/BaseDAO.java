@@ -11,7 +11,7 @@ import br.edu.ifpr.comat.util.HibernateUtil;
  * @date 20/09/2013
  */
 public class BaseDAO {
-	
+
 	public Session getConnection() {
 		return HibernateUtil.getSessionFactory().openSession();
 	}

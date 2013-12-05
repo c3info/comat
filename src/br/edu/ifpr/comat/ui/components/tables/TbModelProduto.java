@@ -1,8 +1,10 @@
 package br.edu.ifpr.comat.ui.components.tables;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
 import br.edu.ifpr.comat.model.Produto;
 
 public class TbModelProduto extends AbstractTableModel {
@@ -18,7 +20,7 @@ public class TbModelProduto extends AbstractTableModel {
 
 	private List<Produto> rows;
 	private String[] columns = new String[] { "Ref.", "Nome", "Marca",
-			"Unidade", "Quant.", "Preço", "Desc.","Status" };
+			"Unidade", "Quant.", "Preço", "Desc.", "Status" };
 
 	public TbModelProduto(List<Produto> produtos) {
 		this.rows = produtos;
@@ -41,6 +43,10 @@ public class TbModelProduto extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int row, int column) {
 		Produto p = rows.get(row);
+		
+		NumberFormat formatterCurrency = NumberFormat.getCurrencyInstance();
+		NumberFormat formatterDecimal= NumberFormat.getNumberInstance();
+		formatterDecimal.setMinimumFractionDigits(2);
 
 		if (column == COL_REF) {
 			return p.getRefProduto();
@@ -53,9 +59,9 @@ public class TbModelProduto extends AbstractTableModel {
 		} else if (column == COL_QUANT) {
 			return p.getQuantidade();
 		} else if (column == COL_PVENDA) {
-			return p.getPrecoVenda();
+			return formatterCurrency.format(p.getPrecoVenda());
 		} else if (column == COL_DESC_MAX) {
-			return p.getDescontoMax();
+			return formatterDecimal.format(p.getDescontoMax());
 		} else if (column == COL_STATUS) {
 			return p.getStatus();
 		}

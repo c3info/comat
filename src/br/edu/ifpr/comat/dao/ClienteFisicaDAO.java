@@ -1,12 +1,14 @@
 package br.edu.ifpr.comat.dao;
 
-import br.edu.ifpr.comat.model.ClienteFisica;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import br.edu.ifpr.comat.model.ClienteFisica;
 
 /**
  * @project coma
@@ -27,7 +29,7 @@ public class ClienteFisicaDAO extends BaseDAO {
 	public void insert(ClienteFisica cli) {
 		try {
 			trns = session.beginTransaction();
-			session.save(cli);					
+			session.save(cli);
 			session.getTransaction().commit();
 		} catch (HibernateException hi) {
 			if (trns != null) {
@@ -90,17 +92,16 @@ public class ClienteFisicaDAO extends BaseDAO {
 		}
 		return clientes;
 	}
-	
+
 	public List<ClienteFisica> selectStatus(int status) {
 		List<ClienteFisica> clientes = new ArrayList<>();
 		try {
 			trns = session.beginTransaction();
-			Query query = session.createQuery("from ClienteFisica where status = :st");
+			Query query = session
+					.createQuery("from ClienteFisica where status = :st");
 			query.setInteger("st", status);
-			clientes = query.list();
-			
-		System.out.println("Clintes em ClienteFisica" + clientes);
-			
+			clientes = query.list();			
+
 		} catch (HibernateException hi) {
 			if (trns != null) {
 				trns.rollback();
@@ -112,7 +113,7 @@ public class ClienteFisicaDAO extends BaseDAO {
 		}
 		return clientes;
 	}
-		
+
 	public ClienteFisica select(Integer id) {
 		ClienteFisica cli = null;
 		try {
@@ -132,7 +133,7 @@ public class ClienteFisicaDAO extends BaseDAO {
 		}
 		return cli;
 	}
-	
+
 	public ClienteFisica selectCpf(String cpf) {
 		ClienteFisica cli = null;
 		try {
@@ -151,5 +152,5 @@ public class ClienteFisicaDAO extends BaseDAO {
 			session.close();
 		}
 		return cli;
-	}	
+	}
 }

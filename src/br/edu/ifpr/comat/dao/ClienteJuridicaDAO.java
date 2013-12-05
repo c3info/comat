@@ -1,12 +1,14 @@
 package br.edu.ifpr.comat.dao;
 
-import br.edu.ifpr.comat.model.ClienteJuridica;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import br.edu.ifpr.comat.model.ClienteJuridica;
 
 /**
  * @project coma
@@ -90,15 +92,16 @@ public class ClienteJuridicaDAO extends BaseDAO {
 		}
 		return clientes;
 	}
-	
+
 	public List<ClienteJuridica> selectStatus(int status) {
 		List<ClienteJuridica> clientes = new ArrayList<>();
 		try {
 			trns = session.beginTransaction();
-			Query query = session.createQuery("from ClienteJuridica where status = :st");
+			Query query = session
+					.createQuery("from ClienteJuridica where status = :st");
 			query.setInteger("st", status);
 			clientes = query.list();
-			
+
 		} catch (HibernateException hi) {
 			if (trns != null) {
 				trns.rollback();
@@ -130,7 +133,7 @@ public class ClienteJuridicaDAO extends BaseDAO {
 		}
 		return cli;
 	}
-	
+
 	public ClienteJuridica selectCnpj(String cnpj) {
 		ClienteJuridica cli = null;
 		try {

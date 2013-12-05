@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="br.edu.ifpr.comat.model.Endereco" table="Endereco"
 		catalog="comat">
 		<id name="idEndereco" type="java.lang.Integer">
 			<column name="idEndereco" />
-			<generator class="increment" />
+			<generator class="identity" />
 		</id>
 		<property name="logradouro" type="string">
 			<column name="logradouro" length="45" not-null="true" />
@@ -22,7 +22,8 @@
 		<property name="cep" type="string">
 			<column name="cep" length="10" not-null="true" />
 		</property>
-		<many-to-one name="cidade" column="idCidadeFk" not-null="true" lazy="false"
-			cascade="save-update" />
+		<many-to-one name="cidade" class="br.edu.ifpr.comat.model.Cidade" fetch="join">
+            <column name="idCidadeFk" not-null="true" />
+        </many-to-one> 
 	</class>
 </hibernate-mapping>

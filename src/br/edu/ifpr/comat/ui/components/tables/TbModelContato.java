@@ -2,9 +2,10 @@ package br.edu.ifpr.comat.ui.components.tables;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
-import br.edu.ifpr.comat.model.Contato;
 
+import javax.swing.table.AbstractTableModel;
+
+import br.edu.ifpr.comat.model.Contato;
 
 public class TbModelContato extends AbstractTableModel {
 
@@ -15,12 +16,11 @@ public class TbModelContato extends AbstractTableModel {
 	private static final int COL_EMAIL = 4;
 	private static final int COL_FUNCAO = 5;
 
-
 	private List<Contato> rows;
 	private String[] columns = new String[] { "ID.", "Nome", "Telefone",
 			"Celular", "e-mail", "Função" };
 
-	public TbModelContato(List<Contato> contatos) {	
+	public TbModelContato(List<Contato> contatos) {
 		this.rows = new ArrayList<>(contatos);
 	}
 
@@ -54,7 +54,7 @@ public class TbModelContato extends AbstractTableModel {
 			return c.getEmail();
 		} else if (column == COL_FUNCAO) {
 			return c.getFuncao();
-		} 
+		}
 
 		return "";
 	}

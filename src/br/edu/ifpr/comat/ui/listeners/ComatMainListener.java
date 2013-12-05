@@ -3,11 +3,10 @@ package br.edu.ifpr.comat.ui.listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JPanel;
-
 import br.edu.ifpr.comat.ui.ComatMainFrame;
-import br.edu.ifpr.comat.ui.components.panels.impl.FormClientes;
+import br.edu.ifpr.comat.ui.components.panels.impl.FormCliente;
 import br.edu.ifpr.comat.ui.components.panels.impl.FormOrcamento;
+import br.edu.ifpr.comat.ui.components.panels.impl.FormOrcamentoItens;
 import br.edu.ifpr.comat.ui.components.panels.impl.FormProduto;
 import br.edu.ifpr.comat.ui.components.panels.impl.ViewClientes;
 import br.edu.ifpr.comat.ui.components.panels.impl.ViewOrcamentos;
@@ -33,6 +32,7 @@ public class ComatMainListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if (e.getActionCommand().equals("Clientes")) {
 			clientesAction();
 		} else if (e.getActionCommand().equals("Orçamentos")) {
@@ -57,8 +57,8 @@ public class ComatMainListener implements ActionListener {
 	}
 
 	private void clienteAction() {
-		if (!(frame.getCurrentPanel() instanceof FormClientes)) {
-			frame.setCurrentPanel(new FormClientes());
+		if (!(frame.getCurrentPanel() instanceof FormCliente)) {
+			frame.setCurrentPanel(new FormCliente());
 		}
 	}
 
@@ -76,13 +76,14 @@ public class ComatMainListener implements ActionListener {
 
 	private void orcamentosAction() {
 		if (!(frame.getCurrentPanel() instanceof ViewOrcamentos)) {
-			frame.setCurrentPanel(new ViewOrcamentos());
+			frame.setCurrentPanel(new ViewOrcamentos(frame));
 		}
 	}
 
 	private void orcamentoAction() {
 		if (!(frame.getCurrentPanel() instanceof FormOrcamento)) {
 			frame.setCurrentPanel(new FormOrcamento());
+			//frame.setCurrentPanel(new FormOrcamentoItens());
 		}
 	}
 

@@ -1,13 +1,14 @@
 package br.edu.ifpr.comat.dao;
 
-import br.edu.ifpr.comat.model.Produto;
-
 import java.util.ArrayList;
 import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import br.edu.ifpr.comat.model.Produto;
 
 /**
  * @project comat
@@ -161,7 +162,8 @@ public class ProdutoDAO extends BaseDAO {
 		List<Produto> produtos = new ArrayList<>();
 		try {
 			trns = session.beginTransaction();
-			Query query = session.createQuery("from Produto where idCategoriaFk = :cat");
+			Query query = session
+					.createQuery("from Produto where idCategoriaFk = :cat");
 			query.setInteger("cat", cat);
 			produtos = query.list();
 		} catch (HibernateException hi) {
@@ -180,7 +182,8 @@ public class ProdutoDAO extends BaseDAO {
 		List<Produto> produtos = new ArrayList<>();
 		try {
 			trns = session.beginTransaction();
-			Query query = session.createQuery("from Produto where status = :sts and idCategoriaFk = :cat");
+			Query query = session
+					.createQuery("from Produto where status = :sts and idCategoriaFk = :cat");
 			query.setInteger("sts", status);
 			query.setInteger("cat", cat);
 			produtos = query.list();

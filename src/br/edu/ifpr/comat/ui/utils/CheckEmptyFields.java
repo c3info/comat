@@ -8,7 +8,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class CheckFields {
+public class CheckEmptyFields {
 
 	public static Boolean checkEmptyFields(JPanel panel, Component comps[]) {
 		boolean check = true;
@@ -18,23 +18,27 @@ public class CheckFields {
 		Component components[] = panel.getComponents();
 
 		for (int i = 0; i < components.length; i++) {
-			
 
 			if (components[i] instanceof JTextField
 					&& !in_array(comps, components[i])) {
 
 				if (((JTextField) components[i]).getText().isEmpty()) {
-					((JTextField) components[i]).setBackground(SystemColor.inactiveCaption);
+					((JTextField) components[i])
+							.setBackground(SystemColor.inactiveCaption);
 					check = false;
 				} else {
 
 					((JTextField) components[i]).setBackground(c);
 				}
-			} 
-			
-			if (components[i] instanceof JFormattedTextField && !in_array(comps, components[i])) {				
-				if ((((JFormattedTextField) components[i]).getText()).startsWith(" ") || ((JTextField) components[i]).getText().isEmpty()) {
-					((JFormattedTextField) components[i]).setBackground(SystemColor.inactiveCaption);
+			}
+
+			if (components[i] instanceof JFormattedTextField
+					&& !in_array(comps, components[i])) {
+				if ((((JFormattedTextField) components[i]).getText())
+						.startsWith(" ")
+						|| ((JTextField) components[i]).getText().isEmpty()) {
+					((JFormattedTextField) components[i])
+							.setBackground(SystemColor.inactiveCaption);
 					check = false;
 				} else {
 					((JTextField) components[i]).setBackground(cf);
