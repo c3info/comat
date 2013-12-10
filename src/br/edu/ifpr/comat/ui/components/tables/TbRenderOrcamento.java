@@ -2,8 +2,6 @@ package br.edu.ifpr.comat.ui.components.tables;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.text.NumberFormat;
-
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 

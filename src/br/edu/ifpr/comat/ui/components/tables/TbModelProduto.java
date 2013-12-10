@@ -20,7 +20,7 @@ public class TbModelProduto extends AbstractTableModel {
 
 	private List<Produto> rows;
 	private String[] columns = new String[] { "Ref.", "Nome", "Marca",
-			"Unidade", "Quant.", "Preço", "Desc.", "Status" };
+			"Unidade", "Quant.", "Preço", "Desc. %", "Status" };
 
 	public TbModelProduto(List<Produto> produtos) {
 		this.rows = produtos;

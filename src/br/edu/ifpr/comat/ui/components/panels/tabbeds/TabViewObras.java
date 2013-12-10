@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
 import br.edu.ifpr.comat.controller.ObraController;
+import br.edu.ifpr.comat.controller.OrcamentoController;
 import br.edu.ifpr.comat.ui.components.dialogs.ModalFormObra;
 import br.edu.ifpr.comat.ui.components.tables.TbModelObra;
 
@@ -123,17 +124,24 @@ public class TabViewObras extends JPanel implements ActionListener {
 
 	private void delete() {
 		Integer id = (Integer) table.getValueAt(tbSelectedRow(), 0);
-		String nome = (String) table.getValueAt(tbSelectedRow(), 1);
+		
+		System.out.println(id);
+		
+		if(new OrcamentoController().checkDbByObra(id)){
+			String nome = (String) table.getValueAt(tbSelectedRow(), 1);
 
-		int excluir = JOptionPane.showConfirmDialog(null,
-				"Deseja excluir a obra " + nome + "?", "Pedido de Exclusão",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-		if (excluir == JOptionPane.YES_OPTION) {
-			new ObraController().delete(id);
-			btEditar.setEnabled(false);
-			btExcluir.setEnabled(false);
-			loadModelTable();
-		}
+			int excluir = JOptionPane.showConfirmDialog(null,
+					"Deseja excluir a obra " + nome + "?", "Pedido de Exclusão",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (excluir == JOptionPane.YES_OPTION) {
+				new ObraController().delete(id);
+				btEditar.setEnabled(false);
+				btExcluir.setEnabled(false);
+				loadModelTable();
+			}
+		} else {
+			JOptionPane.showMessageDialog(null,	"Esta obra não pode ser excluida,\nverifique os orçamentos cadastrados.");
+		}		
 	}
 
 	public Integer getIdCliente() {

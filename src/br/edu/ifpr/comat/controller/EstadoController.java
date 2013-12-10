@@ -2,8 +2,8 @@ package br.edu.ifpr.comat.controller;
 
 import java.util.List;
 
-import br.edu.ifpr.comat.dao.EstadoDAO;
 import br.edu.ifpr.comat.model.Estado;
+import br.edu.ifpr.comat.persistence.dao.EstadoDAO;
 
 public class EstadoController {
 

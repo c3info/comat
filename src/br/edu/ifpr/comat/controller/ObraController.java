@@ -3,11 +3,11 @@ package br.edu.ifpr.comat.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.ifpr.comat.dao.ObraDAO;
 import br.edu.ifpr.comat.model.Cidade;
 import br.edu.ifpr.comat.model.Cliente;
 import br.edu.ifpr.comat.model.Endereco;
 import br.edu.ifpr.comat.model.Obra;
+import br.edu.ifpr.comat.persistence.dao.ObraDAO;
 
 public class ObraController {
 
@@ -18,9 +18,11 @@ public class ObraController {
 			return new ArrayList<Obra>();
 		}
 	}
-	
-	public int save(Cliente cliente, String nome, String telefone, String responsavel, Endereco endereco){		
-		return new ObraDAO().insert(new Obra(nome, telefone, responsavel, cliente, endereco));
+
+	public int save(Cliente cliente, String nome, String telefone,
+			String responsavel, Endereco endereco) {
+		return new ObraDAO().insert(new Obra(nome, telefone, responsavel,
+				cliente, endereco));
 	}
 
 	public int save(int idCliente, String nome, String telefone,

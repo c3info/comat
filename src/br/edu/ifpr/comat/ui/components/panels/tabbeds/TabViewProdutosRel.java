@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,20 +17,23 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.AbstractTableModel;
 
-import br.edu.ifpr.comat.controller.ProdutoController;
-import br.edu.ifpr.comat.ui.components.tables.TbModelProdutoRel;
+import br.edu.ifpr.comat.controller.ProdutoRelacionadoController;
+import br.edu.ifpr.comat.model.Produto;
+import br.edu.ifpr.comat.ui.components.dialogs.ModalViewProdutosRel;
+import br.edu.ifpr.comat.ui.components.tables.TbModelProdutoRelacionado;
 
 public class TabViewProdutosRel extends JPanel implements ActionListener {
 
 	private Integer idProduto = null;
 	private JTable table;
-	private JButton btAdicionar, btEditar, btExcluir;
+	private JButton btAdicionar, btExcluir;
+	private TbModelProdutoRelacionado model;
 
 	public TabViewProdutosRel() {
 		setLayout(new BorderLayout(0, 0));
 		buildComponents();
-		stop();
 	}
 
 	private void buildComponents() {
@@ -47,15 +51,6 @@ public class TabViewProdutosRel extends JPanel implements ActionListener {
 		btAdicionar.addActionListener(this);
 		bottomPanel.add(btAdicionar);
 
-		btEditar = new JButton("");
-		btEditar.setToolTipText("Editar");
-		btEditar.setPreferredSize(new Dimension(24, 16));
-		btEditar.setIcon(new ImageIcon(TabViewProdutosRel.class
-				.getResource("/br/edu/ifpr/comat/ui/images/pencil.png")));
-		btEditar.setContentAreaFilled(false);
-		btEditar.addActionListener(this);
-		bottomPanel.add(btEditar);
-
 		btExcluir = new JButton("");
 		btExcluir.setToolTipText("Excluir");
 		btExcluir.setPreferredSize(new Dimension(24, 16));
@@ -69,7 +64,8 @@ public class TabViewProdutosRel extends JPanel implements ActionListener {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setShowHorizontalLines(true);
 		table.setRowHeight(28);
-		loadModelTable();
+		model = new TbModelProdutoRelacionado();
+		loadModelTable(model);
 
 		table.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent me) {
@@ -91,9 +87,8 @@ public class TabViewProdutosRel extends JPanel implements ActionListener {
 		add(bottomPanel, BorderLayout.SOUTH);
 	}
 
-	public void loadModelTable() {
-		table.setModel(new TbModelProdutoRel(new ProdutoController()
-				.searchRel()));
+	public void loadModelTable(AbstractTableModel model) {
+		table.setModel(model);
 
 		table.getColumnModel().getColumn(0).setPreferredWidth(40);
 		table.getColumnModel().getColumn(1).setPreferredWidth(380);
@@ -109,44 +104,18 @@ public class TabViewProdutosRel extends JPanel implements ActionListener {
 
 	public void start() {
 		btAdicionar.setEnabled(true);
-		btEditar.setEnabled(false);
 		btExcluir.setEnabled(false);
 		table.setEnabled(true);
 	}
 
 	public void stop() {
 		btAdicionar.setEnabled(false);
-		btEditar.setEnabled(false);
 		btExcluir.setEnabled(false);
 		table.setEnabled(false);
 	}
 
 	private void edit() {
-		btEditar.setEnabled(true);
 		btExcluir.setEnabled(true);
-	}
-
-	private void delete() {
-		Integer id = (Integer) table.getValueAt(tbSelectedRow(), 0);
-		String nome = (String) table.getValueAt(tbSelectedRow(), 1);
-
-		int excluir = JOptionPane.showConfirmDialog(null,
-				"Deseja excluir a obra " + nome + "?", "Pedido de Exclusão",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-		if (excluir == JOptionPane.YES_OPTION) {
-			// new ObraController().delete(id);
-			btEditar.setEnabled(false);
-			btExcluir.setEnabled(false);
-			loadModelTable();
-		}
-	}
-
-	public Integer getIdCliente() {
-		return idProduto;
-	}
-
-	public void setIdCliente(Integer idCliente) {
-		this.idProduto = idCliente;
 	}
 
 	private void observerInsert() {
@@ -154,29 +123,24 @@ public class TabViewProdutosRel extends JPanel implements ActionListener {
 
 			@Override
 			public void run() {
-				// FormObra obra = new FormObra();
-				// obra.setInsert(true);
-				// obra.setIdCli(idProduto);
-				// obra.setModal(true);
-				// obra.setVisible(true);
-				loadModelTable();
+				ModalViewProdutosRel modal = new ModalViewProdutosRel();
+
+				modal.setModal(true);
+				modal.setVisible(true);
+
+				System.out.println(modal.getModel().getSelect());
+				System.out.println(modal.getModel().getRows());
+
+				relacionaItens(modal.getModel().getSelect(), modal.getModel()
+						.getRows());
 			}
 		});
 	}
 
-	private void observerEdit() {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				// FormObra obra = new FormObra((Integer) table.getValueAt(
-				// tbSelectedRow(), 0));
-				// obra.setIdCli(idProduto);
-				// obra.setModal(true);
-				// obra.setVisible(true);
-				// loadModelTable();
-			}
-		});
+	private void relacionaItens(boolean[] selecionados, List<Produto> lista) {
+		
+		model.addListItens(new ProdutoRelacionadoController()
+				.processaRelacionamento(selecionados, lista));
 	}
 
 	private int tbSelectedRow() {
@@ -188,12 +152,31 @@ public class TabViewProdutosRel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btAdicionar) {
 			observerInsert();
-
-		} else if (e.getSource() == btEditar) {
-			observerEdit();
-
 		} else if (e.getSource() == btExcluir) {
-			delete();
+
+			if (tbSelectedRow() != -1) {
+				model.removeIten(tbSelectedRow());
+			} else {
+				JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+			}
+
 		}
 	}
+
+	public Integer getIdProduto() {
+		return idProduto;
+	}
+
+	public void setIdProduto(Integer idProduto) {
+		this.idProduto = idProduto;
+	}
+
+	public TbModelProdutoRelacionado getModel() {
+		return model;
+	}
+
+	public void setModel(AbstractTableModel model) {
+		this.model = (TbModelProdutoRelacionado) model;
+	}
+
 }

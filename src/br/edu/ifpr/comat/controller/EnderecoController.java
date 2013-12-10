@@ -1,7 +1,7 @@
 package br.edu.ifpr.comat.controller;
 
-import br.edu.ifpr.comat.dao.EnderecoDAO;
 import br.edu.ifpr.comat.model.Endereco;
+import br.edu.ifpr.comat.persistence.dao.EnderecoDAO;
 
 public class EnderecoController {
 

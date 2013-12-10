@@ -62,4 +62,13 @@ public class TbModelContato extends AbstractTableModel {
 	public Class getColumnClass(int c) {
 		return getValueAt(0, c).getClass();
 	}
+
+	public void removeIten(int rowIndex) {
+		rows.remove(rowIndex);
+		fireTableRowsDeleted(rowIndex, rowIndex);
+	}
+
+	public List<Contato> getRows() {
+		return rows;
+	}
 }

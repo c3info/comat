@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/comat?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">admin</property>
-    <property name="hibernate.connection.password">67441173</property>
-    <property name="hibernate.show_sql">true</property>
-    <property name="format_sql">true</property>
-    <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
-    <mapping resource="br/edu/ifpr/comat/entity/Categoria.hbm.xml"/>
-    <mapping resource="br/edu/ifpr/comat/entity/Cidade.hbm.xml"/>
-    <mapping resource="br/edu/ifpr/comat/entity/Cliente.hbm.xml"/>
-    <mapping resource="br/edu/ifpr/comat/entity/ClienteFisica.hbm.xml"/>
-    <mapping resource="br/edu/ifpr/comat/entity/ClienteJuridica.hbm.xml"/>
-    <mapping resource="br/edu/ifpr/comat/entity/Contato.hbm.xml"/>
-    <mapping resource="br/edu/ifpr/comat/entity/Endereco.hbm.xml"/>
-    <mapping resource="br/edu/ifpr/comat/entity/Estado.hbm.xml"/>
-    <mapping resource="br/edu/ifpr/comat/entity/Produto.hbm.xml"/>
-    <mapping resource="br/edu/ifpr/comat/entity/Obra.hbm.xml"/>
-    <mapping resource="br/edu/ifpr/comat/entity/Orcamento.hbm.xml"/>
-     
-  </session-factory>
+	<session-factory>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/comat?zeroDateTimeBehavior=convertToNull</property>
+		<property name="hibernate.connection.username">admin</property>
+		<property name="hibernate.connection.password">67441173</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.max_fetch_depth">3</property>
+		<property name="format_sql">true</property>
+		
+		<property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
+
+		<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+		<property name="c3p0.acquire_increment">4</property>
+		<property name="c3p0.timeout">1800</property>
+		<property name="c3p0.min_size">1</property>
+		<property name="c3p0.max_size">6</property>
+		<property name="c3p0.max_statements">0</property>
+		<property name="c3p0.idle_test_period">900</property>
+
+		<mapping resource="br/edu/ifpr/comat/persistence/entity/Categoria.hbm.xml" />
+		<mapping resource="br/edu/ifpr/comat/persistence/entity/Cidade.hbm.xml" />
+		<mapping resource="br/edu/ifpr/comat/persistence/entity/Cliente.hbm.xml" />
+		<mapping resource="br/edu/ifpr/comat/persistence/entity/ClienteFisica.hbm.xml" />
+		<mapping resource="br/edu/ifpr/comat/persistence/entity/ClienteJuridica.hbm.xml" />
+		<mapping resource="br/edu/ifpr/comat/persistence/entity/Contato.hbm.xml" />
+		<mapping resource="br/edu/ifpr/comat/persistence/entity/Endereco.hbm.xml" />
+		<mapping resource="br/edu/ifpr/comat/persistence/entity/Estado.hbm.xml" />
+		<mapping resource="br/edu/ifpr/comat/persistence/entity/ItenOrcamento.hbm.xml" />
+		<mapping resource="br/edu/ifpr/comat/persistence/entity/Obra.hbm.xml" />
+		<mapping resource="br/edu/ifpr/comat/persistence/entity/Orcamento.hbm.xml" />
+		<mapping resource="br/edu/ifpr/comat/persistence/entity/Produto.hbm.xml" />
+		<mapping resource="br/edu/ifpr/comat/persistence/entity/ProdutoRelacionado.hbm.xml" />	
+	</session-factory>
 </hibernate-configuration>

@@ -24,6 +24,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EtchedBorder;
 
 import br.edu.ifpr.comat.controller.CategoriaController;
+import br.edu.ifpr.comat.controller.ProdutoController;
 import br.edu.ifpr.comat.ui.components.tables.TbModelCategoria;
 import br.edu.ifpr.comat.ui.components.toolbars.CrudToolBar;
 import br.edu.ifpr.comat.ui.utils.CheckEmptyFields;
@@ -163,17 +164,22 @@ public class ModalFormCategoria extends JDialog implements ActionListener {
 	}
 
 	private void excluir() {
-		int excluir = JOptionPane.showConfirmDialog(null,
-				"Deseja rexcluir a categoria ?", "Pedido de Exclusão",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-		if (excluir == JOptionPane.YES_OPTION) {
-			new CategoriaController().delete(id);
-			crudBar.incluir();
-			setCleanFields();
-			setDisableFields();
-			loadModelTable();
-			btRecuperar.setEnabled(false);
+		if(new ProdutoController().checkDbByCategoria(id)){
+			int excluir = JOptionPane.showConfirmDialog(null,
+					"Deseja rexcluir a categoria ?", "Pedido de Exclusão",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (excluir == JOptionPane.YES_OPTION) {
+				new CategoriaController().delete(id);
+				crudBar.incluir();
+				setCleanFields();
+				setDisableFields();
+				loadModelTable();
+				btRecuperar.setEnabled(false);
+			}
+		} else {
+			JOptionPane.showMessageDialog(null,	"Esta categoria não pode ser excluida,\npossui produtos relacionados.");
 		}
+		
 	}
 
 	private void salvar() {

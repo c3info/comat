@@ -2,13 +2,13 @@ package br.edu.ifpr.comat.controller;
 
 import java.util.List;
 
-import br.edu.ifpr.comat.dao.CidadeDAO;
 import br.edu.ifpr.comat.model.Cidade;
+import br.edu.ifpr.comat.persistence.dao.CidadeDAO;
 
 public class CidadeController {
 
 	public String[] getCidadesVetString(String estado) {
-		
+
 		List<Cidade> cidades = new CidadeDAO().selectPorEstado(estado);
 		String[] valores = new String[cidades.size()];
 
@@ -24,8 +24,8 @@ public class CidadeController {
 		List<Cidade> cidades = new CidadeDAO().selectPorEstado(estado);
 		return cidades;
 	}
-	
-	public Cidade search(String cidade){
+
+	public Cidade search(String cidade) {
 		return new CidadeDAO().select(cidade);
 	}
 

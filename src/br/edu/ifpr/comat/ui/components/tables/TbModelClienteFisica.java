@@ -64,7 +64,7 @@ public class TbModelClienteFisica extends AbstractTableModel {
 		} else if (column == COL_CIDADE) {
 			return c.getEndereco().getCidade().getNome();
 		} else if (column == COL_ESTADO) {
-			return c.getEndereco().getCidade().getEstado().getNome();
+			return c.getEndereco().getCidade().getEstado().getUf();
 		} else if (column == COL_STATUS) {
 			return c.getStatus();
 		}

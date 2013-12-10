@@ -2,7 +2,6 @@ package br.edu.ifpr.comat.controller;
 
 import java.util.Date;
 import java.util.List;
-import br.edu.ifpr.comat.dao.ClienteDAO;
 import br.edu.ifpr.comat.model.Cidade;
 import br.edu.ifpr.comat.model.Cliente;
 import br.edu.ifpr.comat.model.ClienteFisica;
@@ -10,6 +9,7 @@ import br.edu.ifpr.comat.model.ClienteJuridica;
 import br.edu.ifpr.comat.model.Contato;
 import br.edu.ifpr.comat.model.Endereco;
 import br.edu.ifpr.comat.model.Obra;
+import br.edu.ifpr.comat.persistence.dao.ClienteDAO;
 
 public class ClienteController {
 
@@ -36,7 +36,7 @@ public class ClienteController {
 			String fantasia, String cnpj, String inscricao, String fax,
 			String email, String site, String telefone, String cep,
 			String endereco, int numero, String complemento, String bairro,
-			String estado, String cidade, String observacoes) {
+			String estado, String cidade, String observacoes) {		
 
 		return new ClienteDAO().insert(new ClienteJuridica(cnpj, inscricao,
 				razao, fantasia, fax, null, status, email, site, telefone,
@@ -117,13 +117,13 @@ public class ClienteController {
 	public void delete(int id) {
 		int idEndereco = new ClienteDAO().select(id).getEndereco()
 				.getIdEndereco();
-		
+
 		List<Contato> contatos = new ContatoController().searchCliente(id);
 
 		for (Contato contato : contatos) {
 			new ContatoController().delete(contato.getIdContato());
 		}
-		
+
 		List<Obra> obras = new ObraController().searchCliente(id);
 		for (Obra obra : obras) {
 			new ObraController().delete(obra.getIdObra());

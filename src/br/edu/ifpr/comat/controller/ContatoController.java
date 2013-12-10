@@ -3,8 +3,8 @@ package br.edu.ifpr.comat.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.ifpr.comat.dao.ContatoDAO;
 import br.edu.ifpr.comat.model.Contato;
+import br.edu.ifpr.comat.persistence.dao.ContatoDAO;
 
 public class ContatoController {
 
@@ -18,8 +18,8 @@ public class ContatoController {
 
 	public void save(int idCli, String nome, String telefone, String celular,
 			String email, String funcao) {
-		new ContatoDAO().insert(new Contato(nome, telefone, celular,
-				email, funcao, new ClienteController().search(idCli)));
+		new ContatoDAO().insert(new Contato(nome, telefone, celular, email,
+				funcao, new ClienteController().search(idCli)));
 
 	}
 

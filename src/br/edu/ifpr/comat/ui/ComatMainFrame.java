@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
@@ -24,7 +23,6 @@ import javax.swing.border.EmptyBorder;
 
 import br.edu.ifpr.comat.ui.components.panels.ComatJPanels;
 import br.edu.ifpr.comat.ui.components.panels.impl.ViewLogo;
-import br.edu.ifpr.comat.ui.listeners.ComatMainListener;
 
 public class ComatMainFrame extends JFrame {
 	private static final String SYSTEM_NAME = "COMAT - Controle de Orçamentos para Materiais de Construção";
@@ -145,6 +143,7 @@ public class ComatMainFrame extends JFrame {
 			currentPanel = set;
 			changePanel(set.getPanel());
 		}
+		System.gc();
 	}
 
 	private void changePanel(Component comp) {

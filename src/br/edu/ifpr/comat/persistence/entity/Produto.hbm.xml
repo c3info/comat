@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.edu.ifpr.comat.model.Produto" table="Produto"
+		catalog="comat">
+		<id name="refProduto" type="java.lang.Integer">
+			<column name="refProduto" />
+			<generator class="assigned" />
+		</id>
+		<property name="codBarra" type="java.lang.String">
+			<column name="codBarra" length="13" />
+		</property>
+		<property name="codFabricante" type="java.lang.String">
+			<column name="codFabricante" length="12" />
+		</property>
+		<property name="nome" type="java.lang.String">
+			<column name="nome" length="45" not-null="true" />
+		</property>
+		<property name="descricao" type="java.lang.String">
+			<column name="descricao" length="96" />
+		</property>
+		<property name="unidade" type="java.lang.String">
+			<column name="unidade" length="4" not-null="true" />
+		</property>
+		<property name="precoCusto" type="double">
+			<column name="precoCusto" />
+		</property>
+		<property name="precoVenda" type="double">
+			<column name="precoVenda" />
+		</property>
+		<property name="descontoMax" type="double">
+			<column name="descontoMax" />
+		</property>
+		<property name="quantidade" type="int">
+			<column name="quantidade" />
+		</property>
+		<property name="status" type="int">
+			<column name="status" not-null="true" />
+		</property>
+		<property name="marca" type="java.lang.String">
+			<column name="marca" />
+		</property>
+		<property name="peso" type="double">
+			<column name="peso" />
+		</property>
+		<many-to-one name="categoria" class="br.edu.ifpr.comat.model.Categoria"
+			fetch="join">
+			<column name="idCategoriaFk" not-null="true" />
+		</many-to-one>
+		<set name="itensorcamentos" table="itensorcamento" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="refProdutoFk" not-null="true" />
+			</key>
+			<one-to-many class="br.edu.ifpr.comat.model.ItenOrcamento" />
+		</set>
+		<set fetch="select" inverse="true" lazy="true" name="produtosrelacionadosesForRefProdutoRelacFk" table="produtosrelacionados">
+			<key>
+				<column name="refProdutoRelacFk" not-null="true" />
+			</key>
+			<one-to-many class="br.edu.ifpr.comat.model.ProdutoRelacionado" />
+		</set>
+		<set fetch="select" inverse="true" lazy="true" name="produtosrelacionadosesForRefProdutoRelFk" table="produtosrelacionados">
+			<key>
+				<column name="refProdutoRelFk" not-null="true" />
+			</key>
+			<one-to-many class="br.edu.ifpr.comat.model.ProdutoRelacionado" />
+		</set>
+	</class>
+</hibernate-mapping>

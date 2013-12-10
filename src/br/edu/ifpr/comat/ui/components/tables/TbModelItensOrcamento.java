@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import br.edu.ifpr.comat.model.Itensorcamento;
+import br.edu.ifpr.comat.model.ItenOrcamento;
 
 public class TbModelItensOrcamento extends AbstractTableModel {
 
@@ -19,7 +19,7 @@ public class TbModelItensOrcamento extends AbstractTableModel {
 	private static final int COL_DESCONTO = 6;
 	private static final int COL_TOTAL = 7;
 
-	private List<Itensorcamento> rows;
+	private List<ItenOrcamento> rows;
 
 	private String[] columns = new String[] { "Ref.", "Nome", "Unidade",
 			"Quant.", "Preço", "Subtotal", "Desconto %", "Total" };
@@ -28,7 +28,7 @@ public class TbModelItensOrcamento extends AbstractTableModel {
 		this.rows = new ArrayList<>();
 	}
 
-	public TbModelItensOrcamento(List<Itensorcamento> itens) {
+	public TbModelItensOrcamento(List<ItenOrcamento> itens) {
 		this.rows = itens;
 	}
 
@@ -75,30 +75,37 @@ public class TbModelItensOrcamento extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Itensorcamento item = rows.get(rowIndex);
+		ItenOrcamento item = rows.get(rowIndex);
+		
 		switch (columnIndex) {
 
 		case COL_REF:
 			return item.getProduto().getRefProduto();
+			
 		case COL_NOME:
 			return item.getProduto().getNome();
+			
 		case COL_UND:
 			return item.getProduto().getUnidade();
+			
 		case COL_QUANT:
 			return item.getQuantidade();
+			
 		case COL_PRECO:
-			return item.getProduto().getPrecoVenda();
+			if(item.getPreco() == null) return item.getProduto().getPrecoVenda();
+			else return item.getPreco();
+			
 		case COL_SUBTOTAL:
-			return new BigDecimal(item.getQuantidade() * item.getProduto().getPrecoVenda());
+			if(item.getPreco() == null) return new BigDecimal(item.getQuantidade() * item.getProduto().getPrecoVenda());
+			else return new BigDecimal(item.getQuantidade() * item.getPreco());		
+			
 		case COL_DESCONTO:
 			return item.getDesconto();
+		
 		case COL_TOTAL:
-			return new BigDecimal(item.getQuantidade()
-					* item.getProduto().getPrecoVenda()
-					- ((item.getQuantidade()
-							* item.getProduto().getPrecoVenda() / 100) * item
-								.getDesconto()));
-
+			if(item.getPreco() == null) return new BigDecimal(item.getQuantidade() * item.getProduto().getPrecoVenda() - ((item.getQuantidade() * item.getProduto().getPrecoVenda() / 100) * item.getDesconto()));
+			else return new BigDecimal(item.getQuantidade() * item.getPreco() - ((item.getQuantidade() * item.getPreco() / 100) * item.getDesconto()));
+		
 		default:
 			throw new IndexOutOfBoundsException(
 					"Índice informado fora dos limites.");
@@ -108,7 +115,7 @@ public class TbModelItensOrcamento extends AbstractTableModel {
 
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		Itensorcamento item = rows.get(rowIndex);
+		ItenOrcamento item = rows.get(rowIndex);
 
 		switch (columnIndex) {
 
@@ -142,26 +149,30 @@ public class TbModelItensOrcamento extends AbstractTableModel {
 			return false;
 	}
 
-	public Itensorcamento getItensorcamento(int rowIndex) {
+	public ItenOrcamento getItens(int rowIndex) {
 		return rows.get(rowIndex);
 	}
 
-	public void addItensorcamento(Itensorcamento item) {
+	public void addIten(ItenOrcamento item) {
 		rows.add(item);
 		int ultimoIndice = getRowCount() - 1;
 		fireTableRowsInserted(ultimoIndice, ultimoIndice);
 	}
 
-	public void removeItensorcamento(int rowIndex) {
+	public void removeIten(int rowIndex) {
 		rows.remove(rowIndex);
 		fireTableRowsDeleted(rowIndex, rowIndex);
 	}
 
-	public void addListItensorcamento(List<Itensorcamento> itens) {
+	public void addListItens(List<ItenOrcamento> itens) {
 		int indice = getRowCount();
 		rows.addAll(itens);
 
 		fireTableRowsInserted(indice, indice + itens.size());
+	}	
+
+	public List<ItenOrcamento> getRows() {
+		return rows;
 	}
 
 	public void limpar() {

@@ -18,7 +18,8 @@ public class OnlyNumberFields extends PlainDocument {
 
 	public void insertString(int offs, String str, AttributeSet a) {
 		try {
-			Integer.parseInt(str);
+			Long.parseLong(str);
+			//Integer.parseInt(str);
 		} catch (NumberFormatException ex) {
 			str = "";
 		}

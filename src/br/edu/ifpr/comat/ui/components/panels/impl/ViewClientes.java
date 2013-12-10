@@ -49,7 +49,7 @@ public class ViewClientes extends JPanel implements ComatJPanels, ActionListener
 
 	private ButtonGroup btGrPessoa;
 	private JRadioButton rbtFisica, rbtJuridica;
-
+	
 	private JComboBox<String> cbxStatus;
 
 	private JTable table;
@@ -235,14 +235,14 @@ public class ViewClientes extends JPanel implements ComatJPanels, ActionListener
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
 		table.getColumnModel().getColumn(0).setPreferredWidth(0);
-		table.getColumnModel().getColumn(1).setPreferredWidth(10);
-		table.getColumnModel().getColumn(2).setPreferredWidth(120);
+		table.getColumnModel().getColumn(1).setPreferredWidth(16);
+		table.getColumnModel().getColumn(2).setPreferredWidth(180);
 		table.getColumnModel().getColumn(3).setPreferredWidth(60);
-		table.getColumnModel().getColumn(4).setPreferredWidth(10);
-		table.getColumnModel().getColumn(5).setPreferredWidth(10);
-		table.getColumnModel().getColumn(6).setPreferredWidth(120);
-		table.getColumnModel().getColumn(7).setPreferredWidth(30);
-		table.getColumnModel().getColumn(8).setPreferredWidth(20);
+		table.getColumnModel().getColumn(4).setPreferredWidth(24);
+		table.getColumnModel().getColumn(5).setPreferredWidth(24);
+		table.getColumnModel().getColumn(6).setPreferredWidth(140);
+		table.getColumnModel().getColumn(7).setPreferredWidth(40);
+		table.getColumnModel().getColumn(8).setPreferredWidth(18);
 		table.getColumnModel().getColumn(9).setMinWidth(0);
 		table.getColumnModel().getColumn(9).setMaxWidth(0);
 		table.getColumnModel().getColumn(9).setPreferredWidth(0);

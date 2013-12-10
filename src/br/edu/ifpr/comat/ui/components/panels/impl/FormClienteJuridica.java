@@ -20,6 +20,7 @@ import br.edu.ifpr.comat.controller.EstadoController;
 import br.edu.ifpr.comat.ui.components.panels.ComatJPanels;
 import br.edu.ifpr.comat.ui.utils.MaskFields;
 import br.edu.ifpr.comat.ui.utils.MaxLengthFields;
+import br.edu.ifpr.comat.ui.utils.OnlyNumberFields;
 
 public class FormClienteJuridica extends JPanel implements ComatJPanels, ActionListener {
 	
@@ -49,8 +50,8 @@ public class FormClienteJuridica extends JPanel implements ComatJPanels, ActionL
 		txCnpj = new JFormattedTextField(MaskFields.marcarate("##.###.###/####-##"));
 
 		JLabel lblInscricao = new JLabel("Inscrição Est.:");
-		txInscricao = new JTextField(10);
-		txInscricao.setDocument(new MaxLengthFields(12));
+		txInscricao = new JTextField(10);		
+		txInscricao.setDocument(new OnlyNumberFields(12));
 
 		JLabel lblTelefone = new JLabel("Telefone:");
 		txTelefone = new JTextField(10);
@@ -120,7 +121,7 @@ public class FormClienteJuridica extends JPanel implements ComatJPanels, ActionL
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblCnpj)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txCnpj, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addComponent(txCnpj, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(lblInscricao)
 							.addPreferredGap(ComponentPlacement.RELATED)

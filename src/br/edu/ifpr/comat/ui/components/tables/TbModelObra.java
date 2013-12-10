@@ -66,4 +66,13 @@ public class TbModelObra extends AbstractTableModel {
 	public Class getColumnClass(int c) {
 		return getValueAt(0, c).getClass();
 	}
+
+	public void removeIten(int rowIndex) {
+		rows.remove(rowIndex);
+		fireTableRowsDeleted(rowIndex, rowIndex);
+	}
+
+	public List<Obra> getRows() {
+		return rows;
+	}
 }

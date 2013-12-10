@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="br.edu.ifpr.comat.model.Cliente" table="Cliente"
+		catalog="comat">
+		<id name="idCliente" type="java.lang.Integer">
+			<column name="idCliente" />
+			<generator class="identity" />
+		</id>
+		<property name="status" type="java.lang.Integer">
+			<column name="status" />
+		</property>
+		<property name="email" type="string">
+			<column name="email" length="72" />
+		</property>
+		<property name="site" type="string">
+			<column name="site" length="72" />
+		</property>
+		<property name="telefone" type="string">
+			<column name="telefone" length="12" />
+		</property>
+		<property name="dataCadastro" type="date">
+			<column name="dataCadastro" length="10" />
+		</property>
+		<property name="observacoes" type="string">
+			<column name="observacoes" />
+		</property>		
+		<many-to-one name="endereco" class="br.edu.ifpr.comat.model.Endereco" fetch="join" cascade="save-update" lazy="false">
+            <column name="idEnderecoFk" />
+        </many-to-one>
+	</class>
+</hibernate-mapping>

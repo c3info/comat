@@ -3,7 +3,6 @@ package br.edu.ifpr.comat.ui.components.tables;
 import java.text.NumberFormat;
 import java.util.List;
 
-import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 
 import br.edu.ifpr.comat.model.ClienteFisica;

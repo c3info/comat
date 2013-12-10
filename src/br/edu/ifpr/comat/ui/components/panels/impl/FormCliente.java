@@ -25,6 +25,7 @@ import javax.swing.border.EtchedBorder;
 import br.edu.ifpr.comat.controller.ClienteController;
 import br.edu.ifpr.comat.controller.ClienteFisicaController;
 import br.edu.ifpr.comat.controller.ClienteJuridicaController;
+import br.edu.ifpr.comat.controller.OrcamentoController;
 import br.edu.ifpr.comat.model.Cliente;
 import br.edu.ifpr.comat.model.ClienteFisica;
 import br.edu.ifpr.comat.model.ClienteJuridica;
@@ -215,13 +216,13 @@ public class FormCliente extends JPanel implements ComatJPanels, ActionListener 
 			alterar();
 
 		} else if (e.getActionCommand().equals("Excluir")) {
-			excluir();
+			excluir(); System.gc();
 
 		} else if (e.getActionCommand().equals("Salvar")) {
-			salvar();
+			salvar(); System.gc();
 
 		} else if (e.getActionCommand().equals("Cancelar")) {
-			cancelar();
+			cancelar(); System.gc();
 		}
 	}
 
@@ -264,31 +265,35 @@ public class FormCliente extends JPanel implements ComatJPanels, ActionListener 
 	}
 
 	private void excluir() {
-		int excluir = JOptionPane.showConfirmDialog(null,
-				"Deseja realmente excluir os dados ?", "Pedido de Exclusão",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-		if (excluir == JOptionPane.YES_OPTION) {
+		if(new OrcamentoController().checkDbByCliente(tabObras.getIdCliente())){
+			int excluir = JOptionPane.showConfirmDialog(null,
+					"Deseja realmente excluir os dados ?", "Pedido de Exclusão",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (excluir == JOptionPane.YES_OPTION) {
 
-			if (currentPanel.getPanel() instanceof FormClienteFisica) {
-				FormClienteFisica cf = (FormClienteFisica) currentPanel.getPanel();
-				new ClienteFisicaController().delete(cf.getTxCpf().getText());
-				
-			} else {
-				FormClienteJuridica cj = (FormClienteJuridica) currentPanel.getPanel();
-				new ClienteJuridicaController().delete(cj.getTxCnpj().getText());
+				if (currentPanel.getPanel() instanceof FormClienteFisica) {
+					FormClienteFisica cf = (FormClienteFisica) currentPanel.getPanel();
+					new ClienteFisicaController().delete(cf.getTxCpf().getText());
+					
+				} else {
+					FormClienteJuridica cj = (FormClienteJuridica) currentPanel.getPanel();
+					new ClienteJuridicaController().delete(cj.getTxCnpj().getText());
+				}
+
+				crudBar.incluir();
+				currentPanel.setCleanFields();
+
+				tabObras.setIdCliente(null);
+				tabObras.loadModelTable();
+				tabObras.stop();
+
+				tabContatos.setIdCliente(null);
+				tabContatos.loadModelTable();
+				tabContatos.stop();			
 			}
-
-			crudBar.incluir();
-			currentPanel.setCleanFields();
-
-			tabObras.setIdCliente(null);
-			tabObras.loadModelTable();
-			tabObras.stop();
-
-			tabContatos.setIdCliente(null);
-			tabContatos.loadModelTable();
-			tabContatos.stop();
-		}
+		} else {
+			JOptionPane.showMessageDialog(null,	"Este cliente não pode ser excluido,\nverifique os orçamentos cadastrados.");
+		}	
 	}
 
 	private void salvar() {

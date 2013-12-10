@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="br.edu.ifpr.comat.model.Orcamento" table="Orcamento" catalog="comat">
+        <id name="idOrcamento" type="java.lang.Integer">
+            <column name="idOrcamento" />
+            <generator class="identity" />
+        </id>
+        <property name="data" type="java.util.Date">
+            <column name="data" not-null="true"/>
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status" length="45" not-null="true"/>
+        </property>
+        <property name="validade" type="java.util.Date">
+            <column name="validade" not-null="true"/>
+        </property>
+        <property name="observacoes" type="java.lang.String">
+            <column name="observacoes" />
+        </property>
+        <property name="total" type="java.math.BigDecimal">
+            <column name="total" />
+        </property>
+        <many-to-one name="cliente" class="br.edu.ifpr.comat.model.Cliente" fetch="join" lazy="false">
+            <column name="idClienteFk" />
+        </many-to-one>
+        <many-to-one name="obra" class="br.edu.ifpr.comat.model.Obra" fetch="join" lazy="false">
+            <column name="idObraFk" />
+        </many-to-one>
+        <set name="itensorcamentos" table="itensorcamento" cascade="delete" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idOrcamentoFk" not-null="true" />
+            </key>
+            <one-to-many class="br.edu.ifpr.comat.model.ItenOrcamento" />
+        </set>
+    </class>
+</hibernate-mapping>

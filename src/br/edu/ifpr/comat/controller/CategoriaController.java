@@ -1,9 +1,9 @@
- package br.edu.ifpr.comat.controller;
+package br.edu.ifpr.comat.controller;
 
 import java.util.List;
 
-import br.edu.ifpr.comat.dao.CategoriaDAO;
 import br.edu.ifpr.comat.model.Categoria;
+import br.edu.ifpr.comat.persistence.dao.CategoriaDAO;
 
 public class CategoriaController {
 

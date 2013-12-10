@@ -1,5 +1,8 @@
 package br.edu.ifpr.comat.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Produto implements java.io.Serializable {
 
 	private Integer refProduto;
@@ -16,6 +19,9 @@ public class Produto implements java.io.Serializable {
 	private String marca;
 	private Double peso;
 	private Categoria categoria;
+	private Set itensorcamentos = new HashSet(0);
+	private Set produtosrelacionadosesForRefProdutoRelacFk = new HashSet(0);     
+    private Set produtosrelacionadosesForRefProdutoRelFk = new HashSet(0);
 
 	public Produto() {
 
@@ -39,7 +45,31 @@ public class Produto implements java.io.Serializable {
 		this.status = status;
 		this.marca = marca;
 		this.peso = peso;
+		this.categoria = categoria;		
+	}
+
+	public Produto(Integer refProduto, String codBarra, String codFabricante,
+			String nome, String descricao, String unidade, Double precoCusto,
+			Double precoVenda, Double descontoMax, Integer quantidade,
+			int status, String marca, Double peso, Categoria categoria,
+			Set itensorcamentos, Set produtosrelForRefProdutoRelacFk, Set produtosrelForRefProdutoRelFk) {
+		this.refProduto = refProduto;
+		this.codBarra = codBarra;
+		this.codFabricante = codFabricante;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.unidade = unidade;
+		this.precoCusto = precoCusto;
+		this.precoVenda = precoVenda;
+		this.descontoMax = descontoMax;
+		this.quantidade = quantidade;
+		this.status = status;
+		this.marca = marca;
+		this.peso = peso;
 		this.categoria = categoria;
+		this.itensorcamentos = itensorcamentos;
+		this.produtosrelacionadosesForRefProdutoRelacFk = produtosrelForRefProdutoRelacFk;
+		this.produtosrelacionadosesForRefProdutoRelFk = produtosrelForRefProdutoRelFk;
 	}
 
 	public Integer getRefProduto() {
@@ -152,6 +182,32 @@ public class Produto implements java.io.Serializable {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public Set getItensorcamentos() {
+		return itensorcamentos;
+	}
+
+	public void setItensorcamentos(Set itensorcamentos) {
+		this.itensorcamentos = itensorcamentos;
+	}
+
+	public Set getProdutosrelacionadosesForRefProdutoRelacFk() {
+		return produtosrelacionadosesForRefProdutoRelacFk;
+	}
+
+	public void setProdutosrelacionadosesForRefProdutoRelacFk(
+			Set produtosrelacionadosesForRefProdutoRelacFk) {
+		this.produtosrelacionadosesForRefProdutoRelacFk = produtosrelacionadosesForRefProdutoRelacFk;
+	}
+
+	public Set getProdutosrelacionadosesForRefProdutoRelFk() {
+		return produtosrelacionadosesForRefProdutoRelFk;
+	}
+
+	public void setProdutosrelacionadosesForRefProdutoRelFk(
+			Set produtosrelacionadosesForRefProdutoRelFk) {
+		this.produtosrelacionadosesForRefProdutoRelFk = produtosrelacionadosesForRefProdutoRelFk;
 	}
 
 }

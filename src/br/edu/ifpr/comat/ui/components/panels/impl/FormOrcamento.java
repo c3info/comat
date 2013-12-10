@@ -12,13 +12,14 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 
 import br.edu.ifpr.comat.controller.ClienteController;
+import br.edu.ifpr.comat.controller.ItenOrcamentoController;
 import br.edu.ifpr.comat.controller.ObraController;
 import br.edu.ifpr.comat.controller.OrcamentoController;
 import br.edu.ifpr.comat.controller.ProdutoController;
 import br.edu.ifpr.comat.model.Cliente;
 import br.edu.ifpr.comat.model.ClienteFisica;
 import br.edu.ifpr.comat.model.ClienteJuridica;
-import br.edu.ifpr.comat.model.Itensorcamento;
+import br.edu.ifpr.comat.model.ItenOrcamento;
 import br.edu.ifpr.comat.model.Obra;
 import br.edu.ifpr.comat.model.Orcamento;
 import br.edu.ifpr.comat.model.Produto;
@@ -28,8 +29,8 @@ import br.edu.ifpr.comat.ui.components.dialogs.ModalViewProdutos;
 import br.edu.ifpr.comat.ui.components.dialogs.ModalViewClientes;
 import br.edu.ifpr.comat.ui.components.panels.ComatJPanels;
 import br.edu.ifpr.comat.ui.components.tables.TbModelItensOrcamento;
-import br.edu.ifpr.comat.ui.components.tables.TbRenderBigDecimalOrc;
-import br.edu.ifpr.comat.ui.components.tables.TbRenderDecimalOrc;
+import br.edu.ifpr.comat.ui.components.tables.TbRenderNumberBigDecimalOrc;
+import br.edu.ifpr.comat.ui.components.tables.TbRenderNumberDecimalOrc;
 import br.edu.ifpr.comat.ui.components.toolbars.CrudToolBar;
 import br.edu.ifpr.comat.ui.utils.MaskFields;
 import br.edu.ifpr.comat.util.DateUtils;
@@ -81,8 +82,7 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 	
 	public FormOrcamento() {
 		buildComponents();
-		
-		//this.model = new TbModelItensOrcamento(criaItens());
+				
 		this.model = new TbModelItensOrcamento();
 		setModelTable(model);
 		
@@ -97,12 +97,14 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 		this.idCliente = new OrcamentoController().search(idOrc).getCliente().getIdCliente();	
 		buildComponents();
 		
-		this.model = new TbModelItensOrcamento();		
+		this.model = new TbModelItensOrcamento(new ItenOrcamentoController().search(idOrc));		
 		setModelTable(model);
 		
 		restoreFields();
 		setDisableFields();	
-		crudBar.alterar();		
+		setBtAcoes();
+		crudBar.alterar();	
+		updateTotal();
 	}
 
 	private void buildComponents() {
@@ -127,7 +129,7 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 		crudBar = new CrudToolBar(this);
 		crudBar.setFloatable(false);
 		
-		JLabel lbPedido = new JLabel("Pedido:");		
+		JLabel lbOrcamento = new JLabel("Orçamento:");		
 		lbValIdPedido = new JLabel("NOVO");
 		lbValIdPedido.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
@@ -149,7 +151,7 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 			grtopPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(grtopPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lbPedido)
+					.addComponent(lbOrcamento)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lbValIdPedido, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 					.addGap(12)
@@ -177,7 +179,7 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 						.addComponent(txVencimento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lbValStatus)
 						.addComponent(lbStatus, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lbPedido)
+						.addComponent(lbOrcamento)
 						.addComponent(lbValIdPedido))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
@@ -423,8 +425,8 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 	
 	public void setModelTable(AbstractTableModel model) {
 		table.setModel(model);
-		table.setDefaultRenderer(BigDecimal.class, new TbRenderBigDecimalOrc());
-		table.setDefaultRenderer(Double.class, new TbRenderDecimalOrc());
+		table.setDefaultRenderer(BigDecimal.class, new TbRenderNumberBigDecimalOrc());
+		table.setDefaultRenderer(Double.class, new TbRenderNumberDecimalOrc());
 		table.getModel().addTableModelListener(new TableModelListener() {
 
 			@Override
@@ -450,18 +452,23 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 		return rowSelected;
 	}
 
-	private void updateTotal() {
+	private void updateTotal() {		
+		String result = String.format("%.2f", new BigDecimal(getTotal()));
+		txTotal.setText("R$ " + result);
+	}
+	
+	private double getTotal(){		
 		double total = 0d;
 		for(int i = 0; i < table.getRowCount(); i++){  
 			total += Double.parseDouble(table.getValueAt(i, 7).toString());
 		}  
-		String result = String.format("%.2f", total);
-		txTotal.setText("R$ " + result);
+		return total;
 	}
-	private List<Itensorcamento> criaItens() {
-		List<Itensorcamento> itens = new ArrayList<Itensorcamento>();
+	
+	private List<ItenOrcamento> criaItens() {
+		List<ItenOrcamento> itens = new ArrayList<ItenOrcamento>();
 		for (int i = 1; i <= 5; i++) {
-			Itensorcamento it = new Itensorcamento();
+			ItenOrcamento it = new ItenOrcamento();
 			Produto p = new ProdutoController().search(1010);
 			Orcamento o = new OrcamentoController().search(14);
 
@@ -485,6 +492,7 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 		btCliPesquisar.setEnabled(true);
 		btObAdicionar.setEnabled(false);	
 		txVencimento.setEnabled(true);
+		txTotal.setEnabled(true);
 	}
 
 	@Override
@@ -496,7 +504,8 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 		cbxObra.setEnabled(false);
 		table.setEnabled(false);
 		btItemAdd.setEnabled(false);
-		btItemDel.setEnabled(false);		
+		btItemDel.setEnabled(false);
+		txTotal.setEnabled(false);
 	}	
 
 	@Override
@@ -537,22 +546,22 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 			alterar();
 
 		} else if (e.getActionCommand().equals("Excluir")) {
-			excluir();
+			excluir(); System.gc();
 
 		} else if (e.getActionCommand().equals("Salvar")) {
-			salvar();
+			salvar(); System.gc();
 
 		} else if (e.getActionCommand().equals("Cancelar")) {
-			cancelar();
+			cancelar(); System.gc();
 
 		} else if(e.getSource() == btCliPesquisar){
-			observerSearchCliente();
+			observerSearchCliente(); System.gc();
 			
 		} else if(e.getSource() == btCliAdicionar){
-			observerInsertCliente();
+			observerInsertCliente(); System.gc();
 			
 		} else if(e.getSource() == btObAdicionar){
-		    observerInsertObra();
+		    observerInsertObra(); System.gc();
 		    
 		} else if(e.getSource() == btOrcFechar){
 			fecharOrcamento();
@@ -564,12 +573,12 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 			setCbxObra(cbxObra.getSelectedIndex());
 			
 		} else if(e.getSource() == btItemAdd){			
-			observerInsertProduto();			
+			observerInsertProduto(); System.gc();			
 			
 		} else if(e.getSource() == btItemDel){
 			
 			if(tbSelectedRow() != -1){
-				model.removeItensorcamento(tbSelectedRow());
+				model.removeIten(tbSelectedRow());
 			} else {
 				JOptionPane.showMessageDialog(null, "Selecione uma linha!");
 			}
@@ -649,8 +658,9 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 				new OrcamentoController().delete(idOrcamento);
 				crudBar.incluir();
 				setCleanFields();
+				model.limpar();
 				btOrcFechar.setEnabled(false);
-				btOrcCancelar.setEnabled(false);
+				btOrcCancelar.setEnabled(false);				
 			}
 			} else {
 				JOptionPane.showMessageDialog(null, "Este orçamento não pode ser excluido, status cancelado!");
@@ -661,7 +671,7 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 		}	
 	}
 	
-	private void salvar(){
+	private void salvar(){		
 		
 		Date data = DateUtils.str2Date(lbValData.getText());
 		Date validade = DateUtils.str2Date(txVencimento.getText());
@@ -670,17 +680,23 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 		if (insert) {
 			
 			if(idCliente != null){
-				idOrcamento = new OrcamentoController().save(data, status, validade, null, new BigDecimal(0), idCliente, idObra);
-				lbValIdPedido.setText(idOrcamento.toString());
-				setDisableFields();				
-				crudBar.alterar();
-				JOptionPane.showMessageDialog(null, "Orçamento cadastrado com sucesso");
+				if(model.getRowCount() > 0){
+					idOrcamento = new OrcamentoController().save(data, status, validade, null, new BigDecimal(getTotal()), idCliente, idObra, model.getRows());
+					lbValIdPedido.setText(idOrcamento.toString());
+					setDisableFields();				
+					crudBar.alterar();
+					JOptionPane.showMessageDialog(null, "Orçamento cadastrado com sucesso");
+					
+				} else {
+					JOptionPane.showMessageDialog(null, "O orçamento precisa de itens para ser salvo!");
+				}				
+				
 			} else {				
 				JOptionPane.showMessageDialog(null, "É nescessário selecionar ou inserir um cliente!");
 			}			
 				
 		} else {			
-			new OrcamentoController().alter(idOrcamento, status, validade, null, new BigDecimal(0), idCliente, idObra);
+			new OrcamentoController().alter(idOrcamento, status, validade, null, new BigDecimal(getTotal()), idCliente, idObra, model.getRows());
 			
 			setDisableFields();				
 			crudBar.alterar();
@@ -725,9 +741,10 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 			lbValData.setText(DateUtils.date2Str(o.getData()));
 			txVencimento.setText(DateUtils.date2Str(o.getValidade()));			
 			lbValStatus.setText(new OrcamentoController().getStatusList()[o.getStatus()]);	
-			if(o.getObra() != null)	setCbxObraAlter(o.getObra().getIdObra());	
-			setBtAcoes();
-		} else {
+			if(o.getObra() != null)	{
+				setCbxObraAlter(o.getObra().getIdObra());	
+			} else setCbxObra(0);		
+		} else {			
 			setCbxObra(0);		
 		}		
 	}
@@ -951,14 +968,14 @@ public class FormOrcamento extends JPanel implements ComatJPanels, ActionListene
 	private void addItem(int refProd){
 		
 		if(!updateDoubleIten(refProd)){
-			Itensorcamento it = new Itensorcamento();
+			ItenOrcamento it = new ItenOrcamento();
 			Produto p = new ProdutoController().search(refProd);
 			
 			it.setProduto(p);		
 			it.setQuantidade(1);
 			it.setPreco(p.getPrecoVenda());					
 			
-			model.addItensorcamento(it);
+			model.addIten(it);
 			table.changeSelection(table.getRowCount() -1, 3, false, false);
 			table.requestFocus();
 		} 		

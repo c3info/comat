@@ -20,6 +20,7 @@ import br.edu.ifpr.comat.controller.EstadoController;
 import br.edu.ifpr.comat.ui.components.panels.ComatJPanels;
 import br.edu.ifpr.comat.ui.utils.MaskFields;
 import br.edu.ifpr.comat.ui.utils.MaxLengthFields;
+import br.edu.ifpr.comat.ui.utils.OnlyNumberFields;
 
 public class FormClienteFisica extends JPanel implements ComatJPanels, ActionListener {
 	
@@ -45,8 +46,8 @@ public class FormClienteFisica extends JPanel implements ComatJPanels, ActionLis
 		txCpf = new JFormattedTextField(MaskFields.marcarate("###.###.###-##"));
 
 		JLabel lblRg = new JLabel("RG:");
-		txRg = new JTextField();
-		txRg.setDocument(new MaxLengthFields(11));
+		txRg = new JTextField();		
+		txRg.setDocument(new OnlyNumberFields(9));
 
 		JLabel lblDataNasc = new JLabel("Data de nascimento:");
 		txDataNasc = new JFormattedTextField(MaskFields.marcarate("##/##/####"));

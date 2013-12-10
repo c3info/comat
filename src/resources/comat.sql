@@ -42,9 +42,9 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `comat`.`Cliente` (
   `idCliente` INT(11) NOT NULL AUTO_INCREMENT,
   `status` INT NOT NULL,
-  `email` VARCHAR(72) NULL UNIQUE,
+  `email` VARCHAR(72) NULL,
   `site` VARCHAR(72) NULL,
-  `telefone` VARCHAR(12) NULL UNIQUE,
+  `telefone` VARCHAR(12) NULL,
   `dataCadastro` DATE NOT NULL, 
   `observacoes` LONGTEXT NULL,
   `idEnderecoFk` INT(11) NULL,
@@ -149,16 +149,16 @@ CREATE TABLE IF NOT EXISTS `comat`.`Produto` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `comat`.`CorrelacaoProdutos`
+-- Table `mydb`.`CorrelacaoProdutos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `comat`.`CorrelacaoProdutos` (
-  `refProdutoFk` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `comat`.`ProdutosRelacionados` (
   `refProdutoRelFk` INT NOT NULL,
-  `data` DATETIME NOT NULL,
+  `refProdutoRelacFk` INT NOT NULL,
+  `data` DATE NOT NULL,
   `tipo` INT NULL,
-  PRIMARY KEY (`refProdutoFk`, `refProdutoRelFk`),  
-  FOREIGN KEY (`refProdutoFk`) REFERENCES `comat`.`Produto` (`refProduto`), 
-  FOREIGN KEY (`refProdutoRelFk`) REFERENCES `comat`.`Produto` (`refProduto`)
+  PRIMARY KEY (`refProdutoRelFk`, `refProdutoRelacFk`), 
+  FOREIGN KEY (`refProdutoRelFk`) REFERENCES `comat`.`Produto` (`refProduto`),
+  FOREIGN KEY (`refProdutoRelacFk`) REFERENCES `comat`.`Produto` (`refProduto`)
 )
 ENGINE = InnoDB;
 
@@ -180,7 +180,6 @@ CREATE TABLE IF NOT EXISTS `comat`.`Orcamento` (
   FOREIGN KEY (`idObraFk`)REFERENCES `comat`.`Obra` (`idObra`)
 )
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `comat`.`ItensOrcamento`

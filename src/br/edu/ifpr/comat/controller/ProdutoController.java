@@ -3,13 +3,14 @@ package br.edu.ifpr.comat.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.ifpr.comat.dao.ProdutoDAO;
 import br.edu.ifpr.comat.model.Produto;
+import br.edu.ifpr.comat.model.ProdutoRelacionado;
+import br.edu.ifpr.comat.persistence.dao.ProdutoDAO;
 
 public class ProdutoController {
 
-	private static final String[] STATUS = { "Disponível", "Indisponível","Fora de linha" };
-	private static final String[] UNDS = { "KG", "M2", "PC" };
+	private static final String[] STATUS = { "Disponível", "Indisponível", "Fora de linha" };
+	private static final String[] UNDS = { "KG", "M2", "M3", "PC", "SC", "MT", "LT"};
 
 	public String[] getStatusList() {
 		return STATUS;
@@ -22,18 +23,20 @@ public class ProdutoController {
 	public void save(Integer refProduto, String codBarra, String codFabricante,
 			String nome, String descricao, String unidade, Double precoCusto,
 			Double precoVenda, Double descontoMax, Integer quantidade,
-			int status, String marca, Double peso, String categoria) {		
+			int status, String marca, Double peso, String categoria) {
 
 		new ProdutoDAO().insert(new Produto(refProduto, codBarra,
 				codFabricante, nome, descricao, unidade, precoCusto,
-				precoVenda, descontoMax, quantidade, status, marca, peso, new CategoriaController().search(categoria)));
+				precoVenda, descontoMax, quantidade, status, marca, peso,
+				new CategoriaController().search(categoria)));
+
 	}
 
 	public void alter(Integer refProduto, String codBarra,
 			String codFabricante, String nome, String descricao,
 			String unidade, Double precoCusto, Double precoVenda,
 			Double descontoMax, Integer quantidade, int status, String marca,
-			Double peso, String categoria) {
+			Double peso, String categoria, List<ProdutoRelacionado> relacoes) {
 
 		Produto p = new ProdutoDAO().select(refProduto);
 
@@ -49,10 +52,11 @@ public class ProdutoController {
 		p.setStatus(status);
 		p.setMarca(marca);
 		p.setPeso(peso);
-		
+
 		p.setCategoria(new CategoriaController().search(categoria));
 
 		new ProdutoDAO().update(p);
+		new ProdutoRelacionadoController().saveItens(relacoes, refProduto);
 	}
 
 	public List<Produto> search() {
@@ -80,8 +84,8 @@ public class ProdutoController {
 	public List<Produto> searchCategoria(String cat) {
 		return new ProdutoDAO().selectCategoria(new CategoriaController()
 				.search(cat).getIdCategoria());
-	}	
-	
+	}
+
 	public List<Produto> searchStatusCategoria(String sts, String cat) {
 
 		int status = 0;
@@ -91,11 +95,30 @@ public class ProdutoController {
 			status++;
 		}
 
-		return new ProdutoDAO().selectStatusCategoria(status, new CategoriaController().search(cat).getIdCategoria());
+		return new ProdutoDAO().selectStatusCategoria(status,
+				new CategoriaController().search(cat).getIdCategoria());
 	}
 
 	public void delete(int id) {
 		new ProdutoDAO().delete(id);
+	}
+	
+	public boolean checkDbByCategoria(int id){		
+		if (new ProdutoDAO().checkByCategoria(id) > 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	public boolean checkUsedId(int id){		
+		if (new ProdutoDAO().checkUsed(id) > 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 
 }

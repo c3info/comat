@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="br.edu.ifpr.comat.model.ItenOrcamento" table="itensorcamento" catalog="comat">
+        <composite-id name="id" class="br.edu.ifpr.comat.model.ItenOrcamentoId">
+            <key-property name="idOrcamentoFk" type="int">
+                <column name="idOrcamentoFk" />
+            </key-property>
+            <key-property name="refProdutoFk" type="int">
+                <column name="refProdutoFk" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="orcamento" class="br.edu.ifpr.comat.model.Orcamento" update="false" insert="false" fetch="select">
+            <column name="idOrcamentoFk" not-null="true" />
+        </many-to-one>
+        <many-to-one name="produto" class="br.edu.ifpr.comat.model.Produto" update="false" insert="false" fetch="select" lazy="false">
+            <column name="refProdutoFk" not-null="true" />
+        </many-to-one>
+        <property name="preco" type="double">
+            <column name="preco" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="quantidade" type="int">
+            <column name="quantidade" not-null="true" />
+        </property>
+        <property name="desconto" type="java.lang.Double">
+            <column name="desconto" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

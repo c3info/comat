@@ -2,6 +2,8 @@ package br.edu.ifpr.comat.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @project comat
@@ -10,7 +12,7 @@ import java.util.Date;
  * @date 23/11/2013
  */
 public class Orcamento implements java.io.Serializable {
-	
+
 	private Integer idOrcamento;
 	private Date data;
 	private Integer status;
@@ -19,15 +21,15 @@ public class Orcamento implements java.io.Serializable {
 	private BigDecimal total;
 	private Cliente cliente;
 	private Obra obra;
+	private Set itensorcamentos = new HashSet(0);
 
 	public Orcamento() {
 
 	}
 
-	public Orcamento(Date data, Integer status,
-			Date validade, String observacoes, BigDecimal total,
-			Cliente cliente, Obra obra) {
-		
+	public Orcamento(Date data, Integer status, Date validade,
+			String observacoes, BigDecimal total, Cliente cliente, Obra obra) {
+
 		this.data = data;
 		this.status = status;
 		this.validade = validade;
@@ -35,6 +37,20 @@ public class Orcamento implements java.io.Serializable {
 		this.total = total;
 		this.cliente = cliente;
 		this.obra = obra;
+	}
+
+	public Orcamento(Date data, Integer status, Date validade,
+			String observacoes, BigDecimal total, Cliente cliente, Obra obra,
+			Set itensorcamentos) {
+
+		this.data = data;
+		this.status = status;
+		this.validade = validade;
+		this.observacoes = observacoes;
+		this.total = total;
+		this.cliente = cliente;
+		this.obra = obra;
+		this.itensorcamentos = itensorcamentos;
 	}
 
 	public Integer getIdOrcamento() {
@@ -99,6 +115,14 @@ public class Orcamento implements java.io.Serializable {
 
 	public void setObra(Obra obra) {
 		this.obra = obra;
+	}
+
+	public Set getItensorcamentos() {
+		return itensorcamentos;
+	}
+
+	public void setItensorcamentos(Set itensorcamentos) {
+		this.itensorcamentos = itensorcamentos;
 	}
 
 }
